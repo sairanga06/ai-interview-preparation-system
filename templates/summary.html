@@ -1,21 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Interview Results</title>
 
     <style>
+
         body {
             background: #0f172a;
             color: white;
             font-family: Arial, sans-serif;
             padding: 30px;
+            margin: 0;
         }
 
         .container {
             max-width: 800px;
             margin: auto;
             background: #1e293b;
-            padding: 20px;
+            padding: 30px;
             border-radius: 15px;
             box-shadow: 0 0 20px #38bdf8;
         }
@@ -23,11 +32,12 @@
         h1 {
             text-align: center;
             color: #38bdf8;
+            margin-bottom: 30px;
         }
 
         .card {
             background: #334155;
-            padding: 15px;
+            padding: 20px;
             margin-bottom: 15px;
             border-radius: 10px;
         }
@@ -35,48 +45,167 @@
         .score {
             color: #22c55e;
             font-weight: bold;
+            font-size: 18px;
         }
 
         .feedback {
             color: #facc15;
             font-weight: bold;
+            line-height: 1.6;
         }
+
+        .total-score {
+            text-align: center;
+            margin-top: 30px;
+            color: #22c55e;
+            font-size: 24px;
+        }
+
+        /* Navigation Buttons */
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 35px;
+        }
+
+        .buttons a {
+            text-decoration: none;
+            padding: 13px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: black;
+            transition: 0.3s;
+        }
+
+        .new-interview {
+            background: #38bdf8;
+        }
+
+        .new-interview:hover {
+            background: #0ea5e9;
+        }
+
+        .dashboard {
+            background: #22c55e;
+        }
+
+        .dashboard:hover {
+            background: #16a34a;
+        }
+
+        .history {
+            background: #f59e0b;
+        }
+
+        .history:hover {
+            background: #d97706;
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <h1>Interview Results</h1>
+        <h1>🏆 Interview Results</h1>
 
-    {% set total = scores|sum %}
 
-    {% for i in range(questions|length) %}
+        {% set total = scores|sum %}
 
-    <div class="card">
 
-        <h3>Question {{ i + 1 }}</h3>
+        {% for i in range(questions|length) %}
 
-        <p><b>Question:</b> {{ questions[i] }}</p>
+        <div class="card">
 
-        <p><b>Your Answer:</b> {{ answers[i] }}</p>
+            <h3>
+                Question {{ i + 1 }}
+            </h3>
 
-        <p class="score">
-            Score: {{ scores[i] }}/10
-        </p>
 
-        <p class="feedback">
-            Feedback: {{ feedbacks[i] }}
-        </p>
+            <p>
+                <b>Question:</b>
+                {{ questions[i] }}
+            </p>
+
+
+            <p>
+                <b>Your Answer:</b>
+                {{ answers[i] }}
+            </p>
+
+
+            <p class="score">
+
+                ⭐ Score:
+                {{ scores[i] }}/10
+
+            </p>
+
+
+            <p class="feedback">
+
+                🤖 Feedback:
+                {{ feedbacks[i] }}
+
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+
+        <!-- Total Score -->
+
+        <div class="total-score">
+
+            <h2>
+
+                🎉 Total Score:
+                {{ total }}/50
+
+            </h2>
+
+        </div>
+
+
+        <!-- Navigation Buttons -->
+
+        <div class="buttons">
+
+            <a href="/category"
+               class="new-interview">
+
+                🎯 Start New Interview
+
+            </a>
+
+
+            <a href="/dashboard"
+               class="dashboard">
+
+                🏠 Go to Dashboard
+
+            </a>
+
+
+            <a href="/history"
+               class="history">
+
+                📜 Interview History
+
+            </a>
+
+        </div>
+
 
     </div>
 
-    {% endfor %}
-
-    <h2>Total Score: {{ total }}/50</h2>
-
-</div>
-
 </body>
+
 </html>
