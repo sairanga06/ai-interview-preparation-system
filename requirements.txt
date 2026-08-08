@@ -3,3 +3,4 @@ python-dotenv
 groq
 google-generativeai
 reportlab
+gunicorn
