@@ -348,12 +348,20 @@ current_question = 0
 answers = []
 scores = []
 feedbacks = []
+# ==========================
+# SQLite Database Helper
+# ==========================
+def get_db_connection():
+    conn = sqlite3.connect("interview.db", timeout=30)
+    conn.execute("PRAGMA busy_timeout = 30000")
+    conn.execute("PRAGMA journal_mode = WAL")
+    return conn
 
 # ==========================
 # Create Database
 # ==========================
 def create_database():
-    conn = sqlite3.connect("interview.db")
+    conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS users(
@@ -471,7 +479,7 @@ def login():
         email = request.form["email"]
         password = request.form["password"]
 
-        conn = sqlite3.connect("interview.db")
+        conn = get_db_connection()
         cursor = conn.cursor()
 
         cursor.execute("""
@@ -497,7 +505,7 @@ def dashboard():
     if "user_id" not in session:
         return redirect(url_for("login"))
 
-    conn = sqlite3.connect("interview.db")
+    conn = get_db_connection()
     cursor = conn.cursor()
 
     # Total interview records
@@ -654,7 +662,7 @@ def submit():
     scores.clear()
     feedbacks.clear()
 
-    conn = sqlite3.connect("interview.db")
+    conn = get_db_connection()
     cursor = conn.cursor()
     evaluator = chat()
 
@@ -699,7 +707,7 @@ def history():
     if "user_id" not in session:
         return redirect(url_for("login"))
 
-    conn = sqlite3.connect("interview.db")
+    conn = get_db_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -724,7 +732,7 @@ def admin_dashboard():
     if "admin" not in session:
         return redirect(url_for("admin_login"))
 
-    conn = sqlite3.connect("interview.db")
+    conn = get_db_connection()
     cursor = conn.cursor()
 
     # ==========================
@@ -789,7 +797,7 @@ def admin_users():
 
     search = request.args.get("search", "")
 
-    conn = sqlite3.connect("interview.db")
+    conn = get_db_connection()
     cursor = conn.cursor()
 
     if search:
@@ -826,7 +834,7 @@ def admin_interviews():
 
     search = request.args.get("search", "")
 
-    conn = sqlite3.connect("interview.db")
+    conn = get_db_connection()
     cursor = conn.cursor()
 
     if search:
@@ -887,7 +895,7 @@ def delete_interview(interview_id):
     if "admin" not in session:
         return redirect(url_for("admin_login"))
 
-    conn = sqlite3.connect("interview.db")
+    conn = get_db_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -911,7 +919,7 @@ def admin_login():
         email = request.form["email"]
         password = request.form["password"]
 
-        conn = sqlite3.connect("interview.db")
+        conn = get_db_connection()
         cursor = conn.cursor()
 
         cursor.execute("""
@@ -941,7 +949,7 @@ def delete_user(user_id):
     if "admin" not in session:
         return redirect(url_for("admin_login"))
 
-    conn = sqlite3.connect("interview.db")
+    conn = get_db_connection()
     cursor = conn.cursor()
 
     # Delete all interview records of the user
@@ -966,7 +974,7 @@ def edit_profile():
     if "user_id" not in session:
         return redirect(url_for("login"))
 
-    conn = sqlite3.connect("interview.db")
+    conn = get_db_connection()
     cursor = conn.cursor()
 
     if request.method == "POST":
@@ -1014,7 +1022,7 @@ def change_password():
         new_password = request.form["new_password"]
         confirm_password = request.form["confirm_password"]
 
-        conn = sqlite3.connect("interview.db")
+        conn = get_db_connection()
         cursor = conn.cursor()
 
         cursor.execute("""
@@ -1060,7 +1068,7 @@ def download_certificate():
     if "user_id" not in session:
         return redirect(url_for("login"))
 
-    conn = sqlite3.connect("interview.db")
+    conn = get_db_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
