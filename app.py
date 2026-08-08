@@ -638,8 +638,12 @@ def submit():
         try:
             score, feedback = evaluator.evaluate_answer(questions[i], answer)
         except Exception as e:
-            score = 5
-            feedback = f"AI Evaluation Error: {str(e)}"
+          print("========== GROQ AI ERROR ==========")
+          print(repr(e))
+          print("====================================")
+
+          score = 5
+          feedback = f"AI Evaluation Error: {str(e)}"
         scores.append(score)
         feedbacks.append(feedback)
         cursor.execute("""
