@@ -19,9 +19,10 @@ load_dotenv()
 print("Current Directory:", os.getcwd())
 print("Groq API:", os.getenv("GROQ_API_KEY"))
 
-
 groq_client = Groq(
-    api_key=os.getenv("GROQ_API_KEY")
+    api_key=os.getenv("GROQ_API_KEY"),
+    timeout=60.0,
+    max_retries=2
 )
 
 class ChatBase(ABC):
