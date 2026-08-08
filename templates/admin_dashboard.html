@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial,sans-serif;
+            background:#0f172a;
+            color:white;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
+
+        .container{
+            width:800px;
+            background:#1e293b;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 0 20px #38bdf8;
+            text-align:center;
+        }
+
+        h1{
+            color:#38bdf8;
+            margin-bottom:25px;
+        }
+
+        .stats{
+            background:#334155;
+            padding:25px;
+            border-radius:12px;
+            margin:25px 0;
+            text-align:left;
+            font-size:20px;
+            line-height:2;
+        }
+
+        .btn{
+            display:block;
+            width:100%;
+            padding:14px;
+            margin:15px 0;
+            text-decoration:none;
+            font-size:18px;
+            font-weight:bold;
+            border-radius:8px;
+            color:black;
+            background:#38bdf8;
+        }
+
+        .btn:hover{
+            background:#0ea5e9;
+        }
+
+        .logout{
+            background:#ef4444;
+            color:white;
+        }
+
+        .logout:hover{
+            background:#dc2626;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🛠 Welcome Admin {{ admin }}</h1>
+
+    <div class="stats">
+
+        <p>👥 Total Users : <b>{{ total_users }}</b></p>
+
+        <p>📋 Total Interview Records : <b>{{ total_interviews }}</b></p>
+
+        <p>⭐ Average Score : <b>{{ average_score }}/10</b></p>
+
+        <p>🏆 Highest Score : <b>{{ highest_score }}/10</b></p>
+
+    </div>
+
+    <a class="btn" href="/admin/users">
+        👥 View All Users
+    </a>
+
+    <a class="btn" href="/admin/interviews">
+        📋 View All Interviews
+    </a>
+
+    <a class="btn" href="/dashboard">
+        👤 User Dashboard
+    </a>
+
+    <a class="btn logout" href="/logout">
+        🚪 Logout
+    </a>
+
+</div>
+
+</body>
+</html>

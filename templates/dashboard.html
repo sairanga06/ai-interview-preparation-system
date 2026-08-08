@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Interview Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+
+<nav class="dashboard-navbar">
+
+    <div class="logo">
+
+        🤖 AI Interview Prep
+
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="/dashboard">Dashboard</a>
+        </li>
+
+        <li>
+            <a href="/category">Start Interview</a>
+        </li>
+
+        <li>
+            <a href="/history">History</a>
+        </li>
+
+        <li>
+            <a href="/edit_profile">Profile</a>
+        </li>
+
+        <li>
+            <a href="/logout" class="logout-btn">Logout</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+<div class="dashboard-container">
+
+    <!-- ================= Hero ================= -->
+
+    <div class="dashboard-hero">
+
+        <div>
+
+            <span class="dashboard-badge">
+
+                🤖 AI Interview Dashboard
+
+            </span>
+
+            <h1>
+    👋 Welcome Back, {{ username.title() }}
+</h1>
+
+<p>
+    Ready to ace your next interview?<br>
+    Practice AI-powered interviews, receive instant feedback,
+    monitor your progress, and get one step closer to your dream job.
+</p>
+
+        </div>
+
+        <a href="/category" class="primary-btn">
+
+            🚀 Start New Interview
+
+        </a>
+
+    </div>
+
+
+
+    <!-- ================= Statistics ================= -->
+
+    <div class="dashboard-stats">
+
+        <div class="dashboard-card">
+
+            <h3>Total Interviews</h3>
+
+            <h2>{{ total_interviews }}</h2>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <h3>Average Score</h3>
+
+            <h2>{{ avg_score }}/10</h2>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <h3>Best Score</h3>
+
+            <h2>{{ best_score }}/10</h2>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <h3>Success Rate</h3>
+
+            <h2>
+
+                {% if total_interviews > 0 %}
+
+                    {{ ((avg_score/10)*100)|round(0) }}%
+
+                {% else %}
+
+                    0%
+
+                {% endif %}
+
+            </h2>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= Performance Chart ================= -->
+
+    <div class="chart-card">
+
+        <h2>
+
+            📊 Performance Analytics
+
+        </h2>
+
+        <p>
+
+            Your interview performance over time.
+
+        </p>
+
+        <canvas id="scoreChart"></canvas>
+
+    </div>
+        <!-- ================= Recent Interview History ================= -->
+
+    <div class="history-card">
+
+        <h2>
+
+            📝 Recent Interview History
+
+        </h2>
+
+        <table class="recent-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Date</th>
+
+                    <th>Question</th>
+
+                    <th>Type</th>
+
+                    <th>Score</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% if recent_interviews %}
+
+                {% for interview in recent_interviews %}
+
+                <tr>
+
+                    <td>
+
+                        {{ interview[0] }}
+
+                    </td>
+
+                    <td>
+
+                        {{ interview[1] }}
+
+                    </td>
+
+                    <td>
+
+                        AI Interview
+
+                    </td>
+
+                    <td>
+
+                        {% if interview[2] >= 8 %}
+
+                            <span style="color:#22c55e;font-weight:700;">
+
+                                ⭐ {{ interview[2] }}/10
+
+                            </span>
+
+                        {% elif interview[2] >= 5 %}
+
+                            <span style="color:#f59e0b;font-weight:700;">
+
+                                ⭐ {{ interview[2] }}/10
+
+                            </span>
+
+                        {% else %}
+
+                            <span style="color:#ef4444;font-weight:700;">
+
+                                ⭐ {{ interview[2] }}/10
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="4" style="text-align:center;padding:40px;">
+
+                        <h3>No Interviews Yet</h3>
+
+                        <br>
+
+                        <p>
+
+                            Start your first AI Interview to see your history here.
+
+                        </p>
+
+                        <br>
+
+                        <a href="/category" class="primary-btn">
+
+                            🚀 Start Interview
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+
+    <!-- ================= Quick Actions ================= -->
+
+    <h2 style="margin-top:50px;">
+
+        ⚡ Quick Actions
+
+    </h2>
+
+    <div class="action-grid">
+
+        <a href="/category" class="action-card">
+
+            <div class="action-icon">
+
+                🎤
+
+            </div>
+
+            <h3>
+
+                Start Interview
+
+            </h3>
+
+            <p>
+
+                Practice a new AI interview.
+
+            </p>
+
+        </a>
+
+
+
+        <a href="/history" class="action-card">
+
+            <div class="action-icon">
+
+                📜
+
+            </div>
+
+            <h3>
+
+                Interview History
+
+            </h3>
+
+            <p>
+
+                View all previous interview records.
+
+            </p>
+
+        </a>
+
+
+
+        <a href="/edit_profile" class="action-card">
+
+            <div class="action-icon">
+
+                👤
+
+            </div>
+
+            <h3>
+
+                Edit Profile
+
+            </h3>
+
+            <p>
+
+                Update your account information.
+
+            </p>
+
+        </a>
+
+
+
+        <a href="/change_password" class="action-card">
+
+            <div class="action-icon">
+
+                🔒
+
+            </div>
+
+            <h3>
+
+                Change Password
+
+            </h3>
+
+            <p>
+
+                Keep your account secure.
+
+            </p>
+
+        </a>
+        <a href="/download_certificate" class="action-card">
+
+    <div class="action-icon">🏆</div>
+
+    <h3>Download Certificate</h3>
+
+    <p>Download your interview completion certificate.</p>
+
+</a>
+
+    </div>
+        <!-- ================= Footer ================= -->
+
+    <footer class="dashboard-footer">
+
+        <p>
+
+            🚀 AI Interview Preparation System
+
+        </p>
+
+        <p>
+
+            Practice • Improve • Get Hired
+
+        </p>
+
+        <br>
+
+        <p>
+
+            © 2026 Developed by Sai Ranga
+
+        </p>
+
+    </footer>
+
+</div>
+
+<!-- ================= Chart JS ================= -->
+
+<script>
+
+const scoreData = JSON.parse('{{ scores | tojson | safe }}');
+
+const labels = [];
+
+for(let i = 0; i < scoreData.length; i++){
+
+    labels.push("Interview " + (i + 1));
+
+}
+
+const ctx = document.getElementById("scoreChart");
+
+new Chart(ctx,{
+
+    type:"line",
+
+    data:{
+
+        labels:labels,
+
+        datasets:[{
+
+            label:"Interview Score",
+
+            data:scoreData,
+
+            borderColor:"#5B4BFF",
+
+            backgroundColor:"rgba(91,75,255,0.15)",
+
+            fill:true,
+
+            tension:0.4,
+
+            borderWidth:3,
+
+            pointRadius:5,
+
+            pointHoverRadius:8
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true,
+
+        plugins:{
+
+            legend:{
+
+                display:true
+
+            }
+
+        },
+
+        scales:{
+
+            y:{
+
+                beginAtZero:true,
+
+                max:10,
+
+                ticks:{
+
+                    stepSize:1
+
+                }
+
+            }
+
+        }
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>

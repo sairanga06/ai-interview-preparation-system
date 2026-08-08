@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Register | AI Interview Preparation</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+<div class="login-card">
+
+<h1>Create Account 🚀</h1>
+
+<p>
+Join AI Interview Preparation and start practicing today.
+</p>
+
+<form action="/register" method="POST">
+
+<div class="input-box">
+<i class="fa-solid fa-user"></i>
+<input
+type="text"
+name="username"
+placeholder="Enter Username"
+required>
+</div>
+
+<div class="input-box">
+<i class="fa-solid fa-envelope"></i>
+<input
+type="email"
+name="email"
+placeholder="Enter Email"
+required>
+</div>
+
+<div class="input-box">
+<i class="fa-solid fa-lock"></i>
+<input
+type="password"
+name="password"
+placeholder="Enter Password"
+required>
+</div>
+
+<div class="input-box">
+<i class="fa-solid fa-lock"></i>
+<input
+type="password"
+name="confirm_password"
+placeholder="Confirm Password"
+required>
+</div>
+
+<button class="login-button" type="submit">
+Create Account
+</button>
+
+</form>
+
+<div class="bottom-links">
+
+Already have an account?
+
+<a href="/login">
+Login
+</a>
+
+</div>
+
+<a href="/" class="back-home">
+
+← Back to Home
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+</html>

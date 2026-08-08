@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+
+    <style>
+
+        body{
+            background:#0f172a;
+            font-family:Arial,sans-serif;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            margin:0;
+        }
+
+        .container{
+            width:400px;
+            background:#1e293b;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 0 20px #38bdf8;
+            text-align:center;
+        }
+
+        h1{
+            color:#38bdf8;
+            margin-bottom:25px;
+        }
+
+        input{
+            width:95%;
+            padding:12px;
+            margin:10px 0;
+            border:none;
+            border-radius:8px;
+            font-size:16px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#38bdf8;
+            color:black;
+            border:none;
+            border-radius:8px;
+            font-size:18px;
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#0ea5e9;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🔐 Admin Login</h1>
+
+    <form method="POST">
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Admin Email"
+            required>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Admin Password"
+            required>
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

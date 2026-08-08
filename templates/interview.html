@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Interview</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🤖 AI Interview System</h1>
+
+    <div class="info">
+
+        <div>
+
+            Category :
+            <strong>{{ category }}</strong>
+
+        </div>
+
+        <div>
+
+            Difficulty :
+            <strong>{{ difficulty }}</strong>
+
+        </div>
+
+    </div>
+
+    <div class="info">
+
+        <div>
+
+            Question {{ number }} / {{ total }}
+
+        </div>
+
+        <div id="timer">
+
+            15:00
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <progress
+
+        value="{{ number }}"
+
+        max="{{ total }}"
+
+        style="width:100%;height:20px;">
+
+    </progress>
+
+    <p style="text-align:center;font-weight:bold;margin-top:10px;">
+
+        {{ ((number / total) * 100)|round }}% Completed
+
+    </p>
+
+    <div class="question-card">
+
+        <h2>
+
+            💬 {{ question }}
+
+        </h2>
+
+    </div>
+
+    <form action="/submit" method="POST">
+
+        <textarea
+
+            class="answer-box"
+
+            name="answer"
+
+            placeholder="Write your answer here..."
+
+            required>
+
+        </textarea>
+
+        <button
+
+            class="next-btn"
+
+            type="submit">
+
+            ➡ Next Question
+
+        </button>
+
+    </form>
+
+</div>
+
+<script>
+
+let minutes = 15;
+let seconds = 0;
+
+let timer = setInterval(function(){
+
+    if(seconds == 0){
+
+        if(minutes == 0){
+
+            clearInterval(timer);
+
+            alert("Time is Over!");
+
+            document.forms[0].submit();
+
+            return;
+
+        }
+
+        minutes--;
+        seconds = 59;
+
+    }
+
+    else{
+
+        seconds--;
+
+    }
+
+    let m = String(minutes).padStart(2,'0');
+    let s = String(seconds).padStart(2,'0');
+
+    document.getElementById("timer").innerHTML = m + ":" + s;
+
+},1000);
+
+</script>
+
+</body>
+
+</html>

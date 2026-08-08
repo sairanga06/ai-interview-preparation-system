@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>All Users</title>
+
+    <style>
+
+        body{
+            margin:0;
+            padding:30px;
+            background:#0f172a;
+            color:white;
+            font-family:Arial,sans-serif;
+        }
+
+        h1{
+            text-align:center;
+            color:#38bdf8;
+            margin-bottom:30px;
+        }
+
+        form{
+            text-align:center;
+            margin-bottom:20px;
+        }
+
+        .search-box{
+            width:350px;
+            padding:12px;
+            border:none;
+            border-radius:8px;
+            font-size:16px;
+            outline:none;
+        }
+
+        .search-btn{
+            padding:12px 20px;
+            background:#38bdf8;
+            color:black;
+            border:none;
+            border-radius:8px;
+            font-weight:bold;
+            cursor:pointer;
+            margin-left:10px;
+        }
+
+        .search-btn:hover{
+            background:#0ea5e9;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        th,td{
+            border:1px solid #475569;
+            padding:14px;
+            text-align:center;
+        }
+
+        th{
+            background:#1e293b;
+            color:#38bdf8;
+        }
+
+        tr:nth-child(even){
+            background:#1f2937;
+        }
+
+        tr:hover{
+            background:#334155;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:30px;
+            padding:12px 25px;
+            background:#38bdf8;
+            color:black;
+            text-decoration:none;
+            border-radius:8px;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#0ea5e9;
+        }
+
+        .delete-btn{
+            background:#ef4444;
+            color:white;
+            padding:8px 16px;
+            border-radius:6px;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        .delete-btn:hover{
+            background:#dc2626;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>👥 All Users</h1>
+
+    <form method="GET" action="/admin/users">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="🔍 Search by Username or Email"
+            value="{{ search }}"
+            class="search-box">
+
+        <button type="submit" class="search-btn">
+            Search
+        </button>
+
+    </form>
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+
+        {% for user in users %}
+
+        <tr>
+
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+            <td>{{ user[2] }}</td>
+
+            <td>
+
+                <a
+                    href="/admin/delete_user/{{ user[0] }}"
+                    class="delete-btn"
+                    onclick="return confirm('Are you sure you want to delete this user?');">
+
+                    🗑 Delete
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <br><br>
+
+    <center>
+
+        <a href="/admin/dashboard" class="btn">
+            ⬅ Back to Dashboard
+        </a>
+
+    </center>
+
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Interview Records</title>
+
+    <style>
+
+        body{
+            margin:0;
+            padding:30px;
+            background:#0f172a;
+            color:white;
+            font-family:Arial,sans-serif;
+        }
+
+        h1{
+            text-align:center;
+            color:#38bdf8;
+            margin-bottom:25px;
+        }
+
+        form{
+            text-align:center;
+            margin-bottom:20px;
+        }
+
+        .search-box{
+            width:380px;
+            padding:12px;
+            border:none;
+            border-radius:8px;
+            font-size:16px;
+        }
+
+        .search-btn{
+            padding:12px 20px;
+            border:none;
+            border-radius:8px;
+            background:#38bdf8;
+            cursor:pointer;
+            font-weight:bold;
+            margin-left:10px;
+        }
+
+        .search-btn:hover{
+            background:#0ea5e9;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        th,td{
+            border:1px solid #475569;
+            padding:12px;
+            text-align:center;
+        }
+
+        th{
+            background:#1e293b;
+            color:#38bdf8;
+        }
+
+        tr:nth-child(even){
+            background:#1f2937;
+        }
+
+        tr:hover{
+            background:#334155;
+        }
+
+        .delete-btn{
+            background:#ef4444;
+            color:white;
+            padding:8px 15px;
+            border-radius:6px;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        .delete-btn:hover{
+            background:#dc2626;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:30px;
+            padding:12px 25px;
+            background:#38bdf8;
+            color:black;
+            text-decoration:none;
+            border-radius:8px;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>📄 Interview Records</h1>
+
+<form method="GET" action="/admin/interviews">
+
+    <input
+        type="text"
+        name="search"
+        class="search-box"
+        placeholder="🔍 Search Username, Question, Answer or Date"
+        value="{{ search }}">
+
+    <button type="submit" class="search-btn">
+        Search
+    </button>
+
+</form>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>User</th>
+    <th>Question</th>
+    <th>Answer</th>
+    <th>Score</th>
+    <th>Feedback</th>
+    <th>Date</th>
+    <th>Action</th>
+</tr>
+
+{% for interview in interviews %}
+
+<tr>
+
+<td>{{ interview[0] }}</td>
+<td>{{ interview[1] }}</td>
+<td>{{ interview[2] }}</td>
+<td>{{ interview[3] }}</td>
+<td>{{ interview[4] }}/10</td>
+<td>{{ interview[5] }}</td>
+<td>{{ interview[6] }}</td>
+
+<td>
+
+<a
+href="/admin/delete_interview/{{ interview[0] }}"
+class="delete-btn"
+onclick="return confirm('Delete this interview record?')">
+
+🗑 Delete
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<center>
+
+<a href="/admin/dashboard" class="btn">
+⬅ Back to Dashboard
+</a>
+
+</center>
+
+</body>
+
+</html>

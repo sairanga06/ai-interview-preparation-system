@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Interview Results</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="results-container">
+
+    <h1>🏆 Interview Results</h1>
+
+    <!-- Summary -->
+
+    <div class="summary-card">
+
+        <h2>Interview Summary</h2>
+
+        <div class="summary-grid">
+
+            <div class="summary-item">
+
+                <h3>Total Questions</h3>
+
+                <p>{{ total_questions }}</p>
+
+            </div>
+
+            <div class="summary-item">
+
+                <h3>Answered</h3>
+
+                <p>{{ answered }}</p>
+
+            </div>
+
+            <div class="summary-item">
+
+                <h3>Average Score</h3>
+
+                <p>{{ average_score }}/10</p>
+
+            </div>
+
+            <div class="summary-item">
+
+                <h3>Percentage</h3>
+
+                <p>{{ percentage }}%</p>
+
+            </div>
+
+            <div class="summary-item">
+
+                <h3>Grade</h3>
+
+                <p>{{ grade }}</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Progress -->
+
+    <div class="result-progress">
+
+        <h2>📊 Overall Performance</h2>
+
+        <progress
+            value="{{ percentage }}"
+            max="100"
+            style="width:100%;height:22px;">
+        </progress>
+
+        <p style="margin-top:15px;font-weight:600;">
+
+            {{ percentage }}% Performance
+
+        </p>
+
+    </div>
+
+    <h2 style="margin-top:50px;">
+
+        📋 Question-wise Performance
+
+    </h2>
+    <div class="score-banner">
+
+    <div class="score-circle">
+
+        <h1>{{ percentage }}%</h1>
+
+    </div>
+
+    <div class="score-info">
+
+        <h2>🎉 Interview Completed!</h2>
+
+        <p>
+            Great job! Here is your AI performance report.
+        </p>
+
+    </div>
+
+</div>
+
+    {% for q, a, s, f in results %}
+
+    <div class="question-card">
+
+        <h3>
+
+            {{ loop.index }}. {{ q }}
+
+        </h3>
+
+        <hr><br>
+
+        <p>
+
+            <strong>💬 Your Answer</strong>
+
+        </p>
+
+        <p>
+
+            {{ a }}
+
+        </p>
+
+        <br>
+
+        <p>
+
+            <strong>⭐ Score</strong>
+
+        </p>
+
+        <h2 style="color:#22c55e;">
+
+            {{ s }}/10
+
+        </h2>
+
+        <br>
+
+        <!-- AI Report -->
+
+        <div class="ai-feedback-box">
+
+            <h3>🤖 AI Evaluation Report</h3>
+
+            <pre>{{ f }}</pre>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+    <div class="result-buttons">
+
+        <a href="/dashboard"
+           class="primary-btn">
+
+            🏠 Dashboard
+
+        </a>
+
+        <a href="/category"
+           class="secondary-btn">
+
+            🔄 Start New Interview
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

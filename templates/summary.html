@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interview Results</title>
+
+    <style>
+        body {
+            background: #0f172a;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #38bdf8;
+        }
+
+        h1 {
+            text-align: center;
+            color: #38bdf8;
+        }
+
+        .card {
+            background: #334155;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        .score {
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .feedback {
+            color: #facc15;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Interview Results</h1>
+
+    {% set total = scores|sum %}
+
+    {% for i in range(questions|length) %}
+
+    <div class="card">
+
+        <h3>Question {{ i + 1 }}</h3>
+
+        <p><b>Question:</b> {{ questions[i] }}</p>
+
+        <p><b>Your Answer:</b> {{ answers[i] }}</p>
+
+        <p class="score">
+            Score: {{ scores[i] }}/10
+        </p>
+
+        <p class="feedback">
+            Feedback: {{ feedbacks[i] }}
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+    <h2>Total Score: {{ total }}/50</h2>
+
+</div>
+
+</body>
+</html>

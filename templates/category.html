@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Interview Category</title>
+
+    <style>
+        body{
+            background:#0f172a;
+            color:white;
+            font-family:Arial,sans-serif;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            margin:0;
+        }
+
+        .container{
+            background:#1e293b;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 0 20px #38bdf8;
+            width:450px;
+            text-align:center;
+        }
+
+        h1{
+            color:#38bdf8;
+        }
+
+        label{
+            display:block;
+            text-align:left;
+            margin-top:15px;
+            margin-bottom:5px;
+            font-weight:bold;
+        }
+
+        select{
+            width:100%;
+            padding:12px;
+            margin-bottom:20px;
+            font-size:16px;
+            border-radius:8px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            background:#38bdf8;
+            color:black;
+            font-size:18px;
+            font-weight:bold;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#0ea5e9;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Select Interview Category</h1>
+
+<form action="/set_category" method="POST">
+
+<label>Category</label>
+
+<select name="category" required>
+
+<option value="">--Select Category--</option>
+
+<option value="python">Python</option>
+<option value="sql">SQL</option>
+<option value="django">Django</option>
+<option value="flask">Flask</option>
+<option value="html">HTML & CSS</option>
+<option value="javascript">JavaScript</option>
+<option value="oop">OOP</option>
+<option value="dsa">DSA</option>
+
+</select>
+
+<label>Difficulty</label>
+
+<select name="difficulty" required>
+
+<option value="">--Select Difficulty--</option>
+
+<option value="easy">Easy</option>
+<option value="medium">Medium</option>
+<option value="hard">Hard</option>
+
+</select>
+
+<button type="submit">
+Start Interview
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

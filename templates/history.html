@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Interview History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="history-container">
+
+    <h1>📜 Interview History</h1>
+
+    <p class="history-subtitle">
+
+        Review all your previous interview attempts.
+
+    </p>
+
+    <table class="history-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Date</th>
+
+                <th>Category</th>
+
+                <th>Difficulty</th>
+
+                <th>Score</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for interview in history %}
+
+            <tr>
+
+                <td>{{ interview.date }}</td>
+
+                <td>{{ interview.category }}</td>
+
+                <td>{{ interview.difficulty }}</td>
+
+                <td>{{ interview.score }}/10</td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <div class="history-buttons">
+
+        <a href="/dashboard" class="secondary-btn">
+
+            🏠 Dashboard
+
+        </a>
+
+        <a href="/category" class="primary-btn">
+
+            🚀 Start Interview
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
