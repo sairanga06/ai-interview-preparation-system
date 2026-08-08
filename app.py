@@ -423,21 +423,45 @@ def register():
         username = request.form["username"]
         email = request.form["email"]
         password = request.form["password"]
+
         hashed_password = generate_password_hash(password)
 
-        conn = sqlite3.connect("interview.db")
-        cursor = conn.cursor()
+        conn = None
 
-        cursor.execute("""
-            INSERT INTO users(username, email, password)
-            VALUES (?, ?, ?)
-        """, (username, email, hashed_password))
+        try:
+            # Wait up to 30 seconds if SQLite is temporarily locked
+            conn = sqlite3.connect("interview.db", timeout=30)
 
-        conn.commit()
-        conn.close()
-        return redirect(url_for("login"))
+            # Tell SQLite to wait for the lock to be released
+            conn.execute("PRAGMA busy_timeout = 30000")
+
+            cursor = conn.cursor()
+
+            cursor.execute("""
+                INSERT INTO users(username, email, password)
+                VALUES (?, ?, ?)
+            """, (username, email, hashed_password))
+
+            conn.commit()
+
+            return redirect(url_for("login"))
+
+        except sqlite3.IntegrityError:
+            return "Username or email already exists. Please use another one."
+
+        except sqlite3.OperationalError as e:
+            print("Database error during registration:", e)
+
+            if conn:
+                conn.rollback()
+
+            return "Database is temporarily busy. Please try again."
+
+        finally:
+            if conn:
+                conn.close()
+
     return render_template("register.html")
-
       
 @app.route("/login", methods=["GET", "POST"])
 def login():
