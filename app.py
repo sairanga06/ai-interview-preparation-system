@@ -17,7 +17,7 @@ app.secret_key = "interview_project_secret_2026"
 load_dotenv()
 
 print("Current Directory:", os.getcwd())
-print("Groq API:", os.getenv("GROQ_API_KEY"))
+
 
 groq_client = Groq(
     api_key=os.getenv("GROQ_API_KEY"),
