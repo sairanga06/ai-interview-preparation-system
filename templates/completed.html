@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Interview Completed</title>
 
     <style>
@@ -12,6 +15,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
 
         .box {
@@ -20,17 +24,31 @@
             border-radius: 15px;
             text-align: center;
             box-shadow: 0 0 20px #38bdf8;
+            max-width: 500px;
         }
 
         h1 {
             color: #22c55e;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         a {
             text-decoration: none;
             background: #38bdf8;
             color: black;
-            padding: 12px 25px;
+            padding: 12px 20px;
             border-radius: 8px;
             font-weight: bold;
         }
@@ -38,19 +56,51 @@
         a:hover {
             background: #0ea5e9;
         }
-    </style>
 
+        .dashboard {
+            background: #22c55e;
+        }
+
+        .dashboard:hover {
+            background: #16a34a;
+        }
+
+        .history {
+            background: #f59e0b;
+        }
+
+        .history:hover {
+            background: #d97706;
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="box">
+
         <h1>🎉 Interview Completed!</h1>
-        <p>Great Job! You have successfully finished the interview.</p>
 
-        <br>
+        <p>
+            Great Job! You have successfully finished the interview.
+        </p>
 
-        <a href="/">Go to Home</a>
+        <div class="buttons">
+
+            <a href="/">
+                🎯 Start New Interview
+            </a>
+
+            <a href="/dashboard" class="dashboard">
+                🏠 Dashboard
+            </a>
+
+            <a href="/history" class="history">
+                📜 Interview History
+            </a>
+
+        </div>
+
     </div>
 
 </body>

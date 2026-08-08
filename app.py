@@ -434,7 +434,7 @@ def register():
 
         conn.commit()
         conn.close()
-        return "Registration Successful!"
+        return redirect(url_for("login"))
     return render_template("register.html")
 
       
