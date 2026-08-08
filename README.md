@@ -1,85 +1,82 @@
-# AI Interview Preparation System 
+# 🤖 AI Interview Preparation System
 
-An AI-powered web application designed to help users practice and improve their technical and HR interview skills through interactive mock interviews, AI-based evaluation, scoring, and feedback.
+An AI-powered web application that helps users prepare for technical interviews through interactive mock interviews, difficulty levels, timers, AI-based evaluation, scoring, and personalized feedback.
 
-## Features
+## 🚀 Live Demo
+https://ai-interview-preparation-system-lk14.onrender.com/
 
-### 👤 User Features
-- User Registration and Login
-- Secure Password Hashing
-- User Dashboard
-- Profile Management
-- Change Password
-- Interview History
-- Multiple Interview Categories
-- Easy, Medium and Hard Difficulty Levels
-- Interview Timer
-- Randomized Interview Questions
-- Answer Submission
-- AI-based Score and Feedback
-- Interview Results
-- Certificate Generation
+## 📌 Features
 
-###  AI Features
-- AI-based Interview Answer Evaluation
-- Automated Feedback
-- Answer Scoring
-- Technical and HR Interview Practice
-- Groq AI Integration
-- Google Gemini Integration
+- 👤 User Registration & Login
+- 🔐 Secure Authentication
+- 🎯 Multiple Interview Categories
+- 📊 Easy, Medium & Hard Difficulty Levels
+- ⏱️ Interview Timer
+- 🤖 AI-Based Answer Evaluation
+- 📝 Automated Scoring & Feedback
+- 📚 Interview History
+- 👤 User Profile Management
+- 🔑 Change Password
+- 👨‍💼 Admin Login
+- 📊 Admin Dashboard
+- 👥 User Management
+- 📋 Interview Management
+- 🗑️ Delete User & Interview Records
+- 📄 Interview Certificate Generation
 
-###  Admin Features
-- Admin Login
-- Admin Dashboard
-- View Total Users
-- View Interview Records
-- View User Details
-- Delete Users
-- Delete Interview Records
-- Search and Manage Data
+## 🛠️ Technologies Used
 
-## Technologies Used
-
-- Python
-- Flask
+### Frontend
 - HTML5
 - CSS3
 - JavaScript
-- SQLite
-- Groq AI
-- Google Gemini
-- ReportLab
-- Git & GitHub
 
-##📂Project Structure
+### Backend
+- Python
+- Flask
+
+### Database
+- SQLite
+
+### AI
+- Groq API
+- Google Gemini integration
+
+### Deployment
+- GitHub
+- Render
+
+## 🏗️ Project Structure
 
 ```text
-AI-Interview-System/
-│
-├── app.py
-├── test_grok.py
-├── .gitignore
+AI-INTERVIEW-SYSTEM/
 │
 ├── static/
 │   ├── css/
 │   │   └── style.css
 │   └── certificate.pdf
 │
-└── templates/
-    ├── index.html
-    ├── login.html
-    ├── register.html
-    ├── dashboard.html
-    ├── interview.html
-    ├── result.html
-    ├── results.html
-    ├── history.html
-    ├── summary.html
-    ├── completed.html
-    ├── category.html
-    ├── edit_profile.html
-    ├── change_password.html
-    ├── admin_login.html
-    ├── admin_dashboard.html
-    ├── admin_users.html
-    └── admin_interviews.html
+├── templates/
+│   ├── admin_dashboard.html
+│   ├── admin_interviews.html
+│   ├── admin_login.html
+│   ├── admin_users.html
+│   ├── category.html
+│   ├── change_password.html
+│   ├── completed.html
+│   ├── dashboard.html
+│   ├── edit_profile.html
+│   ├── history.html
+│   ├── index.html
+│   ├── interview.html
+│   ├── login.html
+│   ├── register.html
+│   ├── result.html
+│   ├── results.html
+│   └── summary.html
+│
+├── app.py
+├── requirements.txt
+├── test_grok.py
+├── .gitignore
+└── README.md
