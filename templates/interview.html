@@ -1,155 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AI Interview</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
-
+    <title>AI Interview | CareerCraft AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        * { box-sizing: border-box; }
+        body { margin:0; background:#f7f8fc; color:#111827; font-family:"Inter",sans-serif; }
+        .interview-page { min-height:100vh; padding:26px 20px 125px; }
+        .interview-shell { width:min(1050px,100%); margin:0 auto; }
+        .interview-topbar {
+            display:flex; align-items:center; justify-content:space-between; gap:18px;
+            padding:15px 18px; background:#fff; border:1px solid #e7e9f0;
+            border-radius:16px; box-shadow:0 8px 25px rgba(15,23,42,.05);
+        }
+        .brand { display:flex; align-items:center; gap:11px; }
+        .brand-icon { width:40px; height:40px; display:grid; place-items:center; border-radius:12px; background:linear-gradient(135deg,#635bff,#3b82f6); color:#fff; font-size:20px; }
+        .brand strong { display:block; font-size:16px; font-weight:800; }
+        .brand span { display:block; margin-top:2px; color:#94a3b8; font-size:11px; font-weight:600; }
+        .top-actions { display:flex; align-items:center; gap:9px; }
+        .meta-pill { padding:8px 11px; border-radius:999px; background:#f5f4ff; color:#5149d7; font-size:11px; font-weight:800; }
+        .timer { min-width:74px; text-align:center; padding:8px 11px; border-radius:10px; background:#111827; color:#fff; font-size:12px; font-weight:800; font-variant-numeric:tabular-nums; }
+        .progress-card { margin-top:18px; padding:17px 18px; background:#fff; border:1px solid #e7e9f0; border-radius:16px; }
+        .progress-top { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; }
+        .progress-label { color:#64748b; font-size:11px; font-weight:700; }
+        .progress-label strong { color:#111827; }
+        .progress-percent { color:#635bff; font-size:12px; font-weight:800; }
+        .progress-track { width:100%; height:8px; overflow:hidden; border-radius:999px; background:#e9eaf0; }
+        .progress-fill { height:100%; border-radius:999px; background:linear-gradient(90deg,#635bff,#3b82f6); transition:width .25s ease; }
+        .adaptive-message {
+            margin-top:16px; padding:13px 16px; border:1px solid rgba(99,91,255,.18);
+            border-radius:12px; background:#f5f4ff; color:#4338ca; text-align:center;
+            font-size:12px; font-weight:700;
+        }
+        .question-card { margin-top:16px; padding:25px; background:#fff; border:1px solid #e5e7eb; border-left:4px solid #635bff; border-radius:18px; box-shadow:0 10px 30px rgba(15,23,42,.05); }
+        .question-label { color:#635bff; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.7px; }
+        .question-card h1 { margin:8px 0 0; font-size:clamp(21px,3vw,30px); line-height:1.4; letter-spacing:-.4px; }
+        .answer-section { margin-top:16px; }
+        .answer-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+        .answer-header label { color:#334155; font-size:12px; font-weight:800; }
+        .answer-hint { color:#94a3b8; font-size:10px; }
+        #answerBox {
+            width:100%; min-height:250px; resize:vertical; padding:17px;
+            border:1px solid #dfe3eb; border-radius:14px; outline:none;
+            background:#fbfcfe; color:#1f2937; font:500 13px/1.7 "Inter",sans-serif;
+            transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+        #answerBox:focus { border-color:#635bff; background:#fff; box-shadow:0 0 0 4px rgba(99,91,255,.09); }
+        .answer-footer { display:flex; justify-content:space-between; margin-top:7px; color:#94a3b8; font-size:10px; }
+        .fixed-actions {
+            position:fixed; z-index:50; left:0; right:0; bottom:0;
+            padding:12px 20px; background:rgba(255,255,255,.94);
+            border-top:1px solid #e7e9f0; box-shadow:0 -8px 28px rgba(15,23,42,.08);
+            backdrop-filter:blur(12px);
+        }
+        .fixed-actions-inner { width:min(1050px,100%); margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:15px; }
+        .action-note { color:#64748b; font-size:11px; font-weight:600; }
+        .next-btn {
+            min-width:210px; border:0; border-radius:12px; padding:13px 22px;
+            background:linear-gradient(135deg,#635bff,#5149d7); color:#fff;
+            font:800 13px "Inter",sans-serif; cursor:pointer; box-shadow:0 8px 18px rgba(99,91,255,.22);
+            transition:transform .15s ease, opacity .15s ease;
+        }
+        .next-btn:hover { transform:translateY(-1px); }
+        .next-btn:disabled { opacity:.65; cursor:not-allowed; transform:none; }
+        @media(max-width:650px){
+            .interview-page { padding:14px 12px 120px; }
+            .interview-topbar { align-items:flex-start; }
+            .brand span, .meta-pill { display:none; }
+            .question-card { padding:18px; }
+            #answerBox { min-height:210px; }
+            .action-note { display:none; }
+            .fixed-actions-inner { justify-content:flex-end; }
+            .next-btn { width:100%; }
+        }
+    </style>
 </head>
-
 <body>
+<main class="interview-page">
+    <div class="interview-shell">
+        <header class="interview-topbar">
+            <div class="brand">
+                <div class="brand-icon">🧠</div>
+                <div>
+                    <strong>CareerCraft AI</strong>
+                    <span>Adaptive Technical Interview</span>
+                </div>
+            </div>
+            <div class="top-actions">
+                <div class="meta-pill">{{ category }} · {{ difficulty }}</div>
+                <div class="timer" id="timer">15:00</div>
+            </div>
+        </header>
 
-<div class="container">
+        <section class="progress-card">
+            <div class="progress-top">
+                <div class="progress-label">Question <strong>{{ number }}</strong> of <strong>{{ total }}</strong></div>
+                <div class="progress-percent">{{ ((number / total) * 100) | round(0) | int }}% complete</div>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width:{{ ((number / total) * 100) | round(0) }}%;"></div>
+            </div>
+        </section>
 
-    <h1>🤖 AI Interview System</h1>
+        {% if adaptive_message %}
+            <div class="adaptive-message">{{ adaptive_message }}</div>
+        {% endif %}
 
-    <div class="info">
+        <section class="question-card">
+            <div class="question-label">Current Interview Question</div>
+            <h1>{{ question }}</h1>
+        </section>
 
-        <div>
+        <form action="/submit" method="POST" id="interviewForm">
+            <section class="answer-section">
+                <div class="answer-header">
+                    <label for="answerBox">Your Answer</label>
+                    <span class="answer-hint">Explain your reasoning clearly</span>
+                </div>
+                <textarea id="answerBox" name="answer" placeholder="Type your answer here..." autocomplete="off" spellcheck="true"></textarea>
+                <div class="answer-footer">
+                    <span>AI will evaluate your response after submission.</span>
+                    <span id="characterCount">0 characters</span>
+                </div>
+            </section>
 
-            Category :
-            <strong>{{ category }}</strong>
-
-        </div>
-
-        <div>
-
-            Difficulty :
-            <strong>{{ difficulty }}</strong>
-
-        </div>
-
+            <div class="fixed-actions">
+                <div class="fixed-actions-inner">
+                    <div class="action-note">Your answer is saved locally while you type.</div>
+                    <button class="next-btn" type="submit" id="submitButton">
+                        {% if number == total %}✓ Submit Interview{% else %}→ Next Question{% endif %}
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
-
-    <div class="info">
-
-        <div>
-
-            Question {{ number }} / {{ total }}
-
-        </div>
-
-        <div id="timer">
-
-            15:00
-
-        </div>
-
-    </div>
-
-    <br>
-
-    <progress
-
-        value="{{ number }}"
-
-        max="{{ total }}"
-
-        style="width:100%;height:20px;">
-
-    </progress>
-
-    <p style="text-align:center;font-weight:bold;margin-top:10px;">
-
-        {{ ((number / total) * 100)|round }}% Completed
-
-    </p>
-
-    <div class="question-card">
-
-        <h2>
-
-            💬 {{ question }}
-
-        </h2>
-
-    </div>
-
-    <form action="/submit" method="POST">
-
-        <textarea
-
-            class="answer-box"
-
-            name="answer"
-
-            placeholder="Write your answer here..."
-
-            required>
-
-        </textarea>
-
-        <button
-
-            class="next-btn"
-
-            type="submit">
-
-            ➡ Next Question
-
-        </button>
-
-    </form>
-
-</div>
+</main>
 
 <script>
+    const interviewForm = document.getElementById("interviewForm");
+    const submitButton = document.getElementById("submitButton");
+    const answerBox = document.getElementById("answerBox");
+    const characterCount = document.getElementById("characterCount");
+    const timerElement = document.getElementById("timer");
 
-let minutes = 15;
-let seconds = 0;
+    const answerStorageKey =
+        "careercraft_interview_answer_{{ session.get('user_id', 'guest') }}_{{ number }}";
 
-let timer = setInterval(function(){
+    const savedAnswer = localStorage.getItem(answerStorageKey);
+    if (savedAnswer) {
+        answerBox.value = savedAnswer;
+    }
 
-    if(seconds == 0){
+    function updateCharacterCount() {
+        characterCount.textContent = `${answerBox.value.length} characters`;
+    }
 
-        if(minutes == 0){
+    answerBox.addEventListener("input", function () {
+        localStorage.setItem(answerStorageKey, answerBox.value);
+        updateCharacterCount();
+    });
 
-            clearInterval(timer);
+    updateCharacterCount();
 
-            alert("Time is Over!");
+    let remainingSeconds = 15 * 60;
 
-            document.forms[0].submit();
+    function updateTimer() {
+        const minutes = Math.floor(remainingSeconds / 60);
+        const seconds = remainingSeconds % 60;
+        timerElement.textContent =
+            `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    }
 
+    updateTimer();
+
+    const timerInterval = setInterval(function () {
+        remainingSeconds--;
+        updateTimer();
+
+        if (remainingSeconds <= 0) {
+            clearInterval(timerInterval);
+            if (answerBox.value.trim()) {
+                interviewForm.requestSubmit();
+            } else {
+                answerBox.focus();
+            }
+        }
+    }, 1000);
+
+    interviewForm.addEventListener("submit", function (event) {
+        if (!answerBox.value.trim()) {
+            event.preventDefault();
+            answerBox.focus();
             return;
-
         }
 
-        minutes--;
-        seconds = 59;
-
-    }
-
-    else{
-
-        seconds--;
-
-    }
-
-    let m = String(minutes).padStart(2,'0');
-    let s = String(seconds).padStart(2,'0');
-
-    document.getElementById("timer").innerHTML = m + ":" + s;
-
-},1000);
-
+        localStorage.removeItem(answerStorageKey);
+        submitButton.disabled = true;
+        submitButton.textContent = "⏳ Evaluating...";
+    });
 </script>
-
 </body>
-
 </html>

@@ -1,73 +1,489 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-    <title>Edit Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CareerCraft AI — My Profile</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <style>
 
-        body{
-            background:#0f172a;
-            font-family:Arial;
-            color:white;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
+        * {
+            box-sizing: border-box;
         }
 
-        .box{
-            background:#1e293b;
-            padding:40px;
-            border-radius:15px;
-            width:400px;
+        body {
+            margin: 0;
+            background: #f8fafc;
+            color: #111827;
+            font-family: 'Poppins', sans-serif;
         }
 
-        h2{
-            text-align:center;
-            color:#38bdf8;
-            margin-bottom:25px;
+        /* ================= NAVBAR ================= */
+
+        .cc-profile-nav {
+            height: 76px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        input{
-
-            width:100%;
-            padding:12px;
-            margin-bottom:20px;
-            border:none;
-            border-radius:8px;
-            font-size:16px;
-
+        .cc-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            font-weight: 800;
         }
 
-        button{
-
-            width:100%;
-            padding:12px;
-            background:#38bdf8;
-            border:none;
-            border-radius:8px;
-            font-size:18px;
-            cursor:pointer;
-            font-weight:bold;
-
+        .cc-brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #635bff, #3b82f6);
+            color: white;
         }
 
-        button:hover{
-
-            background:#0ea5e9;
-
+        .cc-back {
+            text-decoration: none;
+            color: #635bff;
+            font-size: 14px;
+            font-weight: 600;
         }
 
-        a{
+        .cc-back:hover {
+            color: #4338ca;
+        }
 
-            display:block;
-            margin-top:20px;
-            text-align:center;
-            color:white;
-            text-decoration:none;
+        /* ================= MAIN ================= */
 
+        .profile-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto 70px;
+        }
+
+        .profile-header {
+            margin-bottom: 28px;
+        }
+
+        .profile-label {
+            display: inline-block;
+            padding: 7px 14px;
+            border-radius: 50px;
+            background: #eeecff;
+            color: #635bff;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .profile-header h1 {
+            margin: 0 0 8px;
+            font-size: 34px;
+        }
+
+        .profile-header p {
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* ================= COMPLETION ================= */
+
+        .completion-card {
+            background: linear-gradient(135deg, #111827, #172554);
+            border-radius: 20px;
+            padding: 25px;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .completion-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 13px;
+        }
+
+        .completion-top h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .completion-percent {
+            font-size: 20px;
+            font-weight: 800;
+            color: #a5b4fc;
+        }
+
+        .completion-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .completion-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #818cf8, #60a5fa);
+            border-radius: inherit;
+            transition: width 0.3s ease;
+        }
+
+        .completion-text {
+            margin: 12px 0 0;
+            color: #cbd5e1;
+            font-size: 11px;
+        }
+
+        /* ================= FORM CARD ================= */
+
+        .profile-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 22px;
+            box-shadow: 0 8px 25px rgba(15,23,42,0.04);
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 25px;
+        }
+
+        .heading-icon {
+            width: 43px;
+            height: 43px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eeecff;
+            color: #635bff;
+            flex-shrink: 0;
+        }
+
+        .card-heading h2 {
+            margin: 0;
+            font-size: 19px;
+        }
+
+        .card-heading p {
+            margin: 3px 0 0;
+            color: #64748b;
+            font-size: 11px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #374151;
+            font-weight: 600;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            border: 1px solid #dbe2ea;
+            border-radius: 11px;
+            padding: 13px 14px;
+            background: #ffffff;
+            color: #111827;
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99,91,255,0.08);
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .field-help {
+            margin-top: 6px;
+            color: #94a3b8;
+            font-size: 10px;
+        }
+
+        /* ================= TAG INPUT ================= */
+
+        .tag-input-container {
+            width: 100%;
+            min-height: 52px;
+            border: 1px solid #dbe2ea;
+            border-radius: 11px;
+            padding: 7px 9px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 7px;
+            transition: 0.2s ease;
+        }
+
+        .tag-input-container:focus-within {
+            border-color: #635bff;
+            box-shadow: 0 0 0 3px rgba(99,91,255,0.08);
+        }
+
+        .tag-list {
+            display: contents;
+        }
+
+        .tag-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 10px;
+            border-radius: 8px;
+            background: #eeecff;
+            color: #5146d8;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .tag-remove {
+            border: none;
+            background: transparent;
+            color: #635bff;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+            font-size: 11px;
+            width: auto;
+        }
+
+        .tag-remove:hover {
+            color: #ef4444;
+        }
+
+        .tag-input {
+            flex: 1;
+            min-width: 180px;
+            border: none !important;
+            box-shadow: none !important;
+            outline: none !important;
+            padding: 8px 5px !important;
+            margin: 0;
+        }
+
+        /* ================= SUGGESTIONS ================= */
+
+        .suggestions-box {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            z-index: 50;
+            margin-top: 5px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(15,23,42,0.12);
+            overflow: hidden;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 11px 14px;
+            font-size: 12px;
+            color: #374151;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.15s ease;
+        }
+
+        .suggestion-item:hover {
+            background: #f5f3ff;
+            color: #635bff;
+        }
+
+        .suggestion-item i {
+            width: 25px;
+            height: 25px;
+            border-radius: 7px;
+            background: #eeecff;
+            color: #635bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .no-suggestion {
+            padding: 12px 14px;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        /* ================= EXPERIENCE ================= */
+
+        .experience-note {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 13px;
+            margin-bottom: 20px;
+            color: #64748b;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        /* ================= SAVE ================= */
+
+        .save-section {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .cancel-btn {
+            padding: 13px 22px;
+            border-radius: 11px;
+            border: 1px solid #dbe2ea;
+            background: white;
+            color: #475569;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .cancel-btn:hover {
+            background: #f8fafc;
+        }
+
+        .save-btn {
+            border: none;
+            padding: 13px 25px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #635bff, #3b82f6);
+            color: white;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(99,91,255,0.20);
+            transition: 0.25s ease;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ================= FOOTER ================= */
+
+        .profile-footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 700px) {
+
+            .cc-profile-nav {
+                padding: 0 4%;
+            }
+
+            .cc-brand {
+                font-size: 18px;
+            }
+
+            .profile-container {
+                width: 92%;
+                margin-top: 25px;
+            }
+
+            .profile-header h1 {
+                font-size: 28px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .profile-card {
+                padding: 22px;
+            }
+
+            .save-section {
+                flex-direction: column;
+            }
+
+            .cancel-btn,
+            .save-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .tag-input {
+                min-width: 120px;
+            }
         }
 
     </style>
@@ -76,39 +492,2567 @@
 
 <body>
 
-<div class="box">
+<!-- ================= NAVBAR ================= -->
 
-<h2>Edit Profile</h2>
+<nav class="cc-profile-nav">
 
-<form method="POST">
+    <div class="cc-brand">
 
-<input
-type="text"
-name="username"
-value="{{ user[0] }}"
-required>
+        <div class="cc-brand-icon">
+            <i class="fas fa-brain"></i>
+        </div>
 
-<input
-type="email"
-name="email"
-value="{{ user[1] }}"
-required>
+        CareerCraft AI
 
-<button type="submit">
+    </div>
 
-Update Profile
+    <a href="/dashboard" class="cc-back">
 
-</button>
+        <i class="fas fa-arrow-left"></i>
 
-</form>
+        Back to Dashboard
 
-<a href="/dashboard">
+    </a>
 
-⬅ Back to Dashboard
+</nav>
 
-</a>
 
-</div>
+<!-- ================= MAIN ================= -->
+
+<main class="profile-container">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="profile-header">
+
+        <span class="profile-label">
+            CAREER PROFILE
+        </span>
+
+        <h1>
+            Build Your Career Profile 👋
+        </h1>
+
+        <p>
+            Add your education, experience, skills and career goals.
+            CareerCraft AI will use this information to personalize
+            your learning, interviews, projects and resume.
+        </p>
+
+    </div>
+
+
+    <!-- ================= COMPLETION ================= -->
+
+    <div class="completion-card">
+
+        <div class="completion-top">
+
+            <h3>
+                <i class="fas fa-circle-check"></i>
+                Profile Completion
+            </h3>
+
+            <span class="completion-percent" id="completionPercent">
+                0%
+            </span>
+
+        </div>
+
+        <div class="completion-bar">
+
+            <div class="completion-fill"
+                 id="completionFill"></div>
+
+        </div>
+
+        <p class="completion-text"
+           id="completionText">
+
+            Complete your profile to unlock personalized career features.
+
+        </p>
+
+    </div>
+
+
+    <form method="POST">
+
+
+        <!-- ================= PERSONAL ================= -->
+
+        <section class="profile-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Personal Information
+                    </h2>
+
+                    <p>
+                        Your basic account information
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Username <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        value="{{ user[0] }}"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Email <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        value="{{ user[1] }}"
+                        required>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= EDUCATION ================= -->
+
+        <section class="profile-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Education
+                    </h2>
+
+                    <p>
+                        Add your academic background
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Education Level
+                    </label>
+
+                    <select name="education_level">
+
+                        <option value="">
+                            Select education level
+                        </option>
+
+                        <option value="High School"
+                            {% if profile and profile[1] == "High School" %}selected{% endif %}>
+                            High School
+                        </option>
+
+                        <option value="Diploma"
+                            {% if profile and profile[1] == "Diploma" %}selected{% endif %}>
+                            Diploma
+                        </option>
+
+                        <option value="Undergraduate"
+                            {% if profile and profile[1] == "Undergraduate" %}selected{% endif %}>
+                            Undergraduate
+                        </option>
+
+                        <option value="Postgraduate"
+                            {% if profile and profile[1] == "Postgraduate" %}selected{% endif %}>
+                            Postgraduate
+                        </option>
+
+                        <option value="PhD"
+                            {% if profile and profile[1] == "PhD" %}selected{% endif %}>
+                            PhD
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Degree / Course
+                    </label>
+
+                    <input
+                        type="text"
+                        name="degree"
+                        id="degreeInput"
+                        value="{{ profile[2] if profile else '' }}"
+                        placeholder="Type B for B.Tech, M for M.Tech..."
+                        autocomplete="off">
+
+                    <div id="degreeSuggestions" class="suggestions-box"></div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Specialization
+                    </label>
+
+                    <input
+                        type="text"
+                        name="specialization"
+                        id="specializationInput"
+                        value="{{ profile[3] if profile else '' }}"
+                        placeholder="Type CSE, AI, Data Science..."
+                        autocomplete="off">
+
+                    <div id="specializationSuggestions" class="suggestions-box"></div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        College / University
+                    </label>
+
+                    <input
+                        type="text"
+                        name="college"
+                        id="collegeInput"
+                        value="{{ profile[4] if profile else '' }}"
+                        placeholder="Search college or university..."
+                        autocomplete="off">
+
+                    <div id="collegeSuggestions"
+                         class="suggestions-box">
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Start Year
+                    </label>
+
+                    <select name="start_year">
+
+                        <option value="">
+                            Select year
+                        </option>
+
+                        {% for year in range(2000, 2031) %}
+
+                        <option value="{{ year }}"
+                            {% if profile and profile[5] == year|string %}selected{% endif %}>
+                            {{ year }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Pass-out / Graduation Year
+                    </label>
+
+                    <select name="passout_year">
+
+                        <option value="">
+                            Select year
+                        </option>
+
+                        {% for year in range(2000, 2036) %}
+
+                        <option value="{{ year }}"
+                            {% if profile and profile[6] == year|string %}selected{% endif %}>
+                            {{ year }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        CGPA / Percentage
+                    </label>
+
+                    <input
+                        type="text"
+                        name="percentage"
+                        value="{{ profile[7] if profile else '' }}"
+                        placeholder="Example: 8.5 CGPA or 85%">
+
+                    <span class="field-help">
+                        Enter your CGPA (e.g. 8.5) or percentage (e.g. 85%).
+                    </span>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Education Summary
+                    </label>
+
+                    <textarea
+                        name="education"
+                        placeholder="Example: B.Tech in Computer Science from XYZ University...">{{ profile[0] if profile else '' }}</textarea>
+
+                    <span class="field-help">
+                        Add any additional academic details you want CareerCraft AI to know.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SKILLS ================= -->
+
+        <section class="profile-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    <i class="fas fa-gears"></i>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Technical Skills
+                    </h2>
+
+                    <p>
+                        Type to search and select your skills
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+
+                    <label>
+                        Skills
+                    </label>
+
+                    <div class="tag-input-container">
+
+                        <div id="skillTags"
+                             class="tag-list">
+                        </div>
+
+                        <input
+                            type="text"
+                            id="skillInput"
+                            class="tag-input"
+                            placeholder="Type a skill, e.g. Python..."
+                            autocomplete="off">
+
+                    </div>
+
+                    <input
+                        type="hidden"
+                        name="skills"
+                        id="skillsValue"
+                        value="{{ profile[8] if profile else '' }}">
+
+                    <div id="skillSuggestions"
+                         class="suggestions-box">
+                    </div>
+
+                    <span class="field-help">
+                        Example: Python, Django, SQL, Git, Docker, React, Machine Learning.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PROGRAMMING LANGUAGES ================= -->
+
+        <section class="profile-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Programming Languages
+                    </h2>
+
+                    <p>
+                        Type the first letters to see suggestions
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+
+                    <label>
+                        Programming Languages
+                    </label>
+
+                    <div class="tag-input-container">
+
+                        <div id="languageTags"
+                             class="tag-list">
+                        </div>
+
+                        <input
+                            type="text"
+                            id="languageInput"
+                            class="tag-input"
+                            placeholder="Type P for Python, J for Java..."
+                            autocomplete="off">
+
+                    </div>
+
+                    <input
+                        type="hidden"
+                        name="programming_languages"
+                        id="programmingLanguagesValue"
+                        value="{{ profile[9] if profile else '' }}">
+
+                    <div id="languageSuggestions"
+                         class="suggestions-box">
+                    </div>
+
+                    <span class="field-help">
+                        Python • Java • C • C++ • JavaScript • SQL • Go • Rust and more.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= EXPERIENCE ================= -->
+
+        <section class="profile-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Experience
+                    </h2>
+
+                    <p>
+                        Tell us about your professional experience
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="experience-note">
+
+                <i class="fas fa-circle-info"></i>
+
+                If you're a student or fresher with no work experience,
+                simply choose <strong>Student</strong> or <strong>Fresher</strong>.
+                You can add internships and projects separately.
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Current Status
+                    </label>
+
+                    <select name="experience_status">
+
+                        <option value="">
+                            Select status
+                        </option>
+
+                        <option value="Student"
+                            {% if profile and profile[12] == "Student" %}selected{% endif %}>
+                            Student
+                        </option>
+
+                        <option value="Fresher"
+                            {% if profile and profile[12] == "Fresher" %}selected{% endif %}>
+                            Fresher
+                        </option>
+
+                        <option value="Working Professional"
+                            {% if profile and profile[12] == "Working Professional" %}selected{% endif %}>
+                            Working Professional
+                        </option>
+
+                        <option value="Career Break"
+                            {% if profile and profile[12] == "Career Break" %}selected{% endif %}>
+                            Career Break
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Experience Level
+                    </label>
+
+                    <select name="experience_level">
+
+                        <option value="">
+                            Select experience
+                        </option>
+
+                        <option value="0-1 years"
+                            {% if profile and profile[13] == "0-1 years" %}selected{% endif %}>
+                            0–1 years
+                        </option>
+
+                        <option value="1-2 years"
+                            {% if profile and profile[13] == "1-2 years" %}selected{% endif %}>
+                            1–2 years
+                        </option>
+
+                        <option value="2-3 years"
+                            {% if profile and profile[13] == "2-3 years" %}selected{% endif %}>
+                            2–3 years
+                        </option>
+
+                        <option value="3-5 years"
+                            {% if profile and profile[13] == "3-5 years" %}selected{% endif %}>
+                            3–5 years
+                        </option>
+
+                        <option value="5+ years"
+                            {% if profile and profile[13] == "5+ years" %}selected{% endif %}>
+                            5+ years
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Employment Type
+                    </label>
+
+                    <select name="employment_type">
+
+                        <option value="">
+                            Select employment type
+                        </option>
+
+                        <option value="Internship"
+                            {% if profile and profile[14] == "Internship" %}selected{% endif %}>
+                            Internship
+                        </option>
+
+                        <option value="Full-time"
+                            {% if profile and profile[14] == "Full-time" %}selected{% endif %}>
+                            Full-time
+                        </option>
+
+                        <option value="Part-time"
+                            {% if profile and profile[14] == "Part-time" %}selected{% endif %}>
+                            Part-time
+                        </option>
+
+                        <option value="Contract"
+                            {% if profile and profile[14] == "Contract" %}selected{% endif %}>
+                            Contract
+                        </option>
+
+                        <option value="Freelance"
+                            {% if profile and profile[14] == "Freelance" %}selected{% endif %}>
+                            Freelance
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Job Title
+                    </label>
+
+                    <input
+                        type="text"
+                        name="job_title"
+                        id="jobTitleInput"
+                        value="{{ profile[15] if profile else '' }}"
+                        placeholder="Example: Python Developer Intern"
+                        autocomplete="off">
+
+                    <div id="jobTitleSuggestions"
+                         class="suggestions-box">
+                    </div>
+
+                    <span class="field-help">
+                        💡 Example: Python Developer, Full Stack Developer, AI/ML Engineer, Data Analyst, Software Engineer, or Intern.
+                    </span>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Company / Organization
+                    </label>
+
+                    <input
+                        type="text"
+                        name="company"
+                        value="{{ profile[16] if profile else '' }}"
+                        placeholder="Example: ABC Technologies">
+
+                    <span class="field-help">
+                        💡 Example: TCS, Infosys, Google, Microsoft, a startup, internship organization, or college organization. If you are a fresher with no experience, you can leave this blank.
+                    </span>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Experience Duration
+                    </label>
+
+                    <input
+                        type="text"
+                        name="experience_duration"
+                        id="durationInput"
+                        value="{{ profile[17] if profile else '' }}"
+                        placeholder="Type 1, 2, 6..."
+                        autocomplete="off">
+
+                    <div id="durationSuggestions" class="suggestions-box"></div>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Responsibilities
+                    </label>
+
+                    <textarea
+                        name="responsibilities"
+                        placeholder="Example: Developed REST APIs using Flask, worked with SQLite, fixed bugs...">{{ profile[18] if profile else '' }}</textarea>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Experience Summary
+                    </label>
+
+                    <textarea
+                        name="experience"
+                        placeholder="Briefly describe your overall experience...">{{ profile[11] if profile else '' }}</textarea>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PROJECTS ================= -->
+
+        <section class="profile-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    <i class="fas fa-diagram-project"></i>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Projects
+                    </h2>
+
+                    <p>
+                        Showcase the real-world projects you have built
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+
+                    <label>
+                        Projects
+                    </label>
+
+                    <textarea
+                        name="projects"
+                        placeholder="Example: CareerCraft AI — Flask, SQLite, AI APIs — Built an AI-powered career and interview platform...">{{ profile[19] if profile else '' }}</textarea>
+
+                    <span class="field-help">
+                        Later we will connect this with your real-world problem-solving projects and recruiter-ready portfolio.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CAREER TARGET ================= -->
+
+        <section class="profile-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Career Target
+                    </h2>
+
+                    <p>
+                        Tell CareerCraft AI where you want to go
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Target Job Role
+                    </label>
+
+                    <input
+                        type="text"
+                        name="target_role"
+                        id="targetRoleInput"
+                        value="{{ profile[20] if profile else '' }}"
+                        placeholder="Type your target role..."
+                        autocomplete="off">
+
+                    <div id="roleSuggestions"
+                         class="suggestions-box">
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Work Preference
+                    </label>
+
+                    <select name="work_preference">
+
+                        <option value="">
+                            Select preference
+                        </option>
+
+                        <option value="On-site"
+                            {% if profile and profile[21] == "On-site" %}selected{% endif %}>
+                            On-site
+                        </option>
+
+                        <option value="Remote"
+                            {% if profile and profile[21] == "Remote" %}selected{% endif %}>
+                            Remote
+                        </option>
+
+                        <option value="Hybrid"
+                            {% if profile and profile[21] == "Hybrid" %}selected{% endif %}>
+                            Hybrid
+                        </option>
+
+                        <option value="Flexible"
+                            {% if profile and profile[21] == "Flexible" %}selected{% endif %}>
+                            Flexible
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Target Industry
+                    </label>
+
+                    <input
+                        type="text"
+                        name="target_industry"
+                        id="industryInput"
+                        value="{{ profile[22] if profile else '' }}"
+                        placeholder="Type Software, AI, FinTech..."
+                        autocomplete="off">
+
+                    <div id="industrySuggestions" class="suggestions-box"></div>
+
+                    <span class="field-help">
+                        💡 Choose the industry you want to work in. Example: Software / IT, Artificial Intelligence, Data Science, FinTech, Healthcare, E-commerce, EdTech, or Cybersecurity.
+                    </span>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Career Goal
+                    </label>
+
+                    <input
+                        type="text"
+                        name="career_goals"
+                        id="careerGoalInput"
+                        value="{{ profile[23] if profile else '' }}"
+                        placeholder="Type your career goal..."
+                        autocomplete="off">
+
+                    <div id="careerGoalSuggestions" class="suggestions-box"></div>
+
+                    <span class="field-help">
+                        💡 Start typing to get ideas. Example: Full Stack AI Engineer, AI/ML Engineer, Generative AI Engineer, Data Scientist, or Backend Developer.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CERTIFICATIONS ================= -->
+
+        <section class="profile-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Certifications
+                    </h2>
+
+                    <p>
+                        Add certifications and courses you have completed
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group full">
+
+                    <label>
+                        Certifications
+                    </label>
+
+                    <textarea
+                        name="certifications"
+                        placeholder="Example: Python Certification — Coursera&#10;SQL Certification — HackerRank">{{ profile[24] if profile else '' }}</textarea>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PROFESSIONAL LINKS ================= -->
+
+        <section class="profile-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+
+                <div>
+
+                    <h2>
+                        Professional Links
+                    </h2>
+
+                    <p>
+                        Add links recruiters can use to view your work
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        <i class="fab fa-github"></i>
+                        GitHub
+                    </label>
+
+                    <input
+                        type="url"
+                        name="github"
+                        value="{{ profile[25] if profile else '' }}"
+                        placeholder="https://github.com/username">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </label>
+
+                    <input
+                        type="url"
+                        name="linkedin"
+                        value="{{ profile[26] if profile else '' }}"
+                        placeholder="https://linkedin.com/in/username">
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        <i class="fas fa-globe"></i>
+                        Portfolio Website
+                    </label>
+
+                    <input
+                        type="url"
+                        name="portfolio"
+                        value="{{ profile[27] if profile else '' }}"
+                        placeholder="https://yourportfolio.com">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SAVE ================= -->
+
+        <div class="save-section">
+
+            <a href="/dashboard"
+               class="cancel-btn">
+
+                Cancel
+
+            </a>
+
+            <button type="submit"
+                    class="save-btn">
+
+                <i class="fas fa-save"></i>
+
+                Save Career Profile
+
+            </button>
+
+        </div>
+
+
+    </form>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="profile-footer">
+
+        <p>
+            🧠 CareerCraft AI
+        </p>
+
+        <p>
+            Learn • Practice • Build • Interview • Get Hired
+        </p>
+
+        <p>
+            © 2026 CareerCraft AI
+        </p>
+
+    </footer>
+
+</main>
+
+
+<script>
+
+
+/* =========================================================
+   CAREERCRAFT AI — PROFILE AUTOCOMPLETE
+   ========================================================= */
+
+const degreeCourses = [
+    "B.Tech", "B.E.", "BCA", "B.Sc", "B.Com", "BBA", "BA",
+    "B.Arch", "B.Pharm", "MBBS", "LLB",
+    "M.Tech", "M.E.", "MCA", "M.Sc", "M.Com", "MBA", "MA",
+    "M.Arch", "M.Pharm", "LLM", "Diploma", "PG Diploma", "PhD"
+];
+
+const specializations = [
+    "Computer Science and Engineering (CSE)",
+    "Artificial Intelligence and Machine Learning (AI & ML)",
+    "Artificial Intelligence and Data Science (AI & DS)",
+    "Artificial Intelligence (AI)",
+    "Machine Learning (ML)",
+    "Data Science",
+    "Information Technology (IT)",
+    "Information Science",
+    "Data Analytics",
+    "Software Engineering",
+    "Cybersecurity",
+    "Computer Engineering",
+    "Electronics and Communication Engineering (ECE)",
+    "Electrical and Electronics Engineering (EEE)",
+    "Electronics Engineering",
+    "Mechanical Engineering",
+    "Civil Engineering",
+    "Chemical Engineering",
+    "Biotechnology",
+    "Bioinformatics",
+    "Cloud Computing",
+    "Internet of Things (IoT)",
+    "Robotics and Automation",
+    "Computer Applications",
+    "Business Analytics",
+    "Finance",
+    "Marketing",
+    "Human Resources"
+];
+
+const experienceDurations = [
+    "No experience",
+    "3 months",
+    "6 months",
+    "9 months",
+    "1 year",
+    "1–2 years",
+    "2–3 years",
+    "3–5 years",
+    "5+ years"
+];
+
+const industries = [
+    "Software / IT",
+    "Artificial Intelligence",
+    "Data Science",
+    "FinTech",
+    "Banking and Finance",
+    "E-commerce",
+    "Healthcare",
+    "EdTech",
+    "Cybersecurity",
+    "Cloud Computing",
+    "Telecommunications",
+    "Automotive",
+    "Manufacturing",
+    "Consulting",
+    "Government / Public Sector",
+    "Media and Entertainment",
+    "Gaming",
+    "Travel and Hospitality",
+    "Retail",
+    "Logistics and Supply Chain",
+    "Real Estate",
+    "Energy",
+    "Biotechnology",
+    "Pharmaceuticals",
+    "Research and Development",
+    "SaaS"
+];
+
+function createProfileAutocomplete(inputId, suggestionsId, values, iconClass) {
+
+    const input = document.getElementById(inputId);
+    const box = document.getElementById(suggestionsId);
+
+    if (!input || !box) return;
+
+    function hide() {
+        box.style.display = "none";
+        box.innerHTML = "";
+    }
+
+    function show() {
+
+        const query = input.value.trim().toLowerCase();
+        box.innerHTML = "";
+
+        if (!query) {
+            hide();
+            return;
+        }
+
+        const matches = values
+            .filter(value => value.toLowerCase().includes(query))
+            .slice(0, 8);
+
+        if (matches.length === 0) {
+            hide();
+            return;
+        }
+
+        matches.forEach(value => {
+
+            const item = document.createElement("div");
+            item.className = "suggestion-item";
+
+            item.innerHTML = `
+                <i class="fas ${iconClass}"></i>
+                <span>${escapeHtml(value)}</span>
+            `;
+
+            item.addEventListener("mousedown", function(event) {
+                event.preventDefault();
+                input.value = value;
+                hide();
+                updateCompletion();
+            });
+
+            box.appendChild(item);
+        });
+
+        box.style.display = "block";
+    }
+
+    input.addEventListener("input", show);
+    input.addEventListener("focus", show);
+
+    input.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+            hide();
+        }
+
+        if (event.key === "Enter") {
+
+            const first = box.querySelector(".suggestion-item");
+
+            if (first && box.style.display === "block") {
+                event.preventDefault();
+                first.dispatchEvent(
+                    new MouseEvent("mousedown", { bubbles: true })
+                );
+            }
+        }
+    });
+
+    input.addEventListener("blur", function() {
+        setTimeout(hide, 150);
+    });
+}
+
+createProfileAutocomplete(
+    "degreeInput",
+    "degreeSuggestions",
+    degreeCourses,
+    "fa-graduation-cap"
+);
+
+createProfileAutocomplete(
+    "specializationInput",
+    "specializationSuggestions",
+    specializations,
+    "fa-code"
+);
+
+createProfileAutocomplete(
+    "durationInput",
+    "durationSuggestions",
+    experienceDurations,
+    "fa-clock"
+);
+
+createProfileAutocomplete(
+    "industryInput",
+    "industrySuggestions",
+    industries,
+    "fa-building"
+);
+
+
+
+
+/* =========================================================
+   CAREERCRAFT AI — PROGRAMMING LANGUAGES
+   ========================================================= */
+
+const programmingLanguages = [
+
+    "Python",
+    "Java",
+    "JavaScript",
+    "TypeScript",
+    "C",
+    "C++",
+    "C#",
+    "Go",
+    "Rust",
+    "Kotlin",
+    "Swift",
+    "PHP",
+    "Ruby",
+    "Dart",
+    "R",
+    "SQL",
+    "HTML",
+    "CSS",
+    "Bash",
+    "PowerShell"
+
+];
+
+
+/* =========================================================
+   TECHNICAL SKILLS
+   ========================================================= */
+
+const technicalSkills = [
+
+    "Python",
+    "Java",
+    "JavaScript",
+    "TypeScript",
+    "C++",
+    "SQL",
+    "MySQL",
+    "PostgreSQL",
+    "MongoDB",
+    "SQLite",
+    "HTML",
+    "CSS",
+    "React",
+    "Node.js",
+    "Express.js",
+    "Flask",
+    "Django",
+    "FastAPI",
+    "REST API",
+    "Git",
+    "GitHub",
+    "Docker",
+    "Linux",
+    "Data Structures",
+    "Algorithms",
+    "DSA",
+    "Object-Oriented Programming",
+    "Machine Learning",
+    "Deep Learning",
+    "Artificial Intelligence",
+    "Generative AI",
+    "Natural Language Processing",
+    "LangChain",
+    "RAG",
+    "Cloud Computing",
+    "AWS",
+    "Microsoft Azure",
+    "Google Cloud",
+    "Testing",
+    "Debugging",
+    "Problem Solving",
+    "System Design"
+
+];
+
+
+/* =========================================================
+   JOB ROLES
+   ========================================================= */
+
+const jobRoles = [
+
+    "Python Developer",
+    "Java Developer",
+    "JavaScript Developer",
+    "Frontend Developer",
+    "Backend Developer",
+    "Full Stack Developer",
+    "Software Developer",
+    "Software Engineer",
+    "Web Developer",
+    "Data Analyst",
+    "Data Scientist",
+    "Machine Learning Engineer",
+    "AI Engineer",
+    "Generative AI Engineer",
+    "DevOps Engineer",
+    "Cloud Engineer",
+    "Database Developer",
+    "Database Administrator",
+    "QA Engineer",
+    "Automation Test Engineer",
+    "Mobile App Developer",
+    "Cybersecurity Analyst",
+    "Business Analyst",
+    "Product Engineer",
+    "AI/ML Engineer",
+    "Data Engineer",
+    "MLOps Engineer",
+    "NLP Engineer",
+    "Computer Vision Engineer",
+    "Prompt Engineer",
+    "AI Researcher",
+    "Site Reliability Engineer",
+    "Security Engineer",
+    "UI/UX Designer",
+    "Product Manager",
+    "Technical Support Engineer",
+    "Data Analyst",
+    "Cloud Architect",
+    "DevSecOps Engineer",
+    "Solutions Engineer",
+    "Machine Learning Intern",
+    "Software Developer Intern",
+    "Python Developer Intern",
+    "Web Developer Intern",
+    "Data Science Intern",
+    "AI Intern"
+
+];
+
+
+/* =========================================================
+   JOB TITLE AUTOCOMPLETE
+   ========================================================= */
+
+const jobTitleInput =
+    document.getElementById("jobTitleInput");
+
+const jobTitleSuggestions =
+    document.getElementById("jobTitleSuggestions");
+
+
+function showJobTitleSuggestions() {
+
+    if (!jobTitleInput || !jobTitleSuggestions) {
+        return;
+    }
+
+    const query =
+        jobTitleInput.value.trim().toLowerCase();
+
+    jobTitleSuggestions.innerHTML = "";
+
+
+    if (!query) {
+
+        jobTitleSuggestions.style.display =
+            "none";
+
+        return;
+    }
+
+
+    const matches =
+        jobRoles
+            .filter(function(role) {
+
+                return role
+                    .toLowerCase()
+                    .includes(query);
+
+            })
+            .slice(0, 8);
+
+
+    if (matches.length === 0) {
+
+        jobTitleSuggestions.style.display =
+            "none";
+
+        return;
+    }
+
+
+    matches.forEach(function(role) {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "suggestion-item";
+
+        item.innerHTML = `
+            <i class="fas fa-briefcase"></i>
+            <span>${escapeHtml(role)}</span>
+        `;
+
+
+        item.addEventListener(
+            "mousedown",
+            function(event) {
+
+                event.preventDefault();
+
+                jobTitleInput.value =
+                    role;
+
+                jobTitleSuggestions.style.display =
+                    "none";
+
+                updateCompletion();
+
+            }
+        );
+
+
+        jobTitleSuggestions.appendChild(item);
+
+    });
+
+
+    jobTitleSuggestions.style.display =
+        "block";
+
+}
+
+
+if (jobTitleInput && jobTitleSuggestions) {
+
+    jobTitleInput.addEventListener(
+        "input",
+        function() {
+
+            showJobTitleSuggestions();
+            updateCompletion();
+
+        }
+    );
+
+
+    jobTitleInput.addEventListener(
+        "focus",
+        function() {
+
+            showJobTitleSuggestions();
+
+        }
+    );
+
+
+    jobTitleInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+
+                jobTitleSuggestions.style.display =
+                    "none";
+
+            }
+
+            if (event.key === "Enter") {
+
+                const first =
+                    jobTitleSuggestions.querySelector(
+                        ".suggestion-item"
+                    );
+
+                if (
+                    first &&
+                    jobTitleSuggestions.style.display === "block"
+                ) {
+
+                    event.preventDefault();
+
+                    first.dispatchEvent(
+                        new MouseEvent(
+                            "mousedown",
+                            { bubbles: true }
+                        )
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+
+    jobTitleInput.addEventListener(
+        "blur",
+        function() {
+
+            setTimeout(function() {
+
+                jobTitleSuggestions.style.display =
+                    "none";
+
+            }, 150);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   COLLEGE / UNIVERSITY SUGGESTIONS
+   ========================================================= */
+
+const colleges = [
+
+    "IIT Hyderabad",
+    "IIT Bombay",
+    "IIT Delhi",
+    "IIT Madras",
+    "IIT Kanpur",
+    "IIT Kharagpur",
+    "IIT Roorkee",
+    "IIT Guwahati",
+    "NIT Warangal",
+    "NIT Trichy",
+    "NIT Surathkal",
+    "BITS Pilani",
+    "VIT University",
+    "SRM Institute of Science and Technology",
+    "Amrita Vishwa Vidyapeetham",
+    "Anna University",
+    "Osmania University",
+    "University of Hyderabad",
+    "JNTU Hyderabad",
+    "Andhra University",
+    "University of Delhi",
+    "University of Mumbai",
+    "University of Calcutta",
+    "Pune University"
+
+];
+
+
+/* =========================================================
+   CAREER GOAL SUGGESTIONS
+   ========================================================= */
+
+const careerGoals = [
+
+    "Become a Full Stack AI Engineer",
+    "Become a Full Stack Developer",
+    "Become an AI Engineer",
+    "Become an AI/ML Engineer",
+    "Become a Machine Learning Engineer",
+    "Become a Generative AI Engineer",
+    "Become a Data Scientist",
+    "Become a Data Analyst",
+    "Become a Data Engineer",
+    "Become an NLP Engineer",
+    "Become a Computer Vision Engineer",
+    "Become an MLOps Engineer",
+    "Become a Backend Developer",
+    "Become a Frontend Developer",
+    "Become a Python Developer",
+    "Become a Java Developer",
+    "Become a Software Engineer",
+    "Become a Cloud Engineer",
+    "Become a DevOps Engineer",
+    "Become a Cybersecurity Engineer",
+    "Become a Database Developer",
+    "Become a Mobile App Developer",
+    "Become a Web Developer",
+    "Build AI-powered applications",
+    "Build production-ready full stack applications",
+    "Build and deploy machine learning models",
+    "Build Generative AI and RAG applications",
+    "Get my first software engineering job",
+    "Get my first AI/ML job",
+    "Get an internship in software development",
+    "Get an internship in AI/ML",
+    "Prepare for a product-based company",
+    "Prepare for a software engineering role",
+    "Improve my coding and DSA skills",
+    "Become job-ready as a Full Stack Developer"
+
+];
+
+createProfileAutocomplete(
+    "careerGoalInput",
+    "careerGoalSuggestions",
+    careerGoals,
+    "fa-bullseye"
+);
+
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHtml(value) {
+
+    const div = document.createElement("div");
+
+    div.textContent = value;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   TAG SELECTOR
+   ========================================================= */
+
+function createTagSelector(config) {
+
+    const input =
+        document.getElementById(config.inputId);
+
+    const tagsContainer =
+        document.getElementById(config.tagsId);
+
+    const hiddenInput =
+        document.getElementById(config.hiddenId);
+
+    const suggestionsBox =
+        document.getElementById(config.suggestionsId);
+
+    const values =
+        config.values;
+
+    let selected = [];
+
+
+    /* LOAD EXISTING VALUES */
+
+    const existingValue =
+        hiddenInput.value.trim();
+
+    if (existingValue !== "") {
+
+        selected = existingValue
+            .split(",")
+            .map(item => item.trim())
+            .filter(item => item !== "");
+
+    }
+
+
+    /* UPDATE HIDDEN */
+
+    function updateHiddenValue() {
+
+        hiddenInput.value =
+            selected.join(", ");
+
+        updateCompletion();
+
+    }
+
+
+    /* RENDER */
+
+    function renderTags() {
+
+        tagsContainer.innerHTML = "";
+
+        selected.forEach(function(value) {
+
+            const tag =
+                document.createElement("span");
+
+            tag.className =
+                "tag-chip";
+
+            tag.innerHTML = `
+                <span>${escapeHtml(value)}</span>
+
+                <button
+                    type="button"
+                    class="tag-remove">
+
+                    <i class="fas fa-xmark"></i>
+
+                </button>
+            `;
+
+
+            tag.querySelector(".tag-remove")
+                .addEventListener("click", function() {
+
+                    selected =
+                        selected.filter(
+                            item =>
+                            item.toLowerCase()
+                            !== value.toLowerCase()
+                        );
+
+                    renderTags();
+
+                    updateHiddenValue();
+
+                });
+
+
+            tagsContainer.appendChild(tag);
+
+        });
+
+    }
+
+
+    /* ADD VALUE */
+
+    function addValue(value) {
+
+        value = value.trim();
+
+        if (!value) {
+            return;
+        }
+
+
+        const alreadyExists =
+            selected.some(
+                item =>
+                item.toLowerCase()
+                === value.toLowerCase()
+            );
+
+
+        if (!alreadyExists) {
+
+            selected.push(value);
+
+        }
+
+
+        input.value = "";
+
+        hideSuggestions();
+
+        renderTags();
+
+        updateHiddenValue();
+
+        input.focus();
+
+    }
+
+
+    /* SHOW SUGGESTIONS */
+
+    function showSuggestions() {
+
+        const query =
+            input.value.trim().toLowerCase();
+
+        suggestionsBox.innerHTML = "";
+
+
+        if (!query) {
+
+            hideSuggestions();
+
+            return;
+
+        }
+
+
+        const matches =
+            values
+                .filter(function(value) {
+
+                    return value
+                        .toLowerCase()
+                        .includes(query);
+
+                })
+                .filter(function(value) {
+
+                    return !selected.some(
+                        item =>
+                        item.toLowerCase()
+                        === value.toLowerCase()
+                    );
+
+                })
+                .slice(0, 8);
+
+
+        if (matches.length === 0) {
+
+            const noResult =
+                document.createElement("div");
+
+            noResult.className =
+                "no-suggestion";
+
+            noResult.textContent =
+                "No matching suggestion — press Enter to add it.";
+
+            suggestionsBox.appendChild(noResult);
+
+            suggestionsBox.style.display =
+                "block";
+
+            return;
+
+        }
+
+
+        matches.forEach(function(value) {
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "suggestion-item";
+
+            item.innerHTML = `
+                <i class="fas fa-check"></i>
+                <span>${escapeHtml(value)}</span>
+            `;
+
+
+            item.addEventListener(
+                "mousedown",
+                function(event) {
+
+                    event.preventDefault();
+
+                    addValue(value);
+
+                }
+            );
+
+
+            suggestionsBox.appendChild(item);
+
+        });
+
+
+        suggestionsBox.style.display =
+            "block";
+
+    }
+
+
+    /* HIDE */
+
+    function hideSuggestions() {
+
+        suggestionsBox.style.display =
+            "none";
+
+        suggestionsBox.innerHTML =
+            "";
+
+    }
+
+
+    /* INPUT */
+
+    input.addEventListener(
+        "input",
+        function() {
+
+            showSuggestions();
+
+            updateCompletion();
+
+        }
+    );
+
+
+    /* ENTER */
+
+    input.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                const query =
+                    input.value.trim();
+
+                if (!query) {
+                    return;
+                }
+
+
+                const exactMatch =
+                    values.find(
+                        value =>
+                        value.toLowerCase()
+                        === query.toLowerCase()
+                    );
+
+
+                if (exactMatch) {
+
+                    addValue(exactMatch);
+
+                } else {
+
+                    addValue(query);
+
+                }
+
+            }
+
+
+            if (event.key === "Escape") {
+
+                hideSuggestions();
+
+            }
+
+        }
+    );
+
+
+    /* INITIAL */
+
+    renderTags();
+
+    updateHiddenValue();
+
+}
+
+
+/* =========================================================
+   LANGUAGE SELECTOR
+   ========================================================= */
+
+createTagSelector({
+
+    inputId: "languageInput",
+
+    tagsId: "languageTags",
+
+    hiddenId: "programmingLanguagesValue",
+
+    suggestionsId: "languageSuggestions",
+
+    values: programmingLanguages
+
+});
+
+
+/* =========================================================
+   SKILL SELECTOR
+   ========================================================= */
+
+createTagSelector({
+
+    inputId: "skillInput",
+
+    tagsId: "skillTags",
+
+    hiddenId: "skillsValue",
+
+    suggestionsId: "skillSuggestions",
+
+    values: technicalSkills
+
+});
+
+
+/* =========================================================
+   TARGET ROLE AUTOCOMPLETE
+   ========================================================= */
+
+const roleInput =
+    document.getElementById("targetRoleInput");
+
+const roleSuggestions =
+    document.getElementById("roleSuggestions");
+
+
+function showRoleSuggestions() {
+
+    const query =
+        roleInput.value.trim().toLowerCase();
+
+    roleSuggestions.innerHTML = "";
+
+
+    if (!query) {
+
+        roleSuggestions.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    const matches =
+        jobRoles
+            .filter(function(role) {
+
+                return role
+                    .toLowerCase()
+                    .includes(query);
+
+            })
+            .slice(0, 7);
+
+
+    if (matches.length === 0) {
+
+        roleSuggestions.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    matches.forEach(function(role) {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "suggestion-item";
+
+        item.innerHTML = `
+            <i class="fas fa-bullseye"></i>
+            <span>${escapeHtml(role)}</span>
+        `;
+
+
+        item.addEventListener(
+            "mousedown",
+            function(event) {
+
+                event.preventDefault();
+
+                roleInput.value =
+                    role;
+
+                roleSuggestions.style.display =
+                    "none";
+
+                updateCompletion();
+
+            }
+        );
+
+
+        roleSuggestions.appendChild(item);
+
+    });
+
+
+    roleSuggestions.style.display =
+        "block";
+
+}
+
+
+roleInput.addEventListener(
+    "input",
+    function() {
+
+        showRoleSuggestions();
+
+        updateCompletion();
+
+    }
+);
+
+
+roleInput.addEventListener(
+    "focus",
+    function() {
+
+        showRoleSuggestions();
+
+    }
+);
+
+
+/* =========================================================
+   COLLEGE AUTOCOMPLETE
+   ========================================================= */
+
+const collegeInput =
+    document.getElementById("collegeInput");
+
+const collegeSuggestions =
+    document.getElementById("collegeSuggestions");
+
+
+function showCollegeSuggestions() {
+
+    const query =
+        collegeInput.value.trim().toLowerCase();
+
+    collegeSuggestions.innerHTML = "";
+
+
+    if (!query) {
+
+        collegeSuggestions.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    const matches =
+        colleges
+            .filter(function(college) {
+
+                return college
+                    .toLowerCase()
+                    .includes(query);
+
+            })
+            .slice(0, 8);
+
+
+    if (matches.length === 0) {
+
+        collegeSuggestions.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    matches.forEach(function(college) {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "suggestion-item";
+
+        item.innerHTML = `
+            <i class="fas fa-building-columns"></i>
+            <span>${escapeHtml(college)}</span>
+        `;
+
+
+        item.addEventListener(
+            "mousedown",
+            function(event) {
+
+                event.preventDefault();
+
+                collegeInput.value =
+                    college;
+
+                collegeSuggestions.style.display =
+                    "none";
+
+                updateCompletion();
+
+            }
+        );
+
+
+        collegeSuggestions.appendChild(item);
+
+    });
+
+
+    collegeSuggestions.style.display =
+        "block";
+
+}
+
+
+collegeInput.addEventListener(
+    "input",
+    function() {
+
+        showCollegeSuggestions();
+
+        updateCompletion();
+
+    }
+);
+
+
+collegeInput.addEventListener(
+    "focus",
+    function() {
+
+        showCollegeSuggestions();
+
+    }
+);
+
+
+/* =========================================================
+   CLOSE DROPDOWNS
+   ========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        if (!event.target.closest(".form-group")) {
+
+            document
+                .querySelectorAll(".suggestions-box")
+                .forEach(function(box) {
+
+                    box.style.display =
+                        "none";
+
+                });
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PROFILE COMPLETION
+   ========================================================= */
+
+function updateCompletion() {
+
+    const fields = [
+
+        document.querySelector(
+            'input[name="username"]'
+        ),
+
+        document.querySelector(
+            'input[name="email"]'
+        ),
+
+        document.querySelector(
+            'select[name="education_level"]'
+        ),
+
+        document.querySelector(
+            'input[name="degree"]'
+        ),
+
+        document.querySelector(
+            'input[name="specialization"]'
+        ),
+
+        document.querySelector(
+            'input[name="college"]'
+        ),
+
+        document.querySelector(
+            'select[name="passout_year"]'
+        ),
+
+        document.getElementById(
+            "skillsValue"
+        ),
+
+        document.getElementById(
+            "programmingLanguagesValue"
+        ),
+
+        document.querySelector(
+            'select[name="experience_status"]'
+        ),
+
+        document.querySelector(
+            'select[name="experience_level"]'
+        ),
+
+        document.querySelector(
+            'input[name="job_title"]'
+        ),
+
+        document.querySelector(
+            'input[name="company"]'
+        ),
+
+        document.querySelector(
+            'textarea[name="projects"]'
+        ),
+
+        document.querySelector(
+            'input[name="target_role"]'
+        ),
+
+        document.querySelector(
+            'input[name="target_industry"]'
+        ),
+
+        document.querySelector(
+            'input[name="career_goals"]'
+        ),
+
+        document.querySelector(
+            'textarea[name="certifications"]'
+        )
+
+    ];
+
+
+    let completed = 0;
+
+
+    fields.forEach(function(field) {
+
+        if (
+            field &&
+            field.value.trim() !== ""
+        ) {
+
+            completed++;
+
+        }
+
+    });
+
+
+    const percentage =
+        Math.round(
+            (completed / fields.length) * 100
+        );
+
+
+    document.getElementById(
+        "completionPercent"
+    ).textContent =
+        percentage + "%";
+
+
+    document.getElementById(
+        "completionFill"
+    ).style.width =
+        percentage + "%";
+
+
+    const text =
+        document.getElementById(
+            "completionText"
+        );
+
+
+    if (percentage === 100) {
+
+        text.textContent =
+            "Your career profile is complete. Great job! 🎉";
+
+    }
+
+    else if (percentage >= 70) {
+
+        text.textContent =
+            "Almost there! Complete the remaining sections.";
+
+    }
+
+    else if (percentage > 0) {
+
+        text.textContent =
+            "Good start. Keep adding information to strengthen your profile.";
+
+    }
+
+    else {
+
+        text.textContent =
+            "Complete your profile to unlock personalized career features.";
+
+    }
+
+}
+
+
+/* =========================================================
+   COMPLETION LISTENERS
+   ========================================================= */
+
+document
+    .querySelectorAll(
+        "input, textarea, select"
+    )
+    .forEach(function(field) {
+
+        field.addEventListener(
+            "input",
+            updateCompletion
+        );
+
+        field.addEventListener(
+            "change",
+            updateCompletion
+        );
+
+    });
+
+
+/* INITIAL COMPLETION */
+
+updateCompletion();
+
+
+/* =========================================================
+   BLUR DROPDOWNS
+   ========================================================= */
+
+roleInput.addEventListener(
+    "blur",
+    function() {
+
+        setTimeout(function() {
+
+            roleSuggestions.style.display =
+                "none";
+
+        }, 150);
+
+    }
+);
+
+
+collegeInput.addEventListener(
+    "blur",
+    function() {
+
+        setTimeout(function() {
+
+            collegeSuggestions.style.display =
+                "none";
+
+        }, 150);
+
+    }
+);
+
+</script>
 
 </body>
 

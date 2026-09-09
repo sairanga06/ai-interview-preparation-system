@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Career Intelligence | CareerCraft AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f6f8fc;color:#111827;font-family:Inter,sans-serif}
+.top{height:82px;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:0 6%;position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:12px;font:800 22px Poppins}.logo{width:44px;height:44px;border-radius:13px;background:#635bff;color:#fff;display:grid;place-items:center}
+.back{color:#635bff;text-decoration:none;font-weight:700;font-size:14px}.wrap{width:min(1180px,92%);margin:auto;padding:42px 0 70px}
+.hero,.card{background:#fff;border:1px solid #e5e7eb;border-radius:22px;box-shadow:0 10px 30px rgba(15,23,42,.04)}
+.hero{padding:38px;margin-bottom:22px;background:linear-gradient(135deg,#fff,#eef2ff)}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:1px;color:#635bff;text-transform:uppercase}.hero h1{font:800 clamp(30px,5vw,46px) Poppins;margin:9px 0}.hero p,.sub{color:#64748b;line-height:1.8;font-size:14px}
+.pill{display:inline-block;margin-top:15px;padding:9px 13px;border-radius:999px;background:#fff;border:1px solid #e1e5f0;font-size:12px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.card{padding:26px}.full{grid-column:1/-1}
+.head{display:flex;justify-content:space-between;gap:15px;margin-bottom:18px}.head h2{font:700 20px Poppins;margin:0 0 4px}.head p{margin:0;color:#94a3b8;font-size:12px}.icon{width:43px;height:43px;border-radius:13px;background:#eeecff;color:#635bff;display:grid;place-items:center;flex-shrink:0}
+.ringwrap{display:flex;align-items:center;gap:25px}.ring{width:130px;height:130px;border-radius:50%;background:conic-gradient(#635bff {{readiness_score}}%,#e8eaf0 0);display:grid;place-items:center;position:relative;flex-shrink:0}.ring:before{content:"";position:absolute;width:96px;height:96px;border-radius:50%;background:#fff}.ring b{position:relative;font-size:25px}
+.summary{color:#475569;font-size:14px;line-height:1.9}.preview{padding:22px;border:1px solid #e5e7eb;border-radius:16px;background:#fbfcff}.preview h3{font:700 20px Poppins;margin:0 0 5px}.preview small{color:#64748b}.preview p{color:#475569;line-height:1.8;font-size:13px}
+.tags{display:flex;flex-wrap:wrap;gap:9px}.tag{padding:8px 11px;border-radius:999px;background:#f0fdf4;color:#15803d;font-size:11px;font-weight:700}.tag.miss{background:#fff7ed;color:#c2410c}
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:10px}.steps li{padding:13px;border-radius:12px;background:#f8fafc;color:#475569;font-size:13px;line-height:1.6}.steps i{color:#635bff;margin-right:9px}
+.matches{display:grid;gap:10px}.match{display:flex;justify-content:space-between;gap:10px;padding:13px;border-radius:12px;background:#f8fafc;font-size:12px}.ok{color:#16a34a}.need{color:#ea580c}
+.btn{display:inline-block;margin-top:20px;padding:11px 15px;border-radius:12px;text-decoration:none;background:#635bff;color:#fff;font-size:12px;font-weight:800}
+@media(max-width:760px){.top{padding:0 4%}.brand{font-size:18px}.wrap{width:94%;padding-top:28px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.hero,.card{padding:21px}.ringwrap{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand"><div class="logo"><i class="fas fa-brain"></i></div>CareerCraft AI</div><a class="back" href="/dashboard">← Back to Dashboard</a></header>
+<main class="wrap">
+<section class="hero"><div class="eyebrow">Career Intelligence</div><h1>Your AI Career Roadmap 🧠</h1><p>CareerCraft AI analyzes your profile, target role and interview progress to show your career fit, skill gaps and next steps.</p>{% if target_role %}<span class="pill">🎯 Target Role: {{target_role}}</span>{% endif %}</section>
+<div class="grid">
+<section class="card"><div class="head"><div><h2>Career Readiness</h2><p>Your current preparation level</p></div><div class="icon"><i class="fas fa-chart-line"></i></div></div><div class="ringwrap"><div class="ring"><b>{{readiness_score}}%</b></div><div class="summary"><b>{{readiness_label}}</b><p>Based on profile completion, relevant skills, projects, experience and interview practice.</p></div></div></section>
+<section class="card"><div class="head"><div><h2>Career Fit</h2><p>How your profile matches your goal</p></div><div class="icon"><i class="fas fa-bullseye"></i></div></div><div class="matches">
+<div class="match"><span>Target Role</span><b>{{target_role or "Not selected"}}</b></div>
+<div class="match"><span>Education</span><b class="{{'ok' if education else 'need'}}">{{education or "Add education"}}</b></div>
+<div class="match"><span>Projects</span><b class="{{'ok' if projects else 'need'}}">{{"Added" if projects else "Add projects"}}</b></div>
+<div class="match"><span>Interview Practice</span><b class="{{'ok' if total_interviews else 'need'}}">{{total_interviews}} attempt{{"" if total_interviews==1 else "s"}}</b></div>
+</div></section>
+<section class="card full"><div class="head"><div><h2>Professional Summary</h2><p>Recruiter-ready summary from your current profile</p></div><div class="icon"><i class="fas fa-file-lines"></i></div></div><div class="preview"><h3>{{summary_name}}</h3><small>{{target_role or "Aspiring Technology Professional"}}</small><p>{{professional_summary}}</p></div></section>
+<section class="card"><div class="head"><div><h2>Skill Gap</h2><p>Skills to strengthen for your target role</p></div><div class="icon"><i class="fas fa-puzzle-piece"></i></div></div>{% if matching_skills %}<p class="sub">Skills you already have</p><div class="tags">{% for s in matching_skills %}<span class="tag">✓ {{s}}</span>{% endfor %}</div>{% endif %}<p class="sub" style="margin-top:18px">Recommended skills to learn</p>{% if missing_skills %}<div class="tags">{% for s in missing_skills %}<span class="tag miss">+ {{s}}</span>{% endfor %}</div>{% else %}<p class="summary">Your current skills cover the mapped skills for this role. Keep practicing and building projects.</p>{% endif %}</section>
+<section class="card"><div class="head"><div><h2>Recommended Next Steps</h2><p>Your practical learning order</p></div><div class="icon"><i class="fas fa-road"></i></div></div><ul class="steps">{% for s in learning_steps %}<li><i class="fas fa-arrow-right"></i>{{s}}</li>{% endfor %}</ul></section>
+<section class="card full"><div class="head"><div><h2>Professional Profile Preview</h2><p>How your profile can be presented professionally</p></div><div class="icon"><i class="fas fa-user-tie"></i></div></div><div class="preview"><h3>{{summary_name}}</h3><small>{{target_role or "Career-focused technology professional"}}{% if target_industry %} • {{target_industry}}{% endif %}</small><p>{{professional_summary}}</p></div><a class="btn" href="/edit_profile">✏️ Update Profile</a></section>
+</div>
+</main>
+</body>
+</html>

@@ -1,93 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Interview History</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview History | CareerCraft AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; }
+        .history-page {
+            min-height: 100vh;
+            padding: 42px 20px 70px;
+            background: var(--bg, #f7f8fc);
+            font-family: "Inter", sans-serif;
+        }
+        .history-container { width: min(1120px, 100%); margin: 0 auto; }
+        .history-topbar {
+            display:flex; align-items:center; justify-content:space-between;
+            gap:20px; margin-bottom:28px;
+        }
+        .history-heading h1 { margin:0; font-size:clamp(28px,4vw,42px); font-weight:800; letter-spacing:-1px; color:#111827; }
+        .history-heading p { margin:8px 0 0; color:#6b7280; font-size:14px; }
+        .history-actions { display:flex; gap:10px; flex-wrap:wrap; }
+        .history-action {
+            display:inline-flex; align-items:center; justify-content:center;
+            padding:11px 16px; border-radius:11px; text-decoration:none;
+            font-weight:700; font-size:13px;
+        }
+        .history-action.primary { color:#fff; background:#635bff; box-shadow:0 8px 20px rgba(99,91,255,.2); }
+        .history-action.secondary { color:#374151; background:#fff; border:1px solid #e5e7eb; }
+        .history-stat {
+            display:flex; align-items:center; justify-content:space-between; gap:15px;
+            padding:18px 22px; margin-bottom:28px; background:#fff;
+            border:1px solid #e8eaf1; border-radius:16px;
+            box-shadow:0 8px 30px rgba(20,25,45,.05);
+        }
+        .history-stat-label { color:#6b7280; font-size:13px; font-weight:600; }
+        .history-stat-value { font-size:22px; font-weight:800; color:#111827; }
+        .language-section {
+            margin-bottom:24px; background:#fff; border:1px solid #e8eaf1;
+            border-radius:20px; overflow:hidden; box-shadow:0 12px 35px rgba(20,25,45,.055);
+        }
+        .language-header {
+            display:flex; align-items:center; justify-content:space-between; gap:15px;
+            padding:20px 24px; background:linear-gradient(180deg,#fff,#fafaff);
+        }
+        .language-header summary { list-style:none; cursor:pointer; }
+        .language-header summary::-webkit-details-marker { display:none; }
+        .language-title { display:flex; align-items:center; gap:12px; }
+        .language-icon { width:44px; height:44px; display:grid; place-items:center; border-radius:13px; background:#f1f0ff; font-size:22px; }
+        .language-title h2 { margin:0; font-size:20px; font-weight:800; color:#111827; }
+        .language-title span { display:block; margin-top:3px; color:#8a91a1; font-size:12px; font-weight:600; }
+        .language-chevron { color:#635bff; font-size:20px; transition:transform .2s ease; }
+        .language-overall-score { margin-left:auto; margin-right:18px; display:flex; flex-direction:column; align-items:flex-end; gap:2px; min-width:105px; }
+        .language-overall-score span { font-size:10px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:.6px; }
+        .language-overall-score strong { font-size:20px; font-weight:800; color:#635bff; }
+        .language-details[open] .language-chevron { transform:rotate(180deg); }
+        .attempt-list { border-top:1px solid #edf0f5; }
+        .attempt {
+            border-bottom:1px solid #f0f1f5;
+        }
+        .attempt:last-child { border-bottom:0; }
+        .attempt-summary {
+            list-style:none; cursor:pointer; display:grid;
+            grid-template-columns:minmax(180px,1.3fr) minmax(120px,.8fr) minmax(120px,.7fr) auto;
+            align-items:center; gap:18px; padding:17px 24px;
+        }
+        .attempt-summary::-webkit-details-marker { display:none; }
+        .attempt-summary:hover { background:#fafaff; }
+        .attempt-date { color:#252a35; font-size:13px; font-weight:700; }
+        .attempt-meta { color:#626978; font-size:12px; font-weight:600; }
+        .attempt-score { justify-self:end; }
+        .attempt-chevron { color:#635bff; margin-left:5px; transition:transform .2s ease; }
+        .attempt[open] .attempt-chevron { transform:rotate(180deg); }
+        .attempt-questions { padding:0 24px 18px; background:#fafbff; }
+        .question-card {
+            padding:14px; margin-top:10px; border:1px solid #e8eaf2;
+            border-radius:12px; background:#fff;
+        }
+        .question-head { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; }
+        .question-label { color:#635bff; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; }
+        .question-text { margin-top:5px; color:#1f2937; font-size:13px; font-weight:700; line-height:1.5; }
+        .answer-box { margin-top:10px; padding:11px 12px; border-radius:9px; background:#f8fafc; color:#64748b; font-size:11px; line-height:1.65; white-space:pre-wrap; word-break:break-word; }
+        .feedback-box { margin-top:8px; color:#64748b; font-size:11px; line-height:1.6; }
+        .empty-history { padding:70px 25px; text-align:center; background:#fff; border:1px solid #e8eaf1; border-radius:20px; }
+        .empty-history .empty-icon { font-size:42px; margin-bottom:12px; }
+        .score { display:inline-flex; padding:7px 10px; border-radius:9px; font-weight:800; font-size:12px; }
+        .score-good { background:#dcfce7; color:#15803d; }
+        .score-medium { background:#fef3c7; color:#b45309; }
+        .score-low { background:#fee2e2; color:#b91c1c; }
+        @media(max-width:760px){
+            .history-topbar { align-items:flex-start; flex-direction:column; }
+            .attempt-summary { grid-template-columns:1fr auto; }
+            .attempt-meta, .attempt-date { display:none; }
+        }
+    </style>
 </head>
-
 <body>
+<main class="history-page">
+    <div class="history-container">
+        <div class="history-topbar">
+            <div class="history-heading">
+                <h1>Interview History</h1>
+                <p>Review your interview attempts, scores and answered questions.</p>
+            </div>
+            <div class="history-actions">
+                <a href="/dashboard" class="history-action secondary">← Dashboard</a>
+                <a href="/category" class="history-action primary">＋ New Interview</a>
+            </div>
+        </div>
 
-<div class="history-container">
+        <div class="history-stat">
+            <span class="history-stat-label">Completed interview attempts</span>
+            <span class="history-stat-value">{{ total_attempts }}</span>
+        </div>
 
-    <h1>📜 Interview History</h1>
+        {% if history_sections %}
+            {% for section in history_sections %}
+                <details class="language-details language-section">
+                    <summary class="language-header">
+                        <div class="language-title">
+                            <div class="language-icon">{{ section.icon }}</div>
+                            <div>
+                                <h2>{{ section.name }}</h2>
+                                <span>{{ section.count }} interview{% if section.count != 1 %}s{% endif %} · click to expand</span>
+                            </div>
+                        </div>
+                        <div class="language-overall-score">
+                            <span>Overall Score</span>
+                            <strong>{{ section.overall_score }}/10</strong>
+                        </div>
+                        <span class="language-chevron">⌄</span>
+                    </summary>
 
-    <p class="history-subtitle">
+                    <div class="attempt-list">
+                        {% for interview in section.interviews %}
+                            <details class="attempt">
+                                <summary class="attempt-summary">
+                                    <div class="attempt-date">{{ interview.date }}</div>
+                                    <div class="attempt-meta">{{ interview.difficulty }} · {{ interview.questions }} questions</div>
+                                    <div class="attempt-meta">Interview attempt</div>
+                                    <div class="attempt-score">
+                                        <span class="score {% if interview.score >= 8 %}score-good{% elif interview.score >= 5 %}score-medium{% else %}score-low{% endif %}">
+                                            ⭐ {{ interview.score }}/10
+                                        </span>
+                                        <span class="attempt-chevron">⌄</span>
+                                    </div>
+                                </summary>
 
-        Review all your previous interview attempts.
-
-    </p>
-
-    <table class="history-table">
-
-        <thead>
-
-            <tr>
-
-                <th>Date</th>
-
-                <th>Category</th>
-
-                <th>Difficulty</th>
-
-                <th>Score</th>
-
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-        {% for interview in history %}
-
-            <tr>
-
-                <td>{{ interview.date }}</td>
-
-                <td>{{ interview.category }}</td>
-
-                <td>{{ interview.difficulty }}</td>
-
-                <td>{{ interview.score }}/10</td>
-
-            </tr>
-
-        {% endfor %}
-
-        </tbody>
-
-    </table>
-
-    <div class="history-buttons">
-
-        <a href="/dashboard" class="secondary-btn">
-
-            🏠 Dashboard
-
-        </a>
-
-        <a href="/category" class="primary-btn">
-
-            🚀 Start Interview
-
-        </a>
-
+                                <div class="attempt-questions">
+                                    {% for item in interview.answered_questions %}
+                                        <div class="question-card">
+                                            <div class="question-head">
+                                                <div>
+                                                    <div class="question-label">Question {{ loop.index }}</div>
+                                                    <div class="question-text">{{ item.question }}</div>
+                                                </div>
+                                                <span class="score {% if item.score >= 8 %}score-good{% elif item.score >= 5 %}score-medium{% else %}score-low{% endif %}">
+                                                    {{ item.score }}/10
+                                                </span>
+                                            </div>
+                                            <div class="answer-box">{{ item.answer }}</div>
+                                            {% if item.feedback %}
+                                                <div class="feedback-box"><strong>AI Feedback:</strong> {{ item.feedback }}</div>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </details>
+                        {% endfor %}
+                    </div>
+                </details>
+            {% endfor %}
+        {% else %}
+            <div class="empty-history">
+                <div class="empty-icon">🎤</div>
+                <h2>No interviews yet</h2>
+                <p>Start your first AI interview to build your performance history.</p>
+                <a href="/category" class="history-action primary">Start Interview</a>
+            </div>
+        {% endif %}
     </div>
-
-</div>
-
+</main>
 </body>
-
 </html>

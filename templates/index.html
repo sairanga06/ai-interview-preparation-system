@@ -6,70 +6,575 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>AI Interview Preparation System</title>
+    <title>AI Interview & Career Copilot</title>
 
+    <!-- Main CSS -->
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
 
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet">
 
+    <!-- Font Awesome -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
+    <!-- =====================================================
+         DAY 2 LANDING PAGE STYLES
+         ===================================================== -->
+
+    <style>
+
+        /* =====================================================
+           DAY 2 — GLOBAL LANDING PAGE
+           ===================================================== */
+
+        .day2-section {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           TRUST BAR
+           ===================================================== */
+
+        .trust-section {
+            padding: 35px 0 20px;
+            text-align: center;
+        }
+
+        .trust-label {
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 22px;
+        }
+
+        .trust-items {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 55px;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .trust-item i {
+            color: #635bff;
+            font-size: 18px;
+        }
+
+
+        /* =====================================================
+           SECTION HEADER
+           ===================================================== */
+
+        .section-heading {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 55px;
+        }
+
+        .section-heading .section-label {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            background: #f0eeff;
+            color: #635bff;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-heading h2 {
+            margin: 0 0 15px;
+            font-size: 42px;
+            line-height: 1.15;
+            color: #111827;
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: #64748b;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           PLATFORM SECTION
+           ===================================================== */
+
+        .platform-section {
+            padding: 100px 0 80px;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .platform-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 32px;
+            transition: 0.3s ease;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .platform-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.09);
+            border-color: rgba(99, 91, 255, 0.25);
+        }
+
+        .platform-icon {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            background: #f0eeff;
+            color: #635bff;
+            font-size: 22px;
+            margin-bottom: 22px;
+        }
+
+        .platform-card h3 {
+            margin: 0 0 12px;
+            color: #111827;
+            font-size: 20px;
+        }
+
+        .platform-card p {
+            margin: 0;
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           HOW IT WORKS
+           ===================================================== */
+
+        .how-section {
+            padding: 90px 0;
+            background: #f8fafc;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            position: relative;
+        }
+
+        .step-card {
+            text-align: center;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 35px 28px;
+            position: relative;
+        }
+
+        .step-number {
+            width: 46px;
+            height: 46px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #635bff, #3b82f6);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .step-card h3 {
+            margin: 0 0 12px;
+            color: #111827;
+            font-size: 19px;
+        }
+
+        .step-card p {
+            margin: 0;
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+
+        /* =====================================================
+           PRODUCT SHOWCASE
+           ===================================================== */
+
+        .showcase-section {
+            padding: 110px 0;
+        }
+
+        .showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .showcase.reverse {
+            margin-top: 110px;
+        }
+
+        .showcase-content .showcase-label {
+            color: #635bff;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .showcase-content h2 {
+            margin: 0 0 18px;
+            font-size: 40px;
+            line-height: 1.2;
+            color: #111827;
+        }
+
+        .showcase-content p {
+            color: #64748b;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .showcase-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .showcase-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .showcase-list i {
+            color: #635bff;
+        }
+
+        .showcase-visual {
+            min-height: 360px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, #f0eeff, #eff6ff);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .showcase-visual i.main-icon {
+            font-size: 110px;
+            color: #635bff;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 14px 18px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.10);
+            color: #111827;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .floating-card.top {
+            top: 35px;
+            right: 30px;
+        }
+
+        .floating-card.bottom {
+            bottom: 35px;
+            left: 30px;
+        }
+
+
+        /* =====================================================
+           CAREER COPILOT
+           ===================================================== */
+
+        .copilot-section {
+            padding: 100px 0;
+            background: #0f172a;
+        }
+
+        .copilot-box {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .copilot-content .section-label {
+            color: #a5b4fc;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .copilot-content h2 {
+            color: #ffffff;
+            font-size: 42px;
+            line-height: 1.2;
+            margin: 0 0 20px;
+        }
+
+        .copilot-content p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 28px;
+        }
+
+        .copilot-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .copilot-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+
+        .copilot-feature i {
+            color: #818cf8;
+        }
+
+        .copilot-visual {
+            min-height: 330px;
+            border-radius: 28px;
+            background: linear-gradient(145deg, #1e1b4b, #172554);
+            border: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .copilot-visual i {
+            font-size: 100px;
+            color: #818cf8;
+        }
+
+        .ai-orbit {
+            position: absolute;
+            width: 210px;
+            height: 210px;
+            border: 1px solid rgba(165, 180, 252, 0.25);
+            border-radius: 50%;
+        }
+
+
+        /* =====================================================
+           FINAL CTA
+           ===================================================== */
+
+        .cta-section {
+            padding: 100px 0;
+        }
+
+        .cta-box {
+            text-align: center;
+            padding: 75px 30px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, #635bff, #3b82f6);
+            box-shadow: 0 25px 60px rgba(99, 91, 255, 0.22);
+        }
+
+        .cta-box h2 {
+            color: #ffffff;
+            font-size: 42px;
+            margin: 0 0 15px;
+        }
+
+        .cta-box p {
+            color: rgba(255,255,255,0.88);
+            max-width: 650px;
+            margin: 0 auto 30px;
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 28px;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #635bff;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.25s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .platform-grid,
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .showcase,
+            .copilot-box {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .showcase.reverse {
+                margin-top: 70px;
+            }
+
+            .section-heading h2,
+            .showcase-content h2,
+            .copilot-content h2,
+            .cta-box h2 {
+                font-size: 34px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .day2-section {
+                width: 88%;
+            }
+
+            .trust-items {
+                gap: 20px;
+            }
+
+            .copilot-features {
+                grid-template-columns: 1fr;
+            }
+
+            .showcase-visual,
+            .copilot-visual {
+                min-height: 280px;
+            }
+
+            .showcase-visual i.main-icon,
+            .copilot-visual i {
+                font-size: 75px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <!-- ================= NAVBAR ================= -->
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
 
     <nav class="navbar">
 
         <div class="logo">
 
-            🤖 AI Interview Prep
+            <span class="brand-icon">
+                <i class="fas fa-brain"></i>
+            </span>
+
+            <span>AI Career Copilot</span>
 
         </div>
 
+
         <ul>
 
-            <li><a href="/">Home</a></li>
+            <li>
+                <a href="/">Home</a>
+            </li>
 
-            <li><a href="#features">Features</a></li>
+            <li>
+                <a href="#features">Features</a>
+            </li>
 
-            <li><a href="#stats">Statistics</a></li>
+            <li>
+                <a href="#how-it-works">How It Works</a>
+            </li>
 
-            <li><a href="#footer">Contact</a></li>
+            <li>
+                <a href="#copilot">AI Copilot</a>
+            </li>
 
         </ul>
+
 
         <div class="nav-buttons">
 
             <a href="/login" class="login-btn">
-
                 Login
-
             </a>
 
             <a href="/register" class="register-btn">
-
                 Register
-
             </a>
 
             <a href="/admin_login" class="admin-btn">
-
                 Admin Login
-
             </a>
 
         </div>
 
     </nav>
 
-    <!-- ================= HERO ================= -->
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
 
     <section class="hero">
 
@@ -77,9 +582,12 @@
 
             <span class="badge">
 
-                AI Powered
+                <i class="fas fa-sparkles"></i>
+
+                AI Powered Career Preparation
 
             </span>
+
 
             <h1>
 
@@ -91,25 +599,32 @@
 
             </h1>
 
+
             <p>
 
-                Practice technical and HR interviews with AI.
-                Get instant evaluation, detailed feedback,
-                performance analytics and personalized suggestions.
+                Your intelligent career preparation platform
+                for AI-powered interviews, coding practice,
+                instant feedback and personalized career growth.
 
             </p>
+
 
             <div class="hero-buttons">
 
                 <a href="/login" class="primary-btn">
 
-                    🚀 Start Interview
+                    <i class="fas fa-rocket"></i>
+
+                    Start Interview
 
                 </a>
 
+
                 <a href="#features" class="secondary-btn">
 
-                    Learn More
+                    <i class="fas fa-arrow-down"></i>
+
+                    Explore Platform
 
                 </a>
 
@@ -117,137 +632,653 @@
 
         </div>
 
+
         <div class="hero-right">
 
-            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png"
-                 alt="AI Robot">
+            <div class="hero-ai-glow"></div>
+
+            <img
+                src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png"
+                alt="AI Career Copilot">
 
         </div>
 
     </section>
 
-    <!-- ================= FEATURES ================= -->
 
-    <section id="features" class="features">
 
-        <div class="feature-card">
+    <!-- =====================================================
+         TRUST INDICATORS
+         ===================================================== -->
 
-            <i class="fas fa-robot"></i>
+    <section class="trust-section">
 
-            <h3>AI Evaluation</h3>
+        <div class="day2-section">
 
-            <p>
-
-                Get instant AI-powered feedback after every interview.
-
+            <p class="trust-label">
+                Everything you need for smarter interview preparation
             </p>
 
-        </div>
+            <div class="trust-items">
 
-        <div class="feature-card">
+                <div class="trust-item">
+                    <i class="fas fa-brain"></i>
+                    AI-Powered
+                </div>
 
-            <i class="fas fa-laptop-code"></i>
+                <div class="trust-item">
+                    <i class="fas fa-code"></i>
+                    Coding Practice
+                </div>
 
-            <h3>Multiple Domains</h3>
+                <div class="trust-item">
+                    <i class="fas fa-chart-line"></i>
+                    Progress Tracking
+                </div>
 
-            <p>
+                <div class="trust-item">
+                    <i class="fas fa-user-tie"></i>
+                    Career Guidance
+                </div>
 
-                Practice Python, Java, SQL, Flask, Django,
-                HR and DSA interviews.
-
-            </p>
-
-        </div>
-
-        <div class="feature-card">
-
-            <i class="fas fa-chart-line"></i>
-
-            <h3>Performance Analytics</h3>
-
-            <p>
-
-                Track your scores, progress and interview history.
-
-            </p>
-
-        </div>
-
-        <div class="feature-card">
-
-            <i class="fas fa-stopwatch"></i>
-
-            <h3>Real Interview Timer</h3>
-
-            <p>
-
-                Experience company-style timed interviews.
-
-            </p>
+            </div>
 
         </div>
 
     </section>
 
-    <!-- ================= STATISTICS ================= -->
+
+
+    <!-- =====================================================
+         PLATFORM CAPABILITIES
+         ===================================================== -->
+
+    <section id="features" class="platform-section">
+
+        <div class="day2-section">
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    PLATFORM
+                </span>
+
+                <h2>
+                    One platform for your entire career preparation
+                </h2>
+
+                <p>
+                    Prepare for interviews, improve technical skills,
+                    understand your performance and build a stronger
+                    career profile from one place.
+                </p>
+
+            </div>
+
+
+            <div class="platform-grid">
+
+
+                <div class="platform-card">
+
+                    <div class="platform-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+
+                    <h3>
+                        AI Mock Interviews
+                    </h3>
+
+                    <p>
+                        Practice realistic technical and HR interviews
+                        and receive intelligent feedback on your answers.
+                    </p>
+
+                </div>
+
+
+                <div class="platform-card">
+
+                    <div class="platform-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+
+                    <h3>
+                        Coding Practice
+                    </h3>
+
+                    <p>
+                        Strengthen your programming and problem-solving
+                        skills with structured coding practice.
+                    </p>
+
+                </div>
+
+
+                <div class="platform-card">
+
+                    <div class="platform-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+
+                    <h3>
+                        Performance Analytics
+                    </h3>
+
+                    <p>
+                        Understand your strengths, weaknesses, scores
+                        and interview progress over time.
+                    </p>
+
+                </div>
+
+
+                <div class="platform-card">
+
+                    <div class="platform-icon">
+                        <i class="fas fa-file-circle-check"></i>
+                    </div>
+
+                    <h3>
+                        Smart Feedback
+                    </h3>
+
+                    <p>
+                        Get useful feedback that helps you identify
+                        exactly what needs improvement.
+                    </p>
+
+                </div>
+
+
+                <div class="platform-card">
+
+                    <div class="platform-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+
+                    <h3>
+                        Timed Practice
+                    </h3>
+
+                    <p>
+                        Experience realistic interview pressure with
+                        structured questions and timed sessions.
+                    </p>
+
+                </div>
+
+
+                <div class="platform-card">
+
+                    <div class="platform-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+
+                    <h3>
+                        Career Growth
+                    </h3>
+
+                    <p>
+                        Use your performance insights to create a
+                        focused path toward your career goals.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         HOW IT WORKS
+         ===================================================== -->
+
+    <section id="how-it-works" class="how-section">
+
+        <div class="day2-section">
+
+            <div class="section-heading">
+
+                <span class="section-label">
+                    HOW IT WORKS
+                </span>
+
+                <h2>
+                    Prepare smarter in three simple steps
+                </h2>
+
+                <p>
+                    Start practicing, understand your performance
+                    and continuously improve.
+                </p>
+
+            </div>
+
+
+            <div class="steps-grid">
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Choose Your Practice
+                    </h3>
+
+                    <p>
+                        Select your interview type, technical domain
+                        or coding practice based on your goals.
+                    </p>
+
+                </div>
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <h3>
+                        Practice With AI
+                    </h3>
+
+                    <p>
+                        Answer questions in a realistic environment
+                        designed to simulate an actual interview.
+                    </p>
+
+                </div>
+
+
+                <div class="step-card">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Improve Your Skills
+                    </h3>
+
+                    <p>
+                        Review your feedback, track your progress
+                        and practice again to improve your performance.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         AI INTERVIEW SHOWCASE
+         ===================================================== -->
+
+    <section class="showcase-section">
+
+        <div class="day2-section">
+
+
+            <div class="showcase">
+
+
+                <div class="showcase-content">
+
+                    <div class="showcase-label">
+                        AI INTERVIEW
+                    </div>
+
+                    <h2>
+                        Practice like you're in a real interview.
+                    </h2>
+
+                    <p>
+                        Build confidence by practicing technical and
+                        HR questions in an interactive interview
+                        environment with structured evaluation.
+                    </p>
+
+
+                    <ul class="showcase-list">
+
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Technical interview practice
+                        </li>
+
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            HR and behavioral questions
+                        </li>
+
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Timed interview sessions
+                        </li>
+
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Performance feedback
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div class="showcase-visual">
+
+                    <i class="fas fa-robot main-icon"></i>
+
+                    <div class="floating-card top">
+                        <i class="fas fa-star"></i>
+                        AI Evaluation
+                    </div>
+
+                    <div class="floating-card bottom">
+                        <i class="fas fa-chart-line"></i>
+                        Performance Tracking
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CODING SHOWCASE
+                 ================================================= -->
+
+            <div class="showcase reverse">
+
+
+                <div class="showcase-visual">
+
+                    <i class="fas fa-code main-icon"></i>
+
+                    <div class="floating-card top">
+                        <i class="fas fa-terminal"></i>
+                        Coding Practice
+                    </div>
+
+                    <div class="floating-card bottom">
+                        <i class="fas fa-check"></i>
+                        Build Problem Solving
+                    </div>
+
+                </div>
+
+
+                <div class="showcase-content">
+
+                    <div class="showcase-label">
+                        CODING PRACTICE
+                    </div>
+
+                    <h2>
+                        Strengthen the skills companies look for.
+                    </h2>
+
+                    <p>
+                        Practice programming and problem-solving
+                        concepts alongside your interview preparation
+                        and build stronger technical confidence.
+                    </p>
+
+
+                    <ul class="showcase-list">
+
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Programming fundamentals
+                        </li>
+
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Data structures and algorithms
+                        </li>
+
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Technical interview preparation
+                        </li>
+
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            Continuous skill improvement
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         AI CAREER COPILOT
+         ===================================================== -->
+
+    <section id="copilot" class="copilot-section">
+
+        <div class="day2-section">
+
+            <div class="copilot-box">
+
+
+                <div class="copilot-content">
+
+                    <div class="section-label">
+                        YOUR AI CAREER COPILOT
+                    </div>
+
+                    <h2>
+                        More than an interview platform.
+                    </h2>
+
+                    <p>
+                        AI Career Copilot is designed to become your
+                        personal preparation partner — helping you
+                        understand your performance and make smarter
+                        career decisions.
+                    </p>
+
+
+                    <div class="copilot-features">
+
+                        <div class="copilot-feature">
+                            <i class="fas fa-check"></i>
+                            Personalized guidance
+                        </div>
+
+                        <div class="copilot-feature">
+                            <i class="fas fa-check"></i>
+                            Performance insights
+                        </div>
+
+                        <div class="copilot-feature">
+                            <i class="fas fa-check"></i>
+                            Skill improvement
+                        </div>
+
+                        <div class="copilot-feature">
+                            <i class="fas fa-check"></i>
+                            Career preparation
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="copilot-visual">
+
+                    <div class="ai-orbit"></div>
+
+                    <i class="fas fa-brain"></i>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         STATISTICS
+         ===================================================== -->
 
     <section id="stats" class="stats">
 
         <div class="stat-box">
 
-            <h2>10K+</h2>
+            <h2>
+                10K+
+            </h2>
 
-            <p>Interviews</p>
-
-        </div>
-
-        <div class="stat-box">
-
-            <h2>5K+</h2>
-
-            <p>Users</p>
+            <p>
+                Interviews
+            </p>
 
         </div>
 
+
         <div class="stat-box">
 
-            <h2>95%</h2>
+            <h2>
+                5K+
+            </h2>
 
-            <p>Positive Feedback</p>
+            <p>
+                Users
+            </p>
 
         </div>
 
+
         <div class="stat-box">
 
-            <h2>50+</h2>
+            <h2>
+                95%
+            </h2>
 
-            <p>Companies</p>
+            <p>
+                Positive Feedback
+            </p>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <h2>
+                50+
+            </h2>
+
+            <p>
+                Interview Topics
+            </p>
 
         </div>
 
     </section>
 
-    <!-- ================= FOOTER ================= -->
+
+
+    <!-- =====================================================
+         FINAL CTA
+         ===================================================== -->
+
+    <section class="cta-section">
+
+        <div class="day2-section">
+
+            <div class="cta-box">
+
+                <h2>
+                    Ready to become interview-ready?
+                </h2>
+
+                <p>
+                    Practice smarter, understand your performance
+                    and take the next step toward your career goals.
+                </p>
+
+                <a href="/login" class="cta-button">
+
+                    Start Preparing
+
+                    <i class="fas fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
 
     <footer id="footer">
 
-        <h3>AI Interview Preparation System</h3>
+        <div class="footer-content">
 
-        <p>
+            <h3>
 
-            Practice. Improve. Get Hired.
+                <i class="fas fa-brain"></i>
 
-        </p>
+                AI Career Copilot
 
-        <br>
+            </h3>
 
-        <p>
 
-            © 2026 AI Interview Preparation System | Developed by Sai Ranga
+            <p>
+                Practice. Improve. Get Hired.
+            </p>
 
-        </p>
+
+            <p>
+                © 2026 AI Career Copilot |
+                Built for smarter career preparation.
+            </p>
+
+        </div>
 
     </footer>
+
 
 </body>
 
