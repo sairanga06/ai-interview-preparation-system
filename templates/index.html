@@ -506,6 +506,512 @@
 
         }
 
+    
+        /* =====================================================
+           CAREERCRAFT POLISH — NAV + HERO MASCOT
+           ===================================================== */
+
+        .navbar{
+            gap: 28px;
+        }
+
+        .nav-buttons{
+            display:flex;
+            align-items:center;
+            justify-content:flex-end;
+            gap:10px;
+            margin-left:auto;
+        }
+
+        .nav-buttons a{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:8px;
+            min-height:42px;
+            padding:10px 17px;
+            border-radius:12px;
+            text-decoration:none;
+            font-size:13px;
+            font-weight:600;
+            line-height:1;
+            transition:transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease;
+        }
+
+        .nav-buttons .login-btn{
+            color:#475569;
+            background:transparent;
+            border:1px solid transparent;
+        }
+
+        .nav-buttons .login-btn:hover{
+            color:#635bff;
+            background:#f7f6ff;
+            transform:translateY(-1px);
+        }
+
+        .nav-buttons .register-btn{
+            color:#fff;
+            background:linear-gradient(135deg,#635bff,#5146e5);
+            border:1px solid #635bff;
+            box-shadow:0 8px 22px rgba(99,91,255,.18);
+        }
+
+        .nav-buttons .register-btn:hover{
+            transform:translateY(-2px);
+            box-shadow:0 12px 28px rgba(99,91,255,.26);
+        }
+
+        .nav-buttons .admin-btn{
+            color:#475569;
+            background:#fff;
+            border:1px solid #d9def0;
+        }
+
+        .nav-buttons .admin-btn:hover{
+            color:#635bff;
+            border-color:#b9b3ff;
+            background:#faf9ff;
+            transform:translateY(-1px);
+        }
+
+        .nav-buttons .admin-btn i{
+            color:#635bff;
+            font-size:12px;
+        }
+
+        .hero-right{
+            position:relative;
+            min-height:470px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            isolation:isolate;
+        }
+
+        .hero-ai-glow{
+            z-index:-2;
+            width:390px;
+            height:390px;
+            border-radius:50%;
+            background:
+                radial-gradient(circle,rgba(99,91,255,.19) 0%,rgba(59,130,246,.10) 34%,rgba(99,91,255,0) 72%);
+            filter:blur(5px);
+        }
+
+        .cc-hero-robot{
+            position:relative;
+            width:min(420px,82%);
+            height:400px;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:flex-start;
+            filter:drop-shadow(0 24px 40px rgba(56,72,150,.14));
+            animation:ccRobotFloat 4.8s ease-in-out infinite;
+        }
+
+        .cc-robot-aura{
+            position:absolute;
+            width:330px;
+            height:330px;
+            top:46px;
+            border-radius:50%;
+            background:radial-gradient(circle,rgba(99,91,255,.13),rgba(99,91,255,0) 68%);
+            z-index:-1;
+        }
+
+        .cc-robot-antenna{
+            position:relative;
+            width:7px;
+            height:46px;
+            margin-top:2px;
+            background:#94a3b8;
+            border-radius:10px;
+            z-index:2;
+        }
+
+        .cc-robot-antenna span{
+            position:absolute;
+            width:18px;
+            height:18px;
+            left:50%;
+            top:-14px;
+            transform:translateX(-50%);
+            border-radius:50%;
+            background:#635bff;
+            border:4px solid #fff;
+            box-shadow:0 0 0 2px #c7c9ff,0 0 22px rgba(99,91,255,.32);
+        }
+
+        .cc-robot-head{
+            position:relative;
+            width:270px;
+            height:205px;
+            margin-top:0;
+            border-radius:48px 48px 58px 58px;
+            background:linear-gradient(145deg,#ffffff,#eef2ff);
+            border:3px solid #cfd5ea;
+            box-shadow:inset 0 -10px 25px rgba(99,91,255,.07),0 18px 35px rgba(43,55,120,.12);
+            z-index:3;
+        }
+
+        .cc-robot-face{
+            position:absolute;
+            inset:25px 27px 24px;
+            border-radius:35px 35px 45px 45px;
+            background:linear-gradient(160deg,#172554,#111827);
+            border:2px solid #39457a;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            overflow:hidden;
+        }
+
+        .cc-robot-face:before{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:radial-gradient(circle at 50% 20%,rgba(99,91,255,.22),transparent 48%);
+            pointer-events:none;
+        }
+
+        .cc-robot-eyes{
+            display:flex;
+            gap:50px;
+            position:relative;
+            z-index:2;
+        }
+
+        .cc-robot-eyes span{
+            width:28px;
+            height:38px;
+            border-radius:50%;
+            background:linear-gradient(180deg,#67e8f9,#3b82f6);
+            box-shadow:0 0 18px rgba(59,130,246,.72);
+        }
+
+        .cc-robot-smile{
+            width:64px;
+            height:28px;
+            margin-top:22px;
+            border-bottom:5px solid #67e8f9;
+            border-radius:0 0 50px 50px;
+            box-shadow:0 9px 14px rgba(34,211,238,.15);
+            position:relative;
+            z-index:2;
+        }
+
+        .cc-robot-chin{
+            width:78px;
+            height:5px;
+            margin-top:19px;
+            border-radius:20px;
+            background:rgba(148,163,184,.38);
+        }
+
+        .cc-robot-ear{
+            position:absolute;
+            top:68px;
+            width:30px;
+            height:68px;
+            border-radius:15px;
+            background:#dbe2f2;
+            border:3px solid #c5cde2;
+            z-index:-1;
+        }
+
+        .cc-robot-ear.left{left:-25px}
+        .cc-robot-ear.right{right:-25px}
+
+        .cc-robot-body{
+            position:relative;
+            width:225px;
+            height:125px;
+            margin-top:12px;
+            border-radius:35px;
+            background:linear-gradient(145deg,#f8faff,#e7ecfb);
+            border:3px solid #cfd5ea;
+            box-shadow:0 15px 30px rgba(43,55,120,.10);
+        }
+
+        .cc-robot-panel{
+            position:absolute;
+            left:50%;
+            top:27px;
+            transform:translateX(-50%);
+            width:92px;
+            height:54px;
+            padding:12px;
+            border-radius:16px;
+            background:#172554;
+            border:1px solid #39457a;
+            display:grid;
+            grid-template-columns:10px 1fr;
+            gap:5px 7px;
+            align-content:center;
+        }
+
+        .cc-panel-dot{
+            grid-row:1 / span 2;
+            width:10px;
+            height:10px;
+            margin-top:4px;
+            border-radius:50%;
+            background:#67e8f9;
+            box-shadow:0 0 10px rgba(103,232,249,.7);
+        }
+
+        .cc-panel-line{
+            height:5px;
+            border-radius:10px;
+            background:#818cf8;
+            opacity:.9;
+        }
+
+        .cc-panel-line.short{
+            width:68%;
+            background:#67e8f9;
+        }
+
+        .cc-robot-arm{
+            position:absolute;
+            top:26px;
+            width:27px;
+            height:75px;
+            border-radius:16px;
+            background:#e2e8f5;
+            border:3px solid #c8d0e5;
+        }
+
+        .cc-robot-arm.left{left:-38px;transform:rotate(7deg)}
+        .cc-robot-arm.right{right:-38px;transform:rotate(-7deg)}
+
+        .cc-robot-shadow{
+            position:absolute;
+            bottom:0;
+            width:210px;
+            height:22px;
+            border-radius:50%;
+            background:rgba(30,41,59,.12);
+            filter:blur(8px);
+            z-index:-1;
+        }
+
+        @keyframes ccRobotFloat{
+            0%,100%{transform:translateY(0)}
+            50%{transform:translateY(-9px)}
+        }
+
+        @media(max-width:900px){
+            .navbar{
+                flex-wrap:wrap;
+                gap:16px;
+            }
+
+            .nav-buttons{
+                width:auto;
+            }
+
+            .hero-right{
+                min-height:390px;
+            }
+
+            .cc-hero-robot{
+                transform:scale(.9);
+            }
+        }
+
+        @media(max-width:600px){
+            .nav-buttons{
+                gap:5px;
+            }
+
+            .nav-buttons a{
+                min-height:38px;
+                padding:9px 11px;
+                font-size:11px;
+                border-radius:10px;
+            }
+
+            .nav-buttons .admin-btn span{
+                display:none;
+            }
+
+            .nav-buttons .admin-btn{
+                width:38px;
+                padding:0;
+            }
+
+            .hero-right{
+                min-height:350px;
+            }
+
+            .cc-hero-robot{
+                transform:scale(.76);
+                transform-origin:center top;
+                width:420px;
+                max-width:100%;
+            }
+        }
+
+
+        /* =====================================================
+           CAREERCRAFT — PREMIUM SCROLL REVEAL SYSTEM
+           Smooth, subtle, professional landing-page motion
+           ===================================================== */
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Elements start slightly hidden until they enter the viewport. */
+        .cc-reveal {
+            opacity: 0;
+            transform: translate3d(0, 42px, 0);
+            transition:
+                opacity 0.85s cubic-bezier(.22, 1, .36, 1),
+                transform 0.85s cubic-bezier(.22, 1, .36, 1);
+            will-change: opacity, transform;
+        }
+
+        .cc-reveal.cc-visible {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .cc-reveal-left {
+            opacity: 0;
+            transform: translate3d(-58px, 18px, 0);
+            transition:
+                opacity 0.9s cubic-bezier(.22, 1, .36, 1),
+                transform 0.9s cubic-bezier(.22, 1, .36, 1);
+            will-change: opacity, transform;
+        }
+
+        .cc-reveal-left.cc-visible {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .cc-reveal-right {
+            opacity: 0;
+            transform: translate3d(58px, 18px, 0);
+            transition:
+                opacity 0.9s cubic-bezier(.22, 1, .36, 1),
+                transform 0.9s cubic-bezier(.22, 1, .36, 1);
+            will-change: opacity, transform;
+        }
+
+        .cc-reveal-right.cc-visible {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .cc-reveal-scale {
+            opacity: 0;
+            transform: scale(.94) translate3d(0, 20px, 0);
+            transition:
+                opacity 0.9s cubic-bezier(.22, 1, .36, 1),
+                transform 0.9s cubic-bezier(.22, 1, .36, 1);
+            will-change: opacity, transform;
+        }
+
+        .cc-reveal-scale.cc-visible {
+            opacity: 1;
+            transform: scale(1) translate3d(0, 0, 0);
+        }
+
+        /* Staggered children make grids feel like they unfold naturally. */
+        .cc-stagger > * {
+            opacity: 0;
+            transform: translate3d(0, 28px, 0);
+            transition:
+                opacity 0.7s cubic-bezier(.22, 1, .36, 1),
+                transform 0.7s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .cc-stagger.cc-visible > * {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .cc-stagger.cc-visible > *:nth-child(1) { transition-delay: .04s; }
+        .cc-stagger.cc-visible > *:nth-child(2) { transition-delay: .10s; }
+        .cc-stagger.cc-visible > *:nth-child(3) { transition-delay: .16s; }
+        .cc-stagger.cc-visible > *:nth-child(4) { transition-delay: .22s; }
+        .cc-stagger.cc-visible > *:nth-child(5) { transition-delay: .28s; }
+        .cc-stagger.cc-visible > *:nth-child(6) { transition-delay: .34s; }
+
+        /* Hero loads with a stronger entrance, while remaining elegant. */
+        .hero .hero-left {
+            animation: ccHeroTextIn .9s cubic-bezier(.22, 1, .36, 1) both;
+        }
+
+        .hero .hero-right {
+            animation: ccHeroVisualIn 1.05s cubic-bezier(.22, 1, .36, 1) .08s both;
+        }
+
+        @keyframes ccHeroTextIn {
+            from {
+                opacity: 0;
+                transform: translate3d(-34px, 18px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes ccHeroVisualIn {
+            from {
+                opacity: 0;
+                transform: translate3d(34px, 22px, 0) scale(.96);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+        }
+
+        /* Slight motion while scrolling gives the hero visual depth. */
+        .cc-scroll-depth {
+            transition: transform .18s linear;
+            will-change: transform;
+        }
+
+        /* Keep hover interactions compatible with reveal animations. */
+        .platform-card,
+        .step-card,
+        .floating-card,
+        .cta-button {
+            will-change: transform;
+        }
+
+        /* Respect accessibility preferences. */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .cc-reveal,
+            .cc-reveal-left,
+            .cc-reveal-right,
+            .cc-reveal-scale,
+            .cc-stagger > * {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+
+            .hero .hero-left,
+            .hero .hero-right,
+            .cc-hero-robot {
+                animation: none !important;
+            }
+        }
+
     </style>
 
 </head>
@@ -526,7 +1032,7 @@
                 <i class="fas fa-brain"></i>
             </span>
 
-            <span>AI Career Copilot</span>
+            <span>CareerCraft AI</span>
 
         </div>
 
@@ -553,19 +1059,12 @@
 
 
         <div class="nav-buttons">
-
-            <a href="/login" class="login-btn">
-                Login
+            <a href="/login" class="login-btn">Login</a>
+            <a href="/register" class="register-btn">Get Started</a>
+            <a href="/admin_login" class="admin-btn" aria-label="Admin Login">
+                <i class="fas fa-shield-halved"></i>
+                <span>Admin</span>
             </a>
-
-            <a href="/register" class="register-btn">
-                Register
-            </a>
-
-            <a href="/admin_login" class="admin-btn">
-                Admin Login
-            </a>
-
         </div>
 
     </nav>
@@ -637,9 +1136,33 @@
 
             <div class="hero-ai-glow"></div>
 
-            <img
-                src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png"
-                alt="AI Career Copilot">
+            <div class="cc-hero-robot" aria-label="CareerCraft AI robot" role="img">
+                <div class="cc-robot-aura"></div>
+                <div class="cc-robot-antenna">
+                    <span></span>
+                </div>
+                <div class="cc-robot-head">
+                    <div class="cc-robot-ear left"></div>
+                    <div class="cc-robot-ear right"></div>
+                    <div class="cc-robot-face">
+                        <div class="cc-robot-eyes">
+                            <span></span><span></span>
+                        </div>
+                        <div class="cc-robot-smile"></div>
+                        <div class="cc-robot-chin"></div>
+                    </div>
+                </div>
+                <div class="cc-robot-body">
+                    <div class="cc-robot-panel">
+                        <span class="cc-panel-dot"></span>
+                        <span class="cc-panel-line"></span>
+                        <span class="cc-panel-line short"></span>
+                    </div>
+                    <div class="cc-robot-arm left"></div>
+                    <div class="cc-robot-arm right"></div>
+                </div>
+                <div class="cc-robot-shadow"></div>
+            </div>
 
         </div>
 
@@ -1101,7 +1624,7 @@
                     </h2>
 
                     <p>
-                        AI Career Copilot is designed to become your
+                        CareerCraft AI is designed to become your
                         personal preparation partner — helping you
                         understand your performance and make smarter
                         career decisions.
@@ -1260,7 +1783,7 @@
 
                 <i class="fas fa-brain"></i>
 
-                AI Career Copilot
+                CareerCraft AI
 
             </h3>
 
@@ -1271,7 +1794,7 @@
 
 
             <p>
-                © 2026 AI Career Copilot |
+                © 2026 CareerCraft AI |
                 Built for smarter career preparation.
             </p>
 
@@ -1279,6 +1802,98 @@
 
     </footer>
 
+
+
+    <!-- =========================================================
+         CAREERCRAFT — PREMIUM SCROLL ANIMATIONS
+         ========================================================= -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const revealItems = document.querySelectorAll(
+                ".trust-section, .section-heading, .platform-grid, " +
+                ".steps-grid, .showcase-content, .showcase-visual, " +
+                ".copilot-content, .copilot-visual, .stats, .cta-box"
+            );
+
+            revealItems.forEach((element, index) => {
+                if (
+                    element.classList.contains("platform-grid") ||
+                    element.classList.contains("steps-grid") ||
+                    element.classList.contains("stats")
+                ) {
+                    element.classList.add("cc-stagger");
+                } else if (
+                    element.classList.contains("showcase-content") ||
+                    element.classList.contains("copilot-content")
+                ) {
+                    element.classList.add("cc-reveal-left");
+                } else if (
+                    element.classList.contains("showcase-visual") ||
+                    element.classList.contains("copilot-visual")
+                ) {
+                    element.classList.add("cc-reveal-right");
+                } else if (element.classList.contains("cta-box")) {
+                    element.classList.add("cc-reveal-scale");
+                } else {
+                    element.classList.add("cc-reveal");
+                }
+            });
+
+            const observer = new IntersectionObserver(
+                (entries, obs) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+
+                        entry.target.classList.add("cc-visible");
+                        obs.unobserve(entry.target);
+                    });
+                },
+                {
+                    threshold: 0.14,
+                    rootMargin: "0px 0px -60px 0px"
+                }
+            );
+
+            document.querySelectorAll(
+                ".cc-reveal, .cc-reveal-left, .cc-reveal-right, " +
+                ".cc-reveal-scale, .cc-stagger"
+            ).forEach((element) => observer.observe(element));
+
+            /* Subtle parallax only for the hero robot/glow. */
+            const heroVisual = document.querySelector(".hero-right");
+            const heroRobot = document.querySelector(".cc-hero-robot");
+            const heroGlow = document.querySelector(".hero-ai-glow");
+
+            if (heroVisual && heroRobot && heroGlow &&
+                !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+                window.matchMedia("(min-width: 901px)").matches) {
+
+                let ticking = false;
+
+                const updateHeroDepth = () => {
+                    const rect = heroVisual.getBoundingClientRect();
+                    const viewportCenter = window.innerHeight / 2;
+                    const distance = rect.top + rect.height / 2 - viewportCenter;
+                    const offset = Math.max(-18, Math.min(18, distance * -0.035));
+
+                    heroRobot.style.transform = "translate3d(0," + offset + "px,0)";
+                    heroGlow.style.transform =
+                        "translate3d(0," + (offset * 0.55) + "px,0)";
+
+                    ticking = false;
+                };
+
+                window.addEventListener("scroll", () => {
+                    if (!ticking) {
+                        window.requestAnimationFrame(updateHeroDepth);
+                        ticking = true;
+                    }
+                }, { passive: true });
+
+                updateHeroDepth();
+            }
+        });
+    </script>
 
 </body>
 

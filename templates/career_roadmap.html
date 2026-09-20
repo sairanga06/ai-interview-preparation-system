@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Roadmap | CareerCraft AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; background: #f6f8fc; color: #111827; font-family: Inter, sans-serif; }
+        .cc-page { min-height: 100vh; }
+        .cc-topbar {
+            height: 80px; background: #fff; border-bottom: 1px solid #e5e7eb;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 6%; position: sticky; top: 0; z-index: 20;
+        }
+        .cc-brand { display: flex; align-items: center; gap: 12px; font: 800 22px Poppins; }
+        .cc-brand-icon {
+            width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center;
+            background: linear-gradient(135deg, #635bff, #3b82f6); color: #fff;
+            box-shadow: 0 10px 22px rgba(99, 91, 255, .18);
+        }
+        .cc-back { color: #635bff; text-decoration: none; font-size: 14px; font-weight: 700; }
+        .cc-wrap { width: min(1180px, 92%); margin: auto; padding: 42px 0 70px; }
+        .hero {
+            background: linear-gradient(135deg, #111827, #172554); color: #fff;
+            border-radius: 24px; padding: 34px; margin-bottom: 22px;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, .14);
+        }
+        .eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 1px; color: #a5b4fc; text-transform: uppercase; }
+        .hero h1 { margin: 8px 0 10px; font: 800 clamp(28px, 5vw, 44px) Poppins; }
+        .hero p { margin: 0; max-width: 790px; color: #cbd5e1; line-height: 1.8; font-size: 14px; }
+        .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+        .hero-pill { padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.10); color: #e2e8f0; font-size: 11px; font-weight: 700; }
+        .summary-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 22px; margin-bottom: 22px; }
+        .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 20px; padding: 25px; box-shadow: 0 9px 28px rgba(15,23,42,.04); }
+        .card-head { display: flex; justify-content: space-between; gap: 15px; align-items: flex-start; margin-bottom: 20px; }
+        .card-head h2 { margin: 0 0 4px; font: 700 19px Poppins; }
+        .card-head p { margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.6; }
+        .icon { width: 43px; height: 43px; border-radius: 13px; display: grid; place-items: center; background: #eeecff; color: #635bff; flex: 0 0 43px; }
+        .progress-layout { display: grid; grid-template-columns: 150px 1fr; gap: 24px; align-items: center; }
+        .ring { --progress: 0; width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center; position: relative; background: conic-gradient(#635bff calc(var(--progress) * 1%), #e5e7eb 0); }
+        .ring::before { content: ""; position: absolute; width: 112px; height: 112px; border-radius: 50%; background: #fff; }
+        .ring-content { position: relative; z-index: 1; text-align: center; }
+        .ring-value { display: block; font: 800 27px Poppins; color: #111827; }
+        .ring-label { display: block; margin-top: 2px; color: #64748b; font-size: 10px; font-weight: 700; }
+        .progress-caption { color: #64748b; font-size: 12px; line-height: 1.8; }
+        .progress-caption strong { color: #111827; font-size: 17px; display: block; margin-bottom: 4px; }
+        .current-stage { padding: 14px 15px; border-radius: 14px; background: #f8fafc; border: 1px solid #e8ebf2; margin-top: 14px; }
+        .current-stage small { color: #94a3b8; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; }
+        .current-stage strong { display: block; margin-top: 5px; font-size: 13px; color: #111827; }
+        .stat-list { display: grid; gap: 10px; }
+        .stat-row { display: flex; justify-content: space-between; gap: 14px; align-items: center; padding: 12px 14px; border-radius: 12px; background: #f8fafc; border: 1px solid #e8ebf2; font-size: 12px; }
+        .stat-row span { color: #64748b; }
+        .stat-row strong { color: #111827; }
+        .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 17px; }
+        .btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 13px; border-radius: 11px; text-decoration: none; font-size: 11px; font-weight: 800; border: 1px solid #dbe2ea; color: #475569; background: #fff; }
+        .btn.primary { background: #635bff; border-color: #635bff; color: #fff; }
+        .section-title { margin: 34px 0 16px; }
+        .section-title h2 { margin: 0 0 5px; font: 700 22px Poppins; }
+        .section-title p { margin: 0; color: #64748b; font-size: 13px; }
+        .roadmap { display: grid; gap: 15px; position: relative; }
+        .stage { position: relative; display: grid; grid-template-columns: 58px 1fr; gap: 15px; }
+        .stage-marker { position: relative; display: flex; justify-content: center; }
+        .stage-marker::after { content: ""; position: absolute; top: 49px; bottom: -15px; width: 2px; background: #e5e7eb; }
+        .stage:last-child .stage-marker::after { display: none; }
+        .stage-number { width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; font-size: 12px; font-weight: 800; background: #eef2ff; color: #635bff; border: 1px solid #dfe4ff; position: relative; z-index: 2; }
+        .stage.complete .stage-number { background: #dcfce7; color: #15803d; border-color: #bbf7d0; }
+        .stage.progress .stage-number { background: #fff7ed; color: #c2410c; border-color: #fed7aa; }
+        .stage-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 18px; padding: 20px; box-shadow: 0 8px 25px rgba(15,23,42,.035); }
+        .stage-top { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
+        .stage-top h3 { margin: 0 0 5px; font: 700 17px Poppins; }
+        .stage-top p { margin: 0; color: #64748b; font-size: 12px; line-height: 1.7; }
+        .status { white-space: nowrap; padding: 6px 9px; border-radius: 999px; font-size: 10px; font-weight: 800; background: #f1f5f9; color: #64748b; }
+        .stage.complete .status { background: #dcfce7; color: #15803d; }
+        .stage.progress .status { background: #fef3c7; color: #b45309; }
+        .stage-score { margin-top: 16px; }
+        .stage-score-top { display: flex; justify-content: space-between; gap: 10px; color: #64748b; font-size: 10px; font-weight: 700; margin-bottom: 7px; }
+        .track { height: 8px; border-radius: 999px; background: #e8eaf0; overflow: hidden; }
+        .fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #635bff, #3b82f6); }
+        .stage.complete .fill { background: linear-gradient(90deg, #16a34a, #22c55e); }
+        .stage.progress .fill { background: linear-gradient(90deg, #f59e0b, #fb923c); }
+        .breakdown { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 14px; }
+        .mini { padding: 10px 11px; border-radius: 11px; background: #f8fafc; border: 1px solid #edf0f5; }
+        .mini span { display: block; color: #94a3b8; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .35px; }
+        .mini strong { display: block; margin-top: 4px; font-size: 12px; color: #111827; }
+        .stage-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-top: 14px; }
+        .sub-block { padding: 13px; border-radius: 12px; background: #fbfcff; border: 1px solid #e8ebf2; }
+        .sub-block h4 { margin: 0 0 8px; font-size: 11px; }
+        .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+        .chip { padding: 6px 8px; border-radius: 999px; background: #eeecff; color: #5146d8; font-size: 10px; font-weight: 700; }
+        .chip.missing { background: #fff7ed; color: #c2410c; }
+        .module { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px solid #edf0f5; }
+        .module:last-child { border-bottom: 0; padding-bottom: 0; }
+        .module:first-child { padding-top: 0; }
+        .module-name { display: flex; align-items: center; gap: 7px; min-width: 0; }
+        .module-name span { font-size: 11px; color: #334155; }
+        .module-progress { min-width: 88px; text-align: right; }
+        .module-progress small { color: #64748b; font-size: 9px; }
+        .next-card { display: grid; grid-template-columns: 1fr .9fr; gap: 22px; margin-top: 22px; }
+        .next-list { display: grid; gap: 9px; }
+        .next-item { display: flex; gap: 10px; padding: 12px 13px; border-radius: 12px; background: #f8fafc; border: 1px solid #e8ebf2; color: #475569; font-size: 12px; line-height: 1.6; }
+        .next-item i { color: #635bff; margin-top: 2px; }
+        .empty { padding: 13px; border-radius: 12px; background: #f8fafc; color: #64748b; font-size: 11px; line-height: 1.6; }
+        footer { margin-top: 45px; padding: 30px 20px; text-align: center; background: #111827; border-radius: 20px; color: #fff; }
+        footer h3 { margin: 0 0 6px; font: 700 17px Poppins; }
+        footer p { margin: 4px 0; color: #94a3b8; font-size: 10px; }
+
+        /* The shared CareerCraft theme injects dark mode using html[data-cc-theme]. */
+        html[data-cc-theme="dark"] body { background: #0b1120 !important; color: #f8fafc !important; }
+        html[data-cc-theme="dark"] .cc-topbar { background: #111827; border-color: #263247; }
+        html[data-cc-theme="dark"] .cc-brand { color: #f8fafc; }
+        html[data-cc-theme="dark"] .card, html[data-cc-theme="dark"] .stage-card { background: #111827; border-color: #263247; box-shadow: none; color: #f8fafc; }
+        html[data-cc-theme="dark"] .card-head h2, html[data-cc-theme="dark"] .stage-top h3, html[data-cc-theme="dark"] .mini strong, html[data-cc-theme="dark"] .stat-row strong { color: #f8fafc; }
+        html[data-cc-theme="dark"] .card-head p, html[data-cc-theme="dark"] .progress-caption, html[data-cc-theme="dark"] .stat-row span, html[data-cc-theme="dark"] .stage-top p { color: #94a3b8; }
+        html[data-cc-theme="dark"] .current-stage, html[data-cc-theme="dark"] .stat-row, html[data-cc-theme="dark"] .mini, html[data-cc-theme="dark"] .sub-block, html[data-cc-theme="dark"] .next-item, html[data-cc-theme="dark"] .empty { background: #172033; border-color: #2b3950; color: #e2e8f0; }
+        html[data-cc-theme="dark"] .current-stage strong, html[data-cc-theme="dark"] .module-name span { color: #f8fafc; }
+        html[data-cc-theme="dark"] .track { background: #2a3548; }
+        html[data-cc-theme="dark"] .ring::before { background: #111827; }
+        html[data-cc-theme="dark"] .ring-value { color: #f8fafc; }
+        html[data-cc-theme="dark"] .ring-label, html[data-cc-theme="dark"] .mini span, html[data-cc-theme="dark"] .module-progress small { color: #94a3b8; }
+        html[data-cc-theme="dark"] .button-secondary { background: #172033; }
+        html[data-cc-theme="dark"] .btn { background: #172033; border-color: #334155; color: #e2e8f0; }
+        html[data-cc-theme="dark"] .btn.primary { background: #635bff; color: #fff; border-color: #635bff; }
+        html[data-cc-theme="dark"] .stage-marker::after { background: #263247; }
+
+        @media (max-width: 900px) {
+            .summary-grid, .next-card { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 700px) {
+            .cc-topbar { padding: 14px 4%; height: auto; gap: 12px; }
+            .cc-brand { font-size: 18px; }
+            .cc-wrap { width: 94%; padding-top: 28px; }
+            .hero, .card { padding: 21px; }
+            .progress-layout { grid-template-columns: 1fr; }
+            .ring { margin: 0 auto; }
+            .stage { grid-template-columns: 42px 1fr; gap: 10px; }
+            .stage-number { width: 36px; height: 36px; }
+            .stage-marker::after { top: 43px; }
+            .stage-top { flex-direction: column; }
+            .stage-bottom { grid-template-columns: 1fr; }
+            .breakdown { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 27px; }
+            .cc-back { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+<div class="cc-page">
+    <header class="cc-topbar">
+        <div class="cc-brand">
+            <div class="cc-brand-icon"><i class="fas fa-route"></i></div>
+            CareerCraft AI
+        </div>
+        <a class="cc-back" href="/career_intelligence"><i class="fas fa-arrow-left"></i> Back to Career Intelligence</a>
+    </header>
+
+    <main class="cc-wrap">
+        <section class="hero">
+            <div class="eyebrow">Day 23 · Career Roadmap</div>
+            <h1>Your Personalized Career Roadmap 🗺️</h1>
+            <p>{{ roadmap_intro }}</p>
+            <div class="hero-meta">
+                <span class="hero-pill"><i class="fas fa-bullseye"></i> {{ roadmap_label }}</span>
+                {% if target_industry %}<span class="hero-pill"><i class="fas fa-building"></i> {{ target_industry }}</span>{% endif %}
+                {% if career_goals %}<span class="hero-pill"><i class="fas fa-flag"></i> {{ career_goals }}</span>{% endif %}
+            </div>
+        </section>
+
+        <section class="summary-grid">
+            <div class="card">
+                <div class="card-head">
+                    <div>
+                        <h2>Overall Roadmap Progress</h2>
+                        <p>Progress is calculated from skills, learning activity and practical evidence.</p>
+                    </div>
+                    <div class="icon"><i class="fas fa-chart-pie"></i></div>
+                </div>
+                <div class="progress-layout">
+                    <div class="ring" style="--progress: {{ overall_progress }};">
+                        <div class="ring-content">
+                            <span class="ring-value">{{ overall_progress }}%</span>
+                            <span class="ring-label">ROADMAP</span>
+                        </div>
+                    </div>
+                    <div class="progress-caption">
+                        <strong>{{ completed_count }} of {{ total_stages }} stages completed</strong>
+                        Keep moving through the stages in order. CareerCraft AI uses your saved profile and learning progress to keep the roadmap personalized.
+                        <div class="current-stage">
+                            <small>Current Focus · Stage {{ current_stage_number }}</small>
+                            <strong>{{ current_stage }}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-head">
+                    <div>
+                        <h2>Roadmap Snapshot</h2>
+                        <p>Your current career direction</p>
+                    </div>
+                    <div class="icon"><i class="fas fa-user-gear"></i></div>
+                </div>
+                <div class="stat-list">
+                    <div class="stat-row"><span>Career Goal</span><strong>{{ career_goals or 'Not added yet' }}</strong></div>
+                    <div class="stat-row"><span>Target Role</span><strong>{{ target_role or 'Add a target role' }}</strong></div>
+                    <div class="stat-row"><span>Industry</span><strong>{{ target_industry or 'Not selected' }}</strong></div>
+                    <div class="stat-row"><span>Roadmap Stages</span><strong>{{ total_stages }}</strong></div>
+                </div>
+                <div class="actions">
+                    <a class="btn primary" href="/edit_profile"><i class="fas fa-user-pen"></i> Update Profile</a>
+                    <a class="btn" href="/learning"><i class="fas fa-book-open"></i> Open Learning</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-title">
+            <h2>Career Path</h2>
+            <p>Follow the stages below. Completed stages are based on evidence already present in your CareerCraft AI account.</p>
+        </div>
+
+        <section class="roadmap">
+            {% for stage in stages %}
+            <article class="stage {{ stage.status_key }}">
+                <div class="stage-marker">
+                    <div class="stage-number">{{ stage.number }}</div>
+                </div>
+                <div class="stage-card">
+                    <div class="stage-top">
+                        <div>
+                            <h3>{{ stage.title }}</h3>
+                            <p>{{ stage.description }}</p>
+                        </div>
+                        <span class="status">{{ stage.status }}</span>
+                    </div>
+
+                    <div class="stage-score">
+                        <div class="stage-score-top"><span>Stage Progress</span><strong>{{ stage.score }}%</strong></div>
+                        <div class="track"><div class="fill" style="width: {{ stage.score }}%;"></div></div>
+                    </div>
+
+                    <div class="breakdown">
+                        <div class="mini"><span>Skill Coverage</span><strong>{{ stage.skill_score }}%</strong></div>
+                        <div class="mini"><span>Learning</span><strong>{{ stage.learning_score }}%</strong></div>
+                        <div class="mini"><span>Practical Evidence</span><strong>{{ stage.evidence_score }}%</strong></div>
+                    </div>
+
+                    <div class="stage-bottom">
+                        <div class="sub-block">
+                            <h4><i class="fas fa-code"></i> Skills</h4>
+                            {% if stage.matched_skills %}
+                            <div class="chips">
+                                {% for skill in stage.matched_skills %}<span class="chip">✓ {{ skill }}</span>{% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if stage.missing_skills %}
+                            <div class="chips" style="margin-top:7px;">
+                                {% for skill in stage.missing_skills %}<span class="chip missing">+ {{ skill }}</span>{% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if not stage.matched_skills and not stage.missing_skills %}<div class="empty">No mapped skills for this stage.</div>{% endif %}
+                        </div>
+
+                        <div class="sub-block">
+                            <h4><i class="fas fa-book"></i> Learning</h4>
+                            {% if stage.modules %}
+                                {% for module in stage.modules %}
+                                <div class="module">
+                                    <div class="module-name"><span>{{ module.icon }}</span><span>{{ module.title }}</span></div>
+                                    <div class="module-progress"><small>{{ module.progress }}%</small></div>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="empty">No dedicated learning module is mapped to this stage yet. Use the actions below to build practical evidence.</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        {% for label, href in stage.actions %}
+                        <a class="btn {% if loop.first %}primary{% endif %}" href="{{ href }}">{{ label }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </section>
+
+        <section class="card next-card">
+            <div>
+                <div class="card-head" style="margin-bottom:14px;">
+                    <div><h2>What To Do Next</h2><p>Actions selected from your current roadmap state.</p></div>
+                    <div class="icon"><i class="fas fa-forward"></i></div>
+                </div>
+                <div class="next-list">
+                    {% for action in next_actions %}
+                    <div class="next-item"><i class="fas fa-arrow-right"></i><span>{{ action }}</span></div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <div class="card-head" style="margin-bottom:14px;">
+                    <div><h2>Keep It Updated</h2><p>Your roadmap changes as your profile and learning progress change.</p></div>
+                    <div class="icon"><i class="fas fa-rotate"></i></div>
+                </div>
+                <div class="empty">
+                    Update your Career Profile after completing major skills, projects or certifications. Then revisit Career Intelligence and this roadmap so the recommendations reflect your latest progress.
+                </div>
+                <div class="actions">
+                    <a class="btn primary" href="/career_intelligence"><i class="fas fa-chart-line"></i> Career Intelligence</a>
+                    <a class="btn" href="/resume-builder"><i class="fas fa-file-lines"></i> Resume Builder</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <h3>🧠 CareerCraft AI</h3>
+            <p>Learn • Practice • Build • Interview • Get Hired</p>
+            <p>© 2026 CareerCraft AI | Personalized career preparation.</p>
+        </footer>
+    </main>
+</div>
+</body>
+</html>

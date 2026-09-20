@@ -1,90 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Admin Login</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | AI Career Copilot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-
+        *{box-sizing:border-box}
         body{
-            background:#0f172a;
-            font-family:Arial,sans-serif;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-            margin:0;
+            margin:0;min-height:100vh;font-family:"Poppins",sans-serif;color:#172033;
+            display:flex;align-items:center;justify-content:center;padding:20px;
+            background:
+                radial-gradient(circle at 15% 15%,rgba(99,91,255,.12),transparent 27%),
+                radial-gradient(circle at 85% 85%,rgba(59,130,246,.10),transparent 27%),
+                #f7f8fc;
         }
-
-        .container{
-            width:400px;
-            background:#1e293b;
-            padding:30px;
-            border-radius:15px;
-            box-shadow:0 0 20px #38bdf8;
-            text-align:center;
+        .cc-admin-wrap{width:min(440px,100%)}
+        .cc-admin-brand{
+            display:flex;justify-content:center;align-items:center;gap:9px;
+            margin-bottom:18px;text-decoration:none;color:#111827;font-size:19px;font-weight:800;
         }
-
-        h1{
-            color:#38bdf8;
-            margin-bottom:25px;
+        .cc-admin-mark{
+            width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+            color:#fff;background:linear-gradient(135deg,#635bff,#3b82f6);
+            box-shadow:0 9px 22px rgba(99,91,255,.20);
         }
-
+        .cc-admin-card{
+            background:#fff;border:1px solid #e5e9f2;border-radius:24px;
+            padding:32px;box-shadow:0 25px 65px rgba(30,41,59,.10);
+        }
+        .cc-admin-icon{
+            width:54px;height:54px;border-radius:16px;display:grid;place-items:center;
+            margin:0 auto 18px;color:#635bff;background:#f0eeff;font-size:20px;
+        }
+        h1{text-align:center;margin:0;color:#111827;font-size:27px;letter-spacing:-.025em}
+        .cc-admin-sub{text-align:center;margin:8px 0 25px;color:#64748b;font-size:12px;line-height:1.65}
+        .cc-field{margin-bottom:15px}
+        .cc-field label{display:block;margin-bottom:7px;color:#334155;font-size:12px;font-weight:700}
+        .cc-input{position:relative}
+        .cc-input i{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:13px}
         input{
-            width:95%;
-            padding:12px;
-            margin:10px 0;
-            border:none;
-            border-radius:8px;
-            font-size:16px;
+            width:100%;height:50px;border:1px solid #dfe4ee;border-radius:13px;
+            background:#fff;color:#172033;padding:0 14px 0 43px;
+            font:500 13px "Poppins",sans-serif;outline:none;transition:.2s ease;
         }
-
+        input:focus{border-color:#8b84ff;box-shadow:0 0 0 4px rgba(99,91,255,.09)}
         button{
-            width:100%;
-            padding:12px;
-            background:#38bdf8;
-            color:black;
-            border:none;
-            border-radius:8px;
-            font-size:18px;
-            font-weight:bold;
-            cursor:pointer;
+            width:100%;height:50px;border:0;border-radius:13px;margin-top:5px;
+            color:#fff;background:linear-gradient(135deg,#635bff,#5146e5);
+            font:700 13px "Poppins",sans-serif;cursor:pointer;
+            box-shadow:0 10px 25px rgba(99,91,255,.20);transition:.22s ease;
         }
-
-        button:hover{
-            background:#0ea5e9;
+        button:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(99,91,255,.27)}
+        .cc-admin-note{
+            display:flex;align-items:flex-start;gap:9px;margin-top:18px;padding:12px 13px;
+            border-radius:12px;background:#f8f9fd;color:#64748b;font-size:11px;line-height:1.55;
         }
-
+        .cc-admin-note i{color:#635bff;margin-top:2px}
+        .cc-admin-back{
+            display:flex;justify-content:center;gap:7px;margin-top:18px;color:#64748b;
+            text-decoration:none;font-size:12px;font-weight:600;
+        }
+        .cc-admin-back:hover{color:#635bff}
+        @media(max-width:500px){.cc-admin-card{padding:25px 20px;border-radius:21px}}
     </style>
-
 </head>
-
 <body>
+    <main class="cc-admin-wrap">
+        <a href="/" class="cc-admin-brand">
+            <span class="cc-admin-mark"><i class="fas fa-brain"></i></span>
+            AI Career Copilot
+        </a>
 
-<div class="container">
+        <section class="cc-admin-card">
+            <div class="cc-admin-icon"><i class="fas fa-shield-halved"></i></div>
+            <h1>Admin Login</h1>
+            <p class="cc-admin-sub">Secure access to the administration workspace.</p>
 
-    <h1>🔐 Admin Login</h1>
+            <form method="POST">
+                <div class="cc-field">
+                    <label for="email">Admin email</label>
+                    <div class="cc-input">
+                        <i class="fas fa-envelope"></i>
+                        <input id="email" type="email" name="email" placeholder="admin@example.com" autocomplete="username" required>
+                    </div>
+                </div>
 
-    <form method="POST">
+                <div class="cc-field">
+                    <label for="password">Password</label>
+                    <div class="cc-input">
+                        <i class="fas fa-lock"></i>
+                        <input id="password" type="password" name="password" placeholder="Enter admin password" autocomplete="current-password" required>
+                    </div>
+                </div>
 
-        <input
-            type="email"
-            name="email"
-            placeholder="Admin Email"
-            required>
+                <button type="submit">Sign In to Admin <i class="fas fa-arrow-right"></i></button>
+            </form>
 
-        <input
-            type="password"
-            name="password"
-            placeholder="Admin Password"
-            required>
+            <div class="cc-admin-note">
+                <i class="fas fa-circle-info"></i>
+                <span>Admin access is separate from the candidate account system.</span>
+            </div>
 
-        <button type="submit">
-            Login
-        </button>
-
-    </form>
-
-</div>
-
+            <a href="/" class="cc-admin-back"><i class="fas fa-arrow-left"></i> Back to home</a>
+        </section>
+    </main>
 </body>
 </html>

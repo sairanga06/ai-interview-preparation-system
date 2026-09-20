@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coding Practice | CareerCraft AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{
+  --bg:#eef1f6;--surface:#fff;--surface-2:#f7f8fb;--surface-3:#eef1f5;
+  --text:#172033;--muted:#667085;--border:#d9dee8;--primary:#635bff;
+  --success:#16a34a;--danger:#ef4444;--warning:#f59e0b;
+  --code-bg:#ffffff;--code-gutter:#f4f5f7;--code-text:#172033;--code-border:#d8dde6;
+  --code-keyword:#7c3aed;--code-string:#16803c;--code-comment:#7a808a;--code-number:#c56a00;
+  --code-function:#0b63ce;--code-class:#c2410c;--code-operator:#087ea4;--code-builtin:#075985;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text)}
+body{overflow:hidden}button,a{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}
+.nav{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--border);background:var(--surface);position:relative;z-index:30;flex:none}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;white-space:nowrap}.brand-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#635bff,#8b5cf6);color:#fff}.navlinks{display:flex;align-items:center;gap:3px;margin:0;padding:0;list-style:none;overflow:auto}.navlinks a{padding:9px 11px;border-radius:9px;font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap}.navlinks a.active{background:rgba(99,91,255,.10);color:var(--primary)}
+.workspace-shell{height:calc(100vh - 64px);display:flex;flex-direction:column;min-height:0}
+.coding-toolbar{height:54px;display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid var(--border);background:var(--surface);flex:none;position:relative;z-index:25}
+.toolbar-title{font-weight:800;font-size:13px;display:flex;align-items:center;gap:9px;white-space:nowrap}.toolbar-title i{color:var(--primary)}.toolbar-sep{height:24px;width:1px;background:var(--border);margin:0 5px}.tool-btn{height:36px;min-width:36px;border:1px solid var(--border);background:var(--surface);border-radius:9px;color:var(--muted);display:grid;place-items:center}.tool-btn:hover{border-color:#b9b4ff;color:var(--primary);background:rgba(99,91,255,.05)}.difficulty{display:inline-flex;padding:6px 10px;border-radius:999px;font-size:10px;font-weight:800}.easy{background:#e8f7ee;color:#148a43}.medium{background:#fff2df;color:#c66a00}.toolbar-spacer{flex:1}.shortcut{font-size:11px;color:var(--muted);white-space:nowrap}
+.theme-slot{display:none!important}
+.coding-theme-btn{height:34px;width:34px;border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:8px;display:grid;place-items:center;flex:0 0 34px;margin:0 2px 0 0;transition:.18s ease}
+.coding-theme-btn:hover{color:var(--primary);border-color:#b9b4ff;background:rgba(99,91,255,.06);transform:translateY(-1px)}
+.coding-theme-btn:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.workspace{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;padding:8px;background:var(--surface-3)}
+.pane{min-width:0;min-height:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.pane-tabs{height:48px;display:flex;align-items:center;gap:5px;padding:0 18px;border-bottom:1px solid var(--border);flex:none;background:var(--surface)}.tab{height:48px;border:0;background:transparent;color:var(--muted);font-size:12px;font-weight:700;padding:0 10px;position:relative}.tab.active{color:var(--text)}.tab.active:after{content:"";position:absolute;left:10px;right:10px;bottom:0;height:2px;background:var(--primary);border-radius:2px}
+.tab-count{display:inline-flex;min-width:18px;height:18px;padding:0 5px;align-items:center;justify-content:center;border-radius:999px;background:rgba(99,91,255,.10);color:var(--primary);font-size:9px;margin-left:4px}.problem-body[hidden]{display:none!important}.submissions-view{display:none;flex:1;min-height:0;overflow:auto;padding:20px}.submissions-view.open{display:block}.submissions-view[hidden]{display:none!important}.submissions-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;margin-bottom:18px}.submissions-head h2{margin:0 0 5px;font-size:20px}.submissions-head p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}.submission-count{padding:7px 10px;border-radius:999px;background:var(--surface-2);color:var(--muted);font-size:10px;font-weight:800;white-space:nowrap}.submission-list{display:grid;gap:10px}.submission-card{width:100%;text-align:left;border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:12px;padding:14px;transition:.18s ease}.submission-card:hover{border-color:#a7a0ff;transform:translateY(-1px);box-shadow:0 8px 22px rgba(16,24,40,.08)}.submission-card-top,.submission-card-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px}.submission-card-top strong{display:block;font-size:12px}.submission-card-top span,.submission-card-bottom span:last-child{display:block;margin-top:4px;font-size:10px;color:var(--muted)}.submission-card-top>b{font-size:13px;color:var(--primary)}.submission-card-bottom{margin-top:10px;padding-top:9px;border-top:1px solid var(--border);font-size:10px;color:var(--muted)}.empty-submissions{text-align:center;padding:50px 20px;color:var(--muted)}.empty-submissions i{font-size:28px;color:var(--primary);margin-bottom:10px}.empty-submissions h3{margin:0 0 6px;color:var(--text);font-size:15px}.empty-submissions p{margin:0;font-size:11px}
+.problem-body{overflow:auto;min-height:0;padding:28px 34px 48px}.problem-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}.problem-head h1{font-size:28px;letter-spacing:-.04em;margin:0 0 7px}.topic{font-size:12px;font-weight:700;color:var(--muted)}.description{font-size:14px;line-height:1.8;margin:28px 0;color:var(--text);max-width:850px}.section-title{font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:800;color:var(--muted);margin:28px 0 11px}.examples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.example{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:15px;font:12px/1.7 "JetBrains Mono",monospace;overflow:auto;color:var(--text)}.example strong{font:700 11px Inter,sans-serif;color:var(--text)}.constraints{padding-left:20px;color:var(--muted);font-size:12px;line-height:2}
+.problem-list-wrap{position:fixed;left:12px;top:126px;width:310px;max-height:calc(100vh - 142px);background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:0 18px 48px rgba(16,24,40,.18);z-index:60;display:none;overflow:auto}.problem-list-wrap.open{display:block}.list-head{padding:16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:800}.problem-list{padding:8px}.problem{display:block;padding:12px 11px;border-radius:9px;margin-bottom:3px}.problem:hover{background:var(--surface-2)}.problem.active{background:rgba(99,91,255,.09)}.problem-title{font-size:12px;font-weight:800}.problem-meta{font-size:10px;color:var(--muted);margin-top:4px}
+.code-pane{background:var(--code-bg);border-color:var(--code-border);color:var(--code-text);position:relative;min-width:0}.code-top{height:50px;display:flex;align-items:center;gap:7px;padding:0 10px;background:var(--surface-2);border-bottom:1px solid var(--code-border);flex:none}.file-tab{height:34px;display:flex;align-items:center;gap:8px;padding:0 13px;background:var(--code-bg);border:1px solid var(--code-border);border-bottom-color:var(--primary);border-radius:8px 8px 0 0;font-size:12px;font-weight:800;color:var(--code-text)}.file-tab i{color:#f2b01e}.code-actions{display:flex;align-items:center;gap:4px;margin-left:auto}.code-icon{width:34px;height:34px;border:0;background:transparent;color:var(--muted);border-radius:8px;display:grid;place-items:center}.code-icon:hover{background:rgba(99,91,255,.08);color:var(--primary)}.zoom-label{font:10px Inter,sans-serif;color:var(--muted);min-width:38px;text-align:center}.run-submit{display:flex;gap:6px;margin-left:5px}.run-submit button{height:34px;border-radius:8px;border:1px solid var(--border);padding:0 13px;background:var(--surface);color:var(--text);font-size:11px;font-weight:800}.run-submit .run:hover{border-color:#b9b4ff;color:var(--primary)}.run-submit .submit{background:#16a34a;border-color:#16a34a;color:#fff}.run-submit button:disabled{opacity:.55;cursor:not-allowed}
+.editor-wrap{display:grid;grid-template-columns:48px minmax(0,1fr);flex:1;min-height:250px;overflow:hidden;background:var(--code-bg)}.line-numbers{padding:17px 10px 17px 0;text-align:right;background:var(--code-gutter);color:#89909b;font:13px/1.7 "JetBrains Mono",monospace;white-space:pre;user-select:none;overflow:hidden;border-right:1px solid var(--code-border)}
+.editor-stage{position:relative;min-width:0;min-height:0;overflow:hidden;background:var(--code-bg)}
+.highlight-layer,.code{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:17px 20px;font:13px/1.7 "JetBrains Mono",monospace;tab-size:4;white-space:pre;overflow:auto;letter-spacing:0}
+.highlight-layer{pointer-events:none;overflow:hidden;color:var(--code-text);background:var(--code-bg);z-index:1}.highlight-layer code{font:inherit;color:inherit}.code{z-index:2;resize:none;outline:0;border:0;background:transparent;color:transparent;-webkit-text-fill-color:transparent;caret-color:var(--code-text);overflow:auto}.code::selection{background:rgba(99,91,255,.25);color:transparent;-webkit-text-fill-color:transparent}
+/* Syntax highlighting: editor colours intentionally mirror a modern IDE/LeetCode feel. */
+.hljs-keyword,.hljs-selector-tag,.hljs-literal{color:var(--code-keyword)!important}.hljs-string,.hljs-doctag,.hljs-regexp{color:var(--code-string)!important}.hljs-comment{color:var(--code-comment)!important;font-style:italic}.hljs-number{color:var(--code-number)!important}.hljs-title.function_,.hljs-title.class_,.hljs-function .hljs-title{color:var(--code-function)!important}.hljs-built_in,.hljs-type,.hljs-variable.language_{color:var(--code-builtin)!important}.hljs-title.class_{color:var(--code-class)!important}.hljs-params{color:var(--code-number)!important}.hljs-operator{color:var(--code-operator)!important}.hljs-punctuation{color:var(--code-text)!important}.hljs-variable,.hljs-property{color:var(--code-text)!important}.hljs-meta{color:var(--code-class)!important}
+.code{caret-shape:block}.editor-stage:focus-within{box-shadow:inset 0 0 0 1px rgba(99,91,255,.16)}
+.editor-foot{height:34px;display:flex;align-items:center;justify-content:space-between;padding:0 13px;background:var(--surface-2);border-top:1px solid var(--code-border);color:var(--muted);font-size:10px;flex:none}.console{height:34%;min-height:155px;max-height:44%;border-top:1px solid var(--code-border);background:var(--surface-2);display:flex;flex-direction:column}.console-head{height:43px;display:flex;align-items:center;gap:14px;padding:0 14px;border-bottom:1px solid var(--code-border);color:var(--text);font-size:12px;font-weight:800;flex:none}.console-head i{color:#16a34a}.console-meta{margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted);font-size:10px}.console-body{flex:1;overflow:auto;padding:12px;color:var(--muted);font:11px/1.65 "JetBrains Mono",monospace}.result-list{display:grid;gap:7px}.test-result{display:flex;justify-content:space-between;gap:12px;padding:9px 10px;border:1px solid var(--code-border);border-radius:8px;background:var(--surface)}.result-main{min-width:0;color:var(--muted);overflow-wrap:anywhere}.result-main strong{color:var(--text)}.result-state{flex:none;font-weight:800;font-size:10px}.pass .result-state{color:#16a34a}.fail .result-state{color:#dc2626}.error{color:#dc2626;white-space:pre-wrap}.review-loading{margin-top:10px;padding:12px;border:1px dashed var(--code-border);border-radius:8px;color:var(--muted);font-size:11px;display:flex;align-items:center;gap:8px}.review-loading i{color:var(--primary)}
+.history-head{padding:15px 17px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between}.history-head h3{margin:0;font-size:13px}.history-close{border:0;background:transparent;color:var(--muted)}.history-item{padding:12px 17px;border-bottom:1px solid var(--border)}.history-row{display:flex;justify-content:space-between;gap:10px}.history-name{font-size:11px;font-weight:800}.history-time{font-size:9px;color:var(--muted);margin-top:3px}.history-score{font-size:11px;font-weight:800;color:var(--primary)}.history-status{font-size:9px;font-weight:800;margin-top:5px}.accepted{color:var(--success)}.failed-text{color:var(--danger)}
+/* Expand mode */
+.code-pane.expanded{position:fixed!important;inset:72px 10px 10px 10px!important;width:auto!important;height:auto!important;z-index:80!important;border-radius:12px;box-shadow:0 24px 80px rgba(0,0,0,.35)}.code-pane.expanded .editor-wrap{min-height:0}.code-pane.expanded .console{height:32%;max-height:45%}
+/* Light theme */
+html[data-cc-theme="light"] body.coding-practice-page{background:#eef1f6;color:#172033}html[data-cc-theme="light"] body.coding-practice-page .workspace{background:#e7ebf1}html[data-cc-theme="light"] body.coding-practice-page .code-pane{background:#fff;color:#172033;border-color:#d8dde6}html[data-cc-theme="light"] body.coding-practice-page .code-top,html[data-cc-theme="light"] body.coding-practice-page .console,html[data-cc-theme="light"] body.coding-practice-page .editor-foot{background:#f7f8fb;color:#172033;border-color:#d8dde6}html[data-cc-theme="light"] body.coding-practice-page .editor-wrap,html[data-cc-theme="light"] body.coding-practice-page .editor-stage,html[data-cc-theme="light"] body.coding-practice-page .highlight-layer{background:#fff}html[data-cc-theme="light"] body.coding-practice-page .line-numbers{background:#f4f5f7;color:#89909b;border-color:#d8dde6}html[data-cc-theme="light"] body.coding-practice-page .code{caret-color:#172033}
+/* Dark theme */
+html[data-cc-theme="dark"] body.coding-practice-page{background:#0b0c0f;color:#f3f4f6}html[data-cc-theme="dark"] body.coding-practice-page .nav,html[data-cc-theme="dark"] body.coding-practice-page .coding-toolbar,html[data-cc-theme="dark"] body.coding-practice-page .pane,html[data-cc-theme="dark"] body.coding-practice-page .pane-tabs{background:#17181a;color:#f3f4f6;border-color:#303236}html[data-cc-theme="dark"] body.coding-practice-page .workspace{background:#0d0e10}html[data-cc-theme="dark"] body.coding-practice-page .problem-body,html[data-cc-theme="dark"] body.coding-practice-page .problem-pane{color:#f3f4f6}html[data-cc-theme="dark"] body.coding-practice-page .topic,html[data-cc-theme="dark"] body.coding-practice-page .section-title,html[data-cc-theme="dark"] body.coding-practice-page .problem-meta,html[data-cc-theme="dark"] body.coding-practice-page .shortcut{color:#9ca3af}html[data-cc-theme="dark"] body.coding-practice-page .description,html[data-cc-theme="dark"] body.coding-practice-page .problem-head h1,html[data-cc-theme="dark"] body.coding-practice-page .example strong,html[data-cc-theme="dark"] body.coding-practice-page .tab.active{color:#f3f4f6}html[data-cc-theme="dark"] body.coding-practice-page .example{background:#202225;border-color:#34363a;color:#d1d5db}html[data-cc-theme="dark"] body.coding-practice-page .constraints{color:#aeb4bf}html[data-cc-theme="dark"] body.coding-practice-page .tool-btn{background:#202225;color:#cbd5e1;border-color:#383a40}html[data-cc-theme="dark"] body.coding-practice-page .problem-list-wrap{background:#17181a;color:#f3f4f6;border-color:#303236}html[data-cc-theme="dark"] body.coding-practice-page .submissions-view,html[data-cc-theme="dark"] body.coding-practice-page .submission-card{color:#f3f4f6}html[data-cc-theme="dark"] body.coding-practice-page .submission-card{background:#202225;border-color:#34363a}html[data-cc-theme="dark"] body.coding-practice-page .submission-card-bottom{border-color:#34363a}html[data-cc-theme="dark"] body.coding-practice-page .submission-count{background:#202225}html[data-cc-theme="dark"] body.coding-practice-page .problem:hover{background:#202225}html[data-cc-theme="dark"] body.coding-practice-page .problem.active{background:#29254c}html[data-cc-theme="dark"] body.coding-practice-page .history-item{border-color:#303236}html[data-cc-theme="dark"] body.coding-practice-page .code-pane{background:#1e1f21;color:#e8e8e8;border-color:#34363a}html[data-cc-theme="dark"] body.coding-practice-page .code-top{background:#252628;border-color:#3b3d40}html[data-cc-theme="dark"] body.coding-practice-page .file-tab{background:#1e1f21;color:#f3f4f6;border-color:#3b3d40;border-bottom-color:#635bff}html[data-cc-theme="dark"] body.coding-practice-page .editor-wrap,html[data-cc-theme="dark"] body.coding-practice-page .editor-stage,html[data-cc-theme="dark"] body.coding-practice-page .highlight-layer{background:#1e1f21}html[data-cc-theme="dark"] body.coding-practice-page .line-numbers{background:#18191b;color:#747a84;border-color:#34363a}html[data-cc-theme="dark"] body.coding-practice-page .editor-foot,html[data-cc-theme="dark"] body.coding-practice-page .console{background:#202124;border-color:#3b3d40}html[data-cc-theme="dark"] body.coding-practice-page .console-head{color:#f3f4f6;border-color:#3b3d40}html[data-cc-theme="dark"] body.coding-practice-page .console-body{color:#aeb4bf}html[data-cc-theme="dark"] body.coding-practice-page .test-result{background:#27282b;border-color:#3b3d40}html[data-cc-theme="dark"] body.coding-practice-page .result-main{color:#b9bec8}html[data-cc-theme="dark"] body.coding-practice-page .result-main strong{color:#f3f4f6}html[data-cc-theme="dark"] body.coding-practice-page .run-submit .run{background:#2b2d30;color:#f3f4f6;border-color:#45484d}html[data-cc-theme="dark"] body.coding-practice-page .code{caret-color:#f3f4f6}
+html[data-cc-theme="dark"] body.coding-practice-page{--bg:#0b0c0f;--surface:#17181a;--surface-2:#202225;--surface-3:#0d0e10;--text:#f3f4f6;--muted:#9ca3af;--border:#303236}
+/* Day 17 — Coding Intelligence theme integration */
+html[data-cc-theme="dark"] body.coding-practice-page .intel-panel{background:#15171b;color:#f3f4f6;border-color:#34373d;box-shadow:0 24px 70px rgba(0,0,0,.48)}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-head{background:#15171b;border-color:#34373d;color:#f3f4f6}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-head h3{color:#f8fafc}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-head p{color:#9ca3af}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-head-icon{background:#29254c;color:#a78bfa}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-close{color:#aeb4bf}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-close:hover{background:#24262b;color:#f8fafc}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-tabs{background:#1c1e23;border-color:#34373d}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-tab{color:#9ca3af}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-tab:hover{color:#b5adff}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-tab.active{background:#25272d;border-color:#444750;color:#a89fff;box-shadow:0 3px 12px rgba(0,0,0,.24)}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-body{background:#15171b;color:#f3f4f6}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-empty{color:#9ca3af}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-empty i{color:#8b7fff}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-message{background:#202227;border-color:#383b42;color:#e5e7eb}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-grid .intel-metric{background:#1b1d22;border-color:#383b42;color:#f3f4f6}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-metric b{color:#8f96a3}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-metric span{color:#f3f4f6}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-section h4{color:#8f96a3}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-section ol{color:#e5e7eb}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-footnote{color:#7f8793}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-generate{background:#635bff;color:#fff;border-color:#756eff;box-shadow:0 8px 20px rgba(99,91,255,.22)}
+html[data-cc-theme="dark"] body.coding-practice-page .intel-generate:hover{background:#746cff}
+
+/* Dark syntax palette */
+html[data-cc-theme="dark"] body.coding-practice-page{--code-bg:#1e1f21;--code-gutter:#18191b;--code-text:#e8e8e8;--code-keyword:#c084fc;--code-string:#6ee7a0;--code-comment:#7f8793;--code-number:#f0a45b;--code-function:#60a5fa;--code-class:#fb7185;--code-operator:#67d5f2;--code-builtin:#5bb7ff}
+@media(max-width:1050px){.workspace{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)}.examples{grid-template-columns:1fr}.navlinks a{padding:8px 8px}.shortcut{display:none}}
+@media(max-width:760px){body{overflow:auto}.nav{height:auto;min-height:64px;padding:10px 14px;align-items:flex-start;gap:8px;flex-direction:column}.navlinks{width:100%}.workspace-shell{height:auto;min-height:calc(100vh - 96px)}.coding-toolbar{overflow:auto}.workspace{display:flex;flex-direction:column;min-height:0;padding:6px}.pane{min-height:520px}.problem-body{padding:22px}.code-pane{min-height:640px}.editor-wrap{min-height:350px}.console{height:240px;max-height:none}.problem-list-wrap{top:112px;left:10px;width:calc(100% - 20px);max-height:70vh}.code-pane.expanded{inset:72px 6px 6px 6px!important}}
+@media(max-width:480px){.toolbar-title span{display:none}.toolbar-sep{display:none}.problem-head h1{font-size:23px}.code-top{height:auto;min-height:50px;flex-wrap:wrap;padding:8px}.code-actions{margin-left:0}.run-submit{margin-left:auto}.editor-wrap{grid-template-columns:40px minmax(0,1fr)}.highlight-layer,.code{padding:15px 12px;font-size:12px}.line-numbers{font-size:11px;padding-right:8px}.pane{border-radius:8px}.theme-slot{margin-left:2px}}
+
+/* DAY 14 — submission evaluation UI */
+.feedback-card{margin-top:14px;border:1px solid var(--cc-border,#e5e7eb);border-radius:14px;background:var(--cc-surface,#fff);padding:16px}
+.feedback-card h4{margin:0 0 8px;font-size:14px}.feedback-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0}.feedback-metric{padding:10px;border-radius:10px;background:var(--cc-surface-2,#f8fafc);font-size:11px}.feedback-metric b{display:block;font-size:12px;margin-bottom:4px}.feedback-card p{font-size:12px;line-height:1.6;margin:8px 0;color:var(--cc-muted,#64748b)}.feedback-lists{display:grid;grid-template-columns:1fr 1fr;gap:12px}.feedback-lists ul{margin:6px 0 0;padding-left:18px;font-size:12px;line-height:1.7}.feedback-tip{margin-top:12px;padding:11px 12px;border-radius:10px;background:rgba(99,91,255,.08);font-size:12px;line-height:1.55}.history-item{cursor:pointer;transition:transform .18s ease,border-color .18s ease}.history-item:hover{transform:translateY(-1px);border-color:#818cf8}.submission-detail{position:fixed;inset:0;z-index:1200;background:rgba(15,23,42,.58);display:none;align-items:center;justify-content:center;padding:20px}.submission-detail.open{display:flex}.submission-modal{width:min(920px,100%);max-height:88vh;overflow:auto;background:#fff;color:#172033;border-radius:20px;padding:22px;box-shadow:0 30px 90px rgba(0,0,0,.25)}.submission-modal pre{background:#0b1120;color:#e2e8f0;border-radius:12px;padding:15px;overflow:auto;font-size:12px;line-height:1.6}.submission-close{float:right;border:0;background:transparent;font-size:20px;cursor:pointer;color:inherit}@media(max-width:700px){.feedback-grid,.feedback-lists{grid-template-columns:1fr}.submission-detail{padding:10px}.submission-modal{padding:16px}.submissions-head{flex-direction:column}.submission-card-top,.submission-card-bottom{align-items:flex-start}.submission-card-bottom{flex-direction:column;gap:4px}}
+html[data-cc-theme="dark"] .submission-modal{background:#111827;color:#f8fafc}
+html[data-cc-theme="dark"] body.coding-practice-page .feedback-card{background:#202124;border-color:#3b3d40;color:#f3f4f6}
+html[data-cc-theme="dark"] body.coding-practice-page .feedback-card p{color:#b9bec8}
+html[data-cc-theme="dark"] body.coding-practice-page .feedback-metric{background:#27282b;color:#d9dde5;border:1px solid #3b3d40}
+html[data-cc-theme="dark"] body.coding-practice-page .feedback-metric b,
+html[data-cc-theme="dark"] body.coding-practice-page .feedback-lists>b,
+html[data-cc-theme="dark"] body.coding-practice-page .feedback-lists>div>b{color:#f3f4f6}
+html[data-cc-theme="dark"] body.coding-practice-page .feedback-lists{color:#d1d5db}
+html[data-cc-theme="dark"] body.coding-practice-page .feedback-lists li{color:#c1c7d0}
+html[data-cc-theme="dark"] body.coding-practice-page .feedback-tip{background:#29254c;color:#e5e7eb}
+
+
+/* ==========================================================
+   CONTEXTUAL BACK NAVIGATION — DARK MODE FIX
+   Only affects the added Back to Dashboard area.
+   ========================================================== */
+html[data-cc-theme="dark"] body.coding-practice-page > div[style*="padding:12px 24px 0"] {
+    background: #0b0c0f !important;
+}
+
+html[data-cc-theme="dark"] body.coding-practice-page > div[style*="padding:12px 24px 0"] a {
+    background: #17181a !important;
+    border-color: #303236 !important;
+    color: #c7d2fe !important;
+}
+
+html[data-cc-theme="dark"] body.coding-practice-page > div[style*="padding:12px 24px 0"] a:hover {
+    background: #202225 !important;
+    border-color: #818cf8 !important;
+    color: #f8fafc !important;
+}
+
+
+/* ==========================================================
+   DAY 17 — CODING INTELLIGENCE
+   Learning-oriented AI coach panel; preserves Run/Submit.
+   ========================================================== */
+.intel-launch{height:34px;border:1px solid rgba(99,91,255,.35);background:rgba(99,91,255,.08);color:var(--primary);border-radius:8px;padding:0 11px;font-size:11px;font-weight:800;display:inline-flex;align-items:center;gap:6px;transition:.18s ease}
+.intel-launch:hover{background:rgba(99,91,255,.14);transform:translateY(-1px)}
+.intel-panel{position:absolute;right:14px;top:60px;width:min(430px,calc(100% - 28px));max-height:calc(100% - 74px);background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 22px 60px rgba(16,24,40,.22);z-index:45;display:none;flex-direction:column;overflow:hidden}
+.intel-panel.open{display:flex}
+.intel-head{padding:15px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:10px}
+.intel-head-icon{width:34px;height:34px;border-radius:9px;background:rgba(99,91,255,.11);color:var(--primary);display:grid;place-items:center;flex:0 0 34px}
+.intel-head h3{margin:0;font-size:13px}.intel-head p{margin:4px 0 0;color:var(--muted);font-size:9px;line-height:1.45}
+.intel-close{margin-left:auto;width:28px;height:28px;border:0;background:transparent;color:var(--muted);border-radius:7px}.intel-close:hover{background:var(--surface-2);color:var(--text)}
+.intel-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:10px;border-bottom:1px solid var(--border);background:var(--surface-2)}
+.intel-tab{height:31px;border:1px solid transparent;background:transparent;border-radius:7px;color:var(--muted);font-size:9px;font-weight:800}.intel-tab:hover{color:var(--primary)}.intel-tab.active{background:var(--surface);border-color:var(--border);color:var(--primary);box-shadow:0 2px 8px rgba(16,24,40,.05)}
+.intel-body{padding:14px 15px;overflow:auto}.intel-empty{text-align:center;padding:20px 10px;color:var(--muted);font-size:10px;line-height:1.6}.intel-empty i{font-size:22px;color:var(--primary);margin-bottom:8px}
+.intel-actions{display:flex;justify-content:flex-end;margin-bottom:10px}.intel-generate{height:31px;border:1px solid var(--primary);border-radius:8px;background:var(--primary);color:#fff;padding:0 11px;font-size:9px;font-weight:800}.intel-generate:disabled{opacity:.55;cursor:not-allowed}
+.intel-message{padding:12px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);font-size:10px;line-height:1.65;color:var(--text)}
+.intel-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.intel-metric{padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--surface)}.intel-metric b{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}.intel-metric span{font-size:10px;font-weight:800}
+.intel-section{margin-top:12px}.intel-section h4{margin:0 0 6px;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}.intel-section ol{margin:0;padding-left:18px;color:var(--text);font-size:10px;line-height:1.65}.intel-section li+li{margin-top:4px}
+.intel-footnote{margin-top:11px;color:var(--muted);font-size:8px;line-height:1.5}
+@media(max-width:900px){.intel-panel{position:fixed;right:12px;top:132px;max-height:calc(100vh - 148px)}}
+
+
+/* ==========================================================
+   RESPONSIVE WORKSPACE
+   Keeps every existing feature usable on tablets and phones.
+   ========================================================== */
+@media (max-width: 980px){
+  body{overflow:auto}
+  .workspace-shell{height:auto;min-height:calc(100vh - 64px)}
+  .nav{overflow:hidden}
+  .navlinks{max-width:58vw}
+  .workspace{grid-template-columns:1fr;min-height:calc(100vh - 126px)}
+  .problem-pane{min-height:420px}
+  .code-pane{min-height:620px}
+  .problem-list-wrap{left:12px;right:12px;width:auto;max-height:60vh}
+}
+@media (max-width: 640px){
+  .nav{height:auto;min-height:64px;padding:10px 14px;gap:10px}
+  .brand{font-size:12px}
+  .brand-icon{width:34px;height:34px;border-radius:10px}
+  .navlinks{gap:1px;max-width:72vw}
+  .navlinks a{padding:8px 7px;font-size:10px}
+  .coding-toolbar{height:auto;min-height:54px;flex-wrap:wrap;padding:8px 10px}
+  .toolbar-title{font-size:11px}
+  .shortcut{display:none}
+  .workspace{padding:6px}
+  .problem-body{padding:20px 18px 34px}
+  .problem-head h1{font-size:23px}
+  .examples{grid-template-columns:1fr}
+  .code-top{height:auto;min-height:50px;flex-wrap:wrap;padding:8px}
+  .code-actions{margin-left:0}
+  .run-submit{width:100%;margin-left:0}
+  .run-submit button{flex:1}
+  .editor-wrap{grid-template-columns:40px minmax(0,1fr)}
+  .line-numbers{font-size:11px}
+  .highlight-layer,.code{padding:14px 14px;font-size:12px}
+  .console{min-height:170px}
+}
+</style>
+<script>(function(){try{var t=localStorage.getItem('careercraft-theme');document.documentElement.setAttribute('data-cc-theme',t==='dark'?'dark':'light')}catch(e){document.documentElement.setAttribute('data-cc-theme','light')}})();</script>
+</head>
+<body class="coding-practice-page">
+<nav class="nav">
+<a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-icon"><i class="fas fa-brain"></i></span>CareerCraft AI</a>
+<ul class="navlinks"><li><a href="{{ url_for('dashboard') }}">Dashboard</a></li><li><a href="{{ url_for('learning') }}">Learning</a></li><li><a class="active" href="{{ url_for('coding_practice') }}">Coding Practice</a></li><li><a href="{{ url_for('learning_tests') }}">Test History</a></li><li><a href="{{ url_for('history') }}">Interview History</a></li><li><a href="{{ url_for('edit_profile') }}">Profile</a></li><li><a href="{{ url_for('logout') }}">Logout</a></li></ul>
+</nav>
+<div class="workspace-shell">
+<div class="coding-toolbar">
+<button type="button" class="tool-btn" id="problemListBtn" title="Problem list" aria-label="Open problem list" aria-expanded="false"><i class="fas fa-list"></i></button>
+<div class="toolbar-title"><i class="fas fa-code"></i><span>Problem Workspace</span></div><div class="toolbar-sep"></div>
+<button type="button" class="tool-btn" id="prevBtn" title="Previous problem" aria-label="Previous problem"><i class="fas fa-chevron-left"></i></button><button type="button" class="tool-btn" id="nextBtn" title="Next problem" aria-label="Next problem"><i class="fas fa-chevron-right"></i></button><button type="button" class="tool-btn" id="randomBtn" title="Random problem" aria-label="Random problem"><i class="fas fa-shuffle"></i></button>
+<span class="toolbar-spacer"></span><span class="shortcut">Ctrl + Enter Run</span><span class="difficulty {{ problem.difficulty|lower }}">{{ problem.difficulty }}</span>
+</div>
+<div class="workspace">
+<section class="pane problem-pane">
+<div class="pane-tabs"><button class="tab active" id="descriptionTab" type="button" aria-selected="true" aria-controls="descriptionView">Description</button><button class="tab" id="historyOpen" type="button" aria-selected="false" aria-controls="submissionsView">Submissions <span class="tab-count">{{ submission_count|default(attempts|length) }}</span></button></div>
+<div class="problem-body" id="descriptionView"><div class="problem-head"><div><h1>{{ problem.title }}</h1><div class="topic">{{ problem.topic }} · Python</div></div></div><p class="description">{{ problem.description }}</p><div class="section-title">Examples</div><div class="examples">{% for ex in problem.examples %}<div class="example"><strong>Input</strong><br>{{ ex.input }}<br><br><strong>Output</strong><br>{{ ex.output }}</div>{% endfor %}</div><div class="section-title">Constraints</div><ul class="constraints">{% for item in problem.constraints %}<li>{{ item }}</li>{% endfor %}</ul></div>
+<div class="submissions-view" id="submissionsView" aria-hidden="true"><div class="submissions-head"><div><h2>Submission History</h2><p>Review your recent coding attempts and saved AI reviews.</p></div><span class="submission-count" id="submissionTotalCount">{{ submission_count|default(attempts|length) }} total</span></div><div class="submission-list">{% if attempts %}{% for item in attempts %}<button type="button" class="submission-card" data-submission-id="{{ item.id }}"><div class="submission-card-top"><div><strong>{{ problems.get(item.problem_slug, {}).get("title", item.problem_slug) }}</strong><span>{{ item.created_at }} · {{ item.execution_ms|round(0)|int }} ms</span></div><b>{{ item.score|round(0)|int }}%</b></div><div class="submission-card-bottom"><span class="history-status {% if item.status == "accepted" or item.status == "run_passed" %}accepted{% else %}failed-text{% endif %}">{{ item.status.replace("_"," ").title() }}</span><span>{{ item.passed_tests }}/{{ item.total_tests }} tests {% if item.has_feedback %}· AI review{% endif %}</span></div></button>{% endfor %}{% else %}<div class="empty-submissions"><i class="fas fa-code"></i><h3>No submissions yet</h3><p>Run and submit a solution to build your coding history.</p></div>{% endif %}</div></div>
+</section>
+<section class="pane code-pane" id="codePane">
+<div class="code-top"><div class="file-tab"><i class="fab fa-python"></i>solution.py</div><div class="code-actions"><button class="code-icon" id="fontDown" title="Decrease editor font" aria-label="Decrease editor font"><i class="fas fa-minus"></i></button><span class="zoom-label" id="fontSizeLabel">13px</span><button class="code-icon" id="fontUp" title="Increase editor font" aria-label="Increase editor font"><i class="fas fa-plus"></i></button><button class="code-icon" id="resetBtn" title="Reset code" aria-label="Reset code"><i class="fas fa-rotate-left"></i></button><button class="code-icon" id="expandBtn" title="Expand editor" aria-label="Expand editor"><i class="fas fa-expand"></i></button><button class="coding-theme-btn" id="codingThemeBtn" type="button" title="Switch theme" aria-label="Switch theme"><i class="fas fa-moon"></i></button><button class="intel-launch" id="intelLaunch" type="button" title="Open Coding Intelligence"><i class="fas fa-wand-magic-sparkles"></i> AI Coach</button><div class="run-submit"><button type="button" class="run" id="runBtn"><i class="fas fa-play"></i> Run</button><button type="button" class="submit" id="submitBtn"><i class="fas fa-check"></i> Submit</button></div></div></div>
+<div class="editor-wrap"><div class="line-numbers" id="lineNumbers">1</div><div class="editor-stage" id="editorStage"><pre class="highlight-layer" id="highlightLayer" aria-hidden="true"><code id="highlightCode"></code></pre><textarea class="code" id="code" spellcheck="false" wrap="off" aria-label="Python code editor">{{ problem.starter }}</textarea></div></div>
+<div class="editor-foot"><span>Python 3 · LeetCode-style <b>class Solution</b> · Tab = 4 spaces</span><span id="lineCount">Lines: 1</span></div>
+<div class="console" id="console"><div class="console-head"><span><i class="fas fa-terminal"></i> Test Result</span><span class="console-meta" id="consoleMeta">Run your code to see results</span></div><div class="console-body" id="consoleBody">You must run your code first.</div></div>
+</section>
+</div></div>
+<div class="intel-panel" id="intelPanel" aria-hidden="true">
+  <div class="intel-head">
+    <div class="intel-head-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+    <div><h3>Coding Intelligence</h3><p>Get guidance without giving away the solution. Your current code is used as context.</p></div>
+    <button class="intel-close" id="intelClose" type="button" aria-label="Close AI Coach"><i class="fas fa-xmark"></i></button>
+  </div>
+  <div class="intel-tabs" role="tablist" aria-label="Coding Intelligence tools">
+    <button class="intel-tab active" data-intel-mode="hint" type="button">Hint</button>
+    <button class="intel-tab" data-intel-mode="explain" type="button">Explain</button>
+    <button class="intel-tab" data-intel-mode="complexity" type="button">Complexity</button>
+    <button class="intel-tab" data-intel-mode="optimize" type="button">Optimize</button>
+  </div>
+  <div class="intel-body" id="intelBody">
+    <div class="intel-empty"><i class="fas fa-brain"></i><br>Select a tool above, then generate guidance for the current problem.</div>
+  </div>
+</div>
+<div class="problem-list-wrap" id="problemList"><div class="list-head">Problem List · {{ problems|length }} problems</div><div class="problem-list">{% for slug, item in problems.items() %}<a class="problem {% if slug == selected_slug %}active{% endif %}" href="{{ url_for('coding_practice', problem=slug) }}"><div class="problem-title">{{ item.title }}</div><div class="problem-meta">{{ item.topic }} · {{ item.difficulty }}</div></a>{% endfor %}</div></div>
+<div class="toast" id="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+<script type="application/json" id="codingRuntimeData">
+{
+  "starter": {{ problem.starter|tojson }},
+  "slug": {{ selected_slug|tojson }},
+  "runUrl": {{ url_for("coding_run")|tojson }},
+  "submitUrl": {{ url_for("coding_submit")|tojson }},
+  "reviewBaseUrl": "/coding/review/",
+  "intelligenceUrl": "/coding/intelligence",
+  "submissionBaseUrl": "/coding/submission/"
+}
+</script>
+<script>
+const code=document.getElementById('code'),lineNumbers=document.getElementById('lineNumbers'),lineCount=document.getElementById('lineCount'),highlightLayer=document.getElementById('highlightLayer'),highlightCode=document.getElementById('highlightCode'),consoleBody=document.getElementById('consoleBody'),consoleMeta=document.getElementById('consoleMeta'),toast=document.getElementById('toast');
+const runtimeData = JSON.parse(document.getElementById("codingRuntimeData").textContent);
+const starter = runtimeData.starter;
+const slug = runtimeData.slug;
+const runUrl = runtimeData.runUrl;
+const submitUrl = runtimeData.submitUrl;
+const reviewBaseUrl = runtimeData.reviewBaseUrl;
+const intelligenceUrl = runtimeData.intelligenceUrl;
+const submissionBaseUrl = runtimeData.submissionBaseUrl;
+function updateLines(){const n=code.value.split('\n').length;lineNumbers.textContent=Array.from({length:n},(_,i)=>i+1).join('\n');lineCount.textContent='Lines: '+n;lineNumbers.scrollTop=code.scrollTop;syncEditorScroll()}
+function updateHighlight(){const value=code.value;try{highlightCode.innerHTML=window.hljs?hljs.highlight(value,{language:'python'}).value:escapeHtml(value)}catch(e){highlightCode.textContent=value}syncEditorScroll()}
+function syncEditorScroll(){highlightLayer.scrollTop=code.scrollTop;highlightLayer.scrollLeft=code.scrollLeft;lineNumbers.scrollTop=code.scrollTop}
+code.addEventListener('input',()=>{updateLines();updateHighlight();saveDraft()});code.addEventListener('scroll',syncEditorScroll);
+/* IDE-style editor behavior: paired brackets/quotes, smart indentation, comment toggle, duplicate line and draft persistence. */
+const PAIRS={'(':')','[':']','{':'}','"':'"',"'":"'",'`':'`'};
+const CLOSES=new Set(Object.values(PAIRS));
+function replaceSelection(start,end,text,caret=start+text.length){code.setRangeText(text,start,end,'start');code.selectionStart=code.selectionEnd=caret;updateLines();updateHighlight();saveDraft()}
+function currentLineBounds(pos){const value=code.value;const lineStart=value.lastIndexOf('\n',pos-1)+1;let lineEnd=value.indexOf('\n',pos);if(lineEnd<0)lineEnd=value.length;return {lineStart,lineEnd}}
+function toggleComments(){
+  const value=code.value,a=code.selectionStart,b=code.selectionEnd;
+  const start=value.lastIndexOf('\n',a-1)+1;const endLine=value.indexOf('\n',Math.max(b,a));const end=endLine<0?value.length:endLine;
+  const block=value.slice(start,end);const lines=block.split('\n');
+  const nonEmpty=lines.filter(x=>x.trim());const uncomment=nonEmpty.length>0&&nonEmpty.every(x=>/^\s*# ?/.test(x));
+  const changed=lines.map(line=>{if(!line.trim())return line;if(uncomment)return line.replace(/^(\s*)# ?/,'$1');return line.replace(/^(\s*)/,'$1# ')}).join('\n');
+  code.setRangeText(changed,start,end,'select');code.selectionStart=start;code.selectionEnd=start+changed.length;updateLines();updateHighlight();saveDraft();
+}
+function duplicateCurrentLine(){
+  const value=code.value,pos=code.selectionStart;const {lineStart,lineEnd}=currentLineBounds(pos);const line=value.slice(lineStart,lineEnd);const insert='\n'+line;code.setRangeText(insert,lineEnd,lineEnd,'end');code.selectionStart=pos+insert.length;code.selectionEnd=code.selectionStart;updateLines();updateHighlight();saveDraft();
+}
+function restoreDraft(){try{const saved=localStorage.getItem('cc-code-draft-'+slug);if(saved!==null&&saved!==starter)code.value=saved}catch(_){}updateLines();updateHighlight()}
+function saveDraft(){try{localStorage.setItem('cc-code-draft-'+slug,code.value)}catch(_){} }
+code.addEventListener('keydown',e=>{
+  if(e.key==='Tab'){
+    e.preventDefault();
+    const a=code.selectionStart,b=code.selectionEnd;
+    if(a!==b&&code.value.slice(a,b).includes('\n')){
+      const start=code.value.lastIndexOf('\n',a-1)+1;const selected=code.value.slice(start,b).split('\n').map(line=>'    '+line).join('\n');
+      code.setRangeText(selected,start,b,'select');code.selectionStart=start;code.selectionEnd=start+selected.length;
+    }else replaceSelection(a,b,'    ');
+    return;
+  }
+  if(e.ctrlKey&&e.key==='/'){e.preventDefault();toggleComments();return}
+  if(e.ctrlKey&&e.key.toLowerCase()==='d'){e.preventDefault();duplicateCurrentLine();return}
+  if(e.ctrlKey&&e.key==='Enter'){e.preventDefault();runCode(false);return}
+  const a=code.selectionStart,b=code.selectionEnd,value=code.value;
+  if(a!==b&&Object.prototype.hasOwnProperty.call(PAIRS,e.key)){
+    if((e.key==='"'||e.key==="'"||e.key==='`')&&value.slice(a,b).includes('\n'))return;
+    e.preventDefault();const selected=value.slice(a,b);code.setRangeText(e.key+selected+PAIRS[e.key],a,b,'end');code.selectionStart=a+1;code.selectionEnd=a+1+selected.length;updateLines();updateHighlight();saveDraft();return;
+  }
+  if(CLOSES.has(e.key)&&a===b&&value[a]===e.key){e.preventDefault();code.selectionStart=code.selectionEnd=a+1;return}
+  if(Object.prototype.hasOwnProperty.call(PAIRS,e.key)){
+    e.preventDefault();const close=PAIRS[e.key];code.setRangeText(e.key+close,a,b,'end');code.selectionStart=code.selectionEnd=a+1;updateLines();updateHighlight();saveDraft();return;
+  }
+  if(e.key==='Backspace'&&a===b&&a>0&&PAIRS[value[a-1]]===value[a]){
+    e.preventDefault();code.setRangeText('',a-1,a+1,'end');code.selectionStart=code.selectionEnd=a-1;updateLines();updateHighlight();saveDraft();return;
+  }
+  if(e.key==='Enter'&&a===b){
+    e.preventDefault();
+    const {lineStart}=currentLineBounds(a);const before=value.slice(lineStart,a);const indent=(before.match(/^[ \t]*/)||[''])[0];const trimmed=before.trimEnd();
+    const extra=/[\{\[(:]$/.test(trimmed)?'    ':'';let nextIndent=indent+extra;
+    if(/^[ \t]*[\)\]\}]/.test(value.slice(a)))nextIndent=indent;
+    code.setRangeText('\n'+nextIndent,a,b,'end');code.selectionStart=code.selectionEnd=a+1+nextIndent.length;updateLines();updateHighlight();saveDraft();return;
+  }
+});
+restoreDraft();
+function notify(msg){toast.textContent=msg;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2600)}function setBusy(b){document.getElementById('runBtn').disabled=b;document.getElementById('submitBtn').disabled=b}
+function escapeHtml(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderFeedback(f){if(!f)return '';const list=(a)=>Array.isArray(a)&&a.length?a.map(x=>'<li>'+escapeHtml(x)+'</li>').join(''):'<li>None noted.</li>';return '<div class="feedback-card"><h4><i class="fas fa-wand-magic-sparkles"></i> AI Code Review</h4><p>'+escapeHtml(f.summary||'')+'</p><div class="feedback-grid"><div class="feedback-metric"><b>Correctness</b>'+escapeHtml(f.correctness||'Review tests')+'</div><div class="feedback-metric"><b>Time</b>'+escapeHtml(f.time_complexity||'Not determined')+'</div><div class="feedback-metric"><b>Space</b>'+escapeHtml(f.space_complexity||'Not determined')+'</div></div><div class="feedback-lists"><div><b>Strengths</b><ul>'+list(f.strengths)+'</ul></div><div><b>Improvements</b><ul>'+list(f.improvements)+'</ul></div></div><div class="feedback-tip"><b>Interview tip:</b> '+escapeHtml(f.interview_tip||'Explain your approach clearly.')+'</div></div>'}
+function renderResults(data){
+  consoleMeta.textContent=(Number(data.score)||0)+'% · '+(Number(data.execution_ms)||0)+' ms';
+  let html='';
+  if(data.message){
+    html='<div class="error">'+escapeHtml(data.message)+'</div>';
+  }else{
+    html='<div class="result-list">';
+    (data.results||[]).forEach((r,i)=>{
+      html+='<div class="test-result '+(r.passed?'pass':'fail')+'"><div class="result-main"><strong>Test '+(i+1)+'</strong> · expected '+escapeHtml(String(r.expected ?? ''))+' · got '+escapeHtml(String(r.actual ?? ''))+(r.error?' · '+escapeHtml(r.error):'')+'</div><div class="result-state">'+(r.passed?'PASSED':'FAILED')+'</div></div>';
+    });
+    html+='</div>';
+    if(data.mode==='submit') html+='<div id="reviewArea" class="review-loading"><i class="fas fa-wand-magic-sparkles"></i> Preparing AI Code Review…</div>';
+  }
+  consoleBody.innerHTML=html;
+}
+async function loadReview(attemptId){
+  const area=document.getElementById('reviewArea');
+  if(!area)return;
+  try{
+    const res=await fetch(reviewBaseUrl+encodeURIComponent(attemptId),{method:'POST',headers:{'Content-Type':'application/json'}});
+    const contentType=res.headers.get('content-type')||''; const data=contentType.includes('application/json')?await res.json():{success:false,message:'AI review returned a non-JSON response.'};
+    if(!res.ok||!data.success)throw new Error(data.message||data.error||'AI review is unavailable.');
+    area.outerHTML=renderFeedback(data.feedback);
+  }catch(err){
+    area.outerHTML='<div class="feedback-card"><h4><i class="fas fa-wand-magic-sparkles"></i> AI Code Review</h4><p>'+escapeHtml(err.message)+'</p></div>';
+  }
+}
+async function runCode(submit){
+  setBusy(true);
+  consoleMeta.textContent=submit?'Submitting…':'Running…';
+  consoleBody.textContent='Executing test cases…';
+  try{
+    const res=await fetch(submit ? submitUrl : runUrl, {method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},credentials:"same-origin",body:JSON.stringify({problem:slug,code:code.value})});
+    const contentType=res.headers.get('content-type')||'';
+    let data;
+    if(contentType.includes('application/json')){ data=await res.json(); }
+    else { await res.text(); throw new Error(res.status+' '+res.statusText+' — server returned a non-JSON response.'); }
+    if(!res.ok||!data.success)throw new Error(data.message||data.error||'Request failed.');
+    renderResults(data);
+    if(data.submission_count!==undefined){
+      const count=Math.max(0,Number(data.submission_count)||0);
+      document.querySelectorAll('.tab-count').forEach(el=>el.textContent=String(count));
+      const total=document.getElementById('submissionTotalCount');
+      if(total)total.textContent=count+' total';
+    }
+    notify(submit?(data.status==='accepted'?'Accepted — all tests passed.':'Submission saved — review the failed tests.'):(data.status==='passed'?'All visible tests passed.':'Some tests need attention.'));
+    if(submit&&data.attempt_id)loadReview(data.attempt_id);
+  }catch(err){
+    consoleBody.innerHTML='<div class="error">'+escapeHtml(err.message)+'</div>';
+    consoleMeta.textContent='Error';
+    notify(err.message);
+  }finally{setBusy(false)}
+}
+document.getElementById('runBtn').addEventListener('click',()=>runCode(false));document.getElementById('submitBtn').addEventListener('click',()=>runCode(true));document.getElementById('resetBtn').addEventListener('click',()=>{code.value=starter;updateLines();updateHighlight();consoleBody.textContent='Editor reset to the starter solution.';consoleMeta.textContent='Ready';code.focus()});
+let fontSize=13;function applyFont(){document.querySelectorAll('.code,.highlight-layer').forEach(el=>el.style.fontSize=fontSize+'px');lineNumbers.style.fontSize=Math.max(10,fontSize-1)+'px';document.getElementById('fontSizeLabel').textContent=fontSize+'px'}document.getElementById('fontUp').addEventListener('click',()=>{fontSize=Math.min(20,fontSize+1);applyFont()});document.getElementById('fontDown').addEventListener('click',()=>{fontSize=Math.max(10,fontSize-1);applyFont()});
+const codePane=document.getElementById('codePane'),expandBtn=document.getElementById('expandBtn');function setExpanded(expanded){codePane.classList.toggle('expanded',expanded);expandBtn.innerHTML=expanded?'<i class="fas fa-compress"></i>':'<i class="fas fa-expand"></i>';expandBtn.title=expanded?'Exit expanded editor':'Expand editor';expandBtn.setAttribute('aria-label',expandBtn.title);setTimeout(()=>{syncEditorScroll();code.focus()},0)}expandBtn.addEventListener('click',()=>setExpanded(!codePane.classList.contains('expanded')));
+const list=document.getElementById("problemList");
+const listButton=document.getElementById("problemListBtn");
+function setProblemListOpen(open){
+  if(!list||!listButton)return;
+  list.classList.toggle("open",open);
+  listButton.setAttribute("aria-expanded",String(open));
+}
+if(listButton){
+  listButton.addEventListener("click",event=>{
+    event.preventDefault();
+    event.stopPropagation();
+    setProblemListOpen(!list.classList.contains("open"));
+  });
+}
+document.addEventListener("click",event=>{
+  if(list && listButton && !list.contains(event.target) && !listButton.contains(event.target)){
+    setProblemListOpen(false);
+  }
+});
+</script>
+<script type="application/json" id="problemTitleMapData">{ {% for slug, item in problems.items() %}{{ slug|tojson }}:{{ item.title|tojson }}{% if not loop.last %},{% endif %}{% endfor %} }</script>
+<script type="application/json" id="problemUrlsData">[{% for slug, item in problems.items() %}{{ url_for('coding_practice', problem=slug)|tojson }}{% if not loop.last %},{% endif %}{% endfor %}]</script>
+<script>
+const problemTitleMap=JSON.parse(document.getElementById('problemTitleMapData').textContent);
+const problemUrls=JSON.parse(document.getElementById('problemUrlsData').textContent);
+const currentIndex=problemUrls.indexOf(location.pathname+location.search);
+document.getElementById('prevBtn').addEventListener('click',()=>{if(problemUrls.length)location.href=problemUrls[(currentIndex-1+problemUrls.length)%problemUrls.length]});
+document.getElementById('nextBtn').addEventListener('click',()=>{if(problemUrls.length)location.href=problemUrls[(currentIndex+1)%problemUrls.length]});
+document.getElementById('randomBtn').addEventListener('click',()=>{if(problemUrls.length)location.href=problemUrls[Math.floor(Math.random()*problemUrls.length)]});
+</script>
+
+<script>
+(function(){
+  'use strict';
+  const launch=document.getElementById('intelLaunch');
+  const panel=document.getElementById('intelPanel');
+  const close=document.getElementById('intelClose');
+  const body=document.getElementById('intelBody');
+  const tabs=Array.from(document.querySelectorAll('.intel-tab'));
+  let mode='hint';
+  let lastResult=null;
+
+  function esc(value){
+    return String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function openPanel(){panel.classList.add('open');panel.setAttribute('aria-hidden','false');}
+  function closePanel(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');}
+  function setMode(next){
+    mode=next;
+    tabs.forEach(tab=>tab.classList.toggle('active',tab.dataset.intelMode===mode));
+    if(lastResult) render(lastResult); else renderEmpty();
+  }
+  function renderEmpty(){
+    const labels={hint:'Get one progressive clue without revealing the solution.',explain:'Understand the reasoning and the concepts behind the problem.',complexity:'Analyze the likely Big-O time and space complexity.',optimize:'Find a better approach and understand the trade-offs.'};
+    body.innerHTML='<div class="intel-empty"><i class="fas fa-brain"></i><br>'+esc(labels[mode])+'</div><div class="intel-actions"><button class="intel-generate" id="intelGenerate" type="button"><i class="fas fa-sparkles"></i> Generate '+esc(mode.charAt(0).toUpperCase()+mode.slice(1))+'</button></div>';
+    document.getElementById('intelGenerate').addEventListener('click',generate);
+  }
+  function render(data){
+    const steps=Array.isArray(data.steps)?data.steps:[];
+    let html='<div class="intel-actions"><button class="intel-generate" id="intelGenerate" type="button"><i class="fas fa-rotate"></i> Regenerate</button></div>';
+    html+='<div class="intel-message">'+esc(data.message||'No guidance returned.')+'</div>';
+    html+='<div class="intel-grid"><div class="intel-metric"><b>Time</b><span>'+esc(data.time_complexity||'Not determined')+'</span></div><div class="intel-metric"><b>Space</b><span>'+esc(data.space_complexity||'Not determined')+'</span></div></div>';
+    if(data.concept) html+='<div class="intel-section"><h4>Concept</h4><div class="intel-message">'+esc(data.concept)+'</div></div>';
+    if(steps.length) html+='<div class="intel-section"><h4>Learning steps</h4><ol>'+steps.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol></div>';
+    if(data.next_action) html+='<div class="intel-section"><h4>Next action</h4><div class="intel-message">'+esc(data.next_action)+'</div></div>';
+    html+='<div class="intel-footnote">AI guidance is based on the visible problem and your current editor code. It does not execute your code or inspect hidden tests.</div>';
+    body.innerHTML=html;
+    document.getElementById('intelGenerate').addEventListener('click',generate);
+  }
+  async function generate(){
+    const button=document.getElementById('intelGenerate');
+    if(button) {button.disabled=true;button.textContent='Generating…';}
+    body.insertAdjacentHTML('afterbegin','<div class="intel-message" id="intelLoading"><i class="fas fa-spinner fa-spin"></i> Thinking about your approach…</div>');
+    try{
+      const response=await fetch(intelligenceUrl,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({problem:slug,code:code.value,mode:mode})});
+      const data=await response.json();
+      if(!response.ok||!data.success) throw new Error(data.message||'AI Coach request failed.');
+      lastResult=data.intelligence||{};
+      render(lastResult);
+    }catch(err){
+      body.innerHTML='<div class="intel-message"><b>AI Coach unavailable</b><br>'+esc(err.message)+'</div>';
+      const retry=document.createElement('button');retry.className='intel-generate';retry.type='button';retry.textContent='Try again';retry.style.marginTop='10px';retry.addEventListener('click',generate);body.appendChild(retry);
+    }
+  }
+  if(launch) launch.addEventListener('click',function(){openPanel();renderEmpty();});
+  if(close) close.addEventListener('click',closePanel);
+  tabs.forEach(tab=>tab.addEventListener('click',()=>setMode(tab.dataset.intelMode)));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('open'))closePanel();});
+})();
+</script>
+<div class="submission-detail" id="submissionDetail" aria-hidden="true"><div class="submission-modal"><button class="submission-close" id="submissionClose" aria-label="Close">&times;</button><h3 id="submissionTitle">Submission</h3><div id="submissionBody">Loading...</div></div></div>
+<script>
+(function(){
+  'use strict';
+  const root=document.documentElement;
+  const themeBtn=document.getElementById('codingThemeBtn');
+  const descTab=document.getElementById('descriptionTab');
+  const subTab=document.getElementById('historyOpen');
+  const descView=document.getElementById('descriptionView');
+  const subView=document.getElementById('submissionsView');
+  const detail=document.getElementById('submissionDetail');
+  const detailBody=document.getElementById('submissionBody');
+  const detailTitle=document.getElementById('submissionTitle');
+  // Reuse the title map emitted by the navigation script above. Keeping the
+  // template expression in one place also prevents the JS parser from
+  // interpreting Jinja delimiters as JavaScript syntax.
+  const problemTitles=problemTitleMap;
+
+  function theme(){ return root.getAttribute('data-cc-theme')==='dark'?'dark':'light'; }
+  function syncTheme(){
+    if(!themeBtn) return;
+    const dark=theme()==='dark';
+    themeBtn.innerHTML=dark?'<i class="fas fa-sun"></i>':'<i class="fas fa-moon"></i>';
+    themeBtn.title=dark?'Switch to light mode':'Switch to dark mode';
+    themeBtn.setAttribute('aria-label',themeBtn.title);
+  }
+  function setTheme(value){
+    const next=value==='dark'?'dark':'light';
+    root.setAttribute('data-cc-theme',next);
+    try{localStorage.setItem('careercraft-theme',next)}catch(e){}
+    syncTheme();
+  }
+  if(themeBtn){
+    themeBtn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();setTheme(theme()==='dark'?'light':'dark')});
+    syncTheme();
+  }
+
+  function switchTab(which){
+    const submissions=which==='submissions';
+    if(descTab) descTab.classList.toggle('active',!submissions);
+    if(subTab) subTab.classList.toggle('active',submissions);
+    if(descView){descView.hidden=submissions;descView.style.display=submissions?'none':'';}
+    if(subView){subView.hidden=!submissions;subView.style.display=submissions?'block':'none';subView.setAttribute('aria-hidden',String(!submissions));}
+    if(descTab) descTab.setAttribute('aria-selected',String(!submissions));
+    if(subTab) subTab.setAttribute('aria-selected',String(submissions));
+  }
+  if(descTab) descTab.addEventListener('click',function(e){e.preventDefault();switchTab('description')});
+  if(subTab) subTab.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();switchTab('submissions')});
+
+  async function openSubmission(id){
+    if(!detail||!detailBody) return;
+    detail.classList.add('open');
+    detail.setAttribute('aria-hidden','false');
+    detailBody.textContent='Loading submission...';
+    try{
+      const response=await fetch(submissionBaseUrl+encodeURIComponent(id),{headers:{'Accept':'application/json'}});
+      const data=await response.json();
+      if(!response.ok||!data.success) throw new Error(data.message||'Unable to load submission.');
+      const x=data.submission||{};
+      if(detailTitle) detailTitle.textContent='Submission #'+x.id+' · '+(problemTitles[x.problem]||x.problem||'Coding Problem');
+      const esc=window.escapeHtml||function(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))};
+      let html='<div class="feedback-grid"><div class="feedback-metric"><b>Status</b>'+esc(x.status||'—')+'</div><div class="feedback-metric"><b>Score</b>'+esc(x.score??0)+'%</div><div class="feedback-metric"><b>Execution</b>'+esc(x.execution_ms??0)+' ms</div></div>';
+      html+='<p><b>Tests:</b> '+esc(x.passed_tests??0)+' / '+esc(x.total_tests??0)+' passed</p>';
+      if(x.error_message) html+='<div class="error">'+esc(x.error_message)+'</div>';
+      if(Array.isArray(x.results)&&x.results.length){
+        html+='<div class="result-list">';
+        x.results.forEach((r,i)=>{html+='<div class="test-result '+(r.passed?'pass':'fail')+'"><div class="result-main"><strong>Test '+(i+1)+'</strong> · expected '+esc(r.expected??'')+' · got '+esc(r.actual??'')+(r.error?' · '+esc(r.error):'')+'</div><div class="result-state">'+(r.passed?'PASSED':'FAILED')+'</div></div>'});
+        html+='</div>';
+      }
+      html+='<h4>Submitted code</h4><pre>'+esc(x.code||'')+'</pre>';
+      if(x.feedback&&typeof x.feedback==='object'&&typeof window.renderFeedback==='function') html+=window.renderFeedback(x.feedback);
+      detailBody.innerHTML=html;
+    }catch(err){ detailBody.innerHTML='<div class="error">'+(window.escapeHtml?window.escapeHtml(err.message):String(err.message))+'</div>'; }
+  }
+  document.querySelectorAll('.submission-card[data-submission-id]').forEach(function(card){
+    card.addEventListener('click',function(e){e.preventDefault();openSubmission(card.dataset.submissionId)});
+  });
+  const close=document.getElementById('submissionClose');
+  if(close) close.addEventListener('click',function(){detail.classList.remove('open');detail.setAttribute('aria-hidden','true')});
+  if(detail) detail.addEventListener('click',function(e){if(e.target===detail){detail.classList.remove('open');detail.setAttribute('aria-hidden','true')}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&detail&&detail.classList.contains('open')){detail.classList.remove('open');detail.setAttribute('aria-hidden','true')}});
+  window.switchCodingTab=switchTab;
+  window.openCodingSubmission=openSubmission;
+  switchTab('description');
+})();
+</script>
+</body>
+</html>

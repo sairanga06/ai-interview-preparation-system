@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Certificates | CareerCraft AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box}
+        body{margin:0;background:#f8fafc;color:#111827;font-family:Inter,Arial,sans-serif}
+        .page{max-width:1180px;margin:auto;padding:35px 22px 60px}
+        .head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}
+        .head h1{margin:0;font-size:30px}.head p{margin:7px 0 0;color:#64748b;font-size:13px}
+        .back{padding:10px 15px;border-radius:10px;background:#635bff;color:#fff;text-decoration:none;font-size:12px;font-weight:700}
+        .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+        .card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:23px;box-shadow:0 8px 28px rgba(15,23,42,.05)}
+        .icon{width:45px;height:45px;border-radius:13px;display:grid;place-items:center;background:#eeecff;color:#635bff;font-size:20px}
+        .card h2{font-size:18px;margin:16px 0 7px}.meta{font-size:12px;color:#64748b;line-height:1.7}
+        .id{margin:15px 0;padding:10px 12px;border-radius:9px;background:#f8fafc;font-family:monospace;font-size:10px;color:#475569;word-break:break-all}
+        .actions{display:flex;gap:8px;flex-wrap:wrap}
+        .btn{padding:9px 12px;border-radius:9px;text-decoration:none;font-size:11px;font-weight:700;border:1px solid #e2e8f0;color:#334155}
+        .btn.primary{background:#635bff;border-color:#635bff;color:#fff}
+        .empty{background:#fff;border:1px dashed #cbd5e1;border-radius:18px;padding:55px 25px;text-align:center;color:#64748b}
+        html[data-cc-theme="dark"] body{background:#0b1120;color:#f8fafc}
+        html[data-cc-theme="dark"] .card,html[data-cc-theme="dark"] .empty{background:#111827;border-color:#263247}
+        html[data-cc-theme="dark"] .card h2{color:#f8fafc}
+        html[data-cc-theme="dark"] .id{background:#0f172a;color:#94a3b8}
+        html[data-cc-theme="dark"] .btn{color:#e2e8f0;border-color:#263247}
+        @media(max-width:700px){.head{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="head">
+        <div>
+            <h1>🎓 My Certificates</h1>
+            <p>Certificates earned by completing CareerCraft AI learning modules.</p>
+        </div>
+        <a class="back" href="{{ url_for('learning') }}">← Back to Learning</a>
+    </div>
+
+    {% if certificates %}
+        <div class="grid">
+            {% for certificate in certificates %}
+                <article class="card">
+                    <div class="icon">🏆</div>
+                    <h2>{{ certificate.course_name|e }}</h2>
+                    <div class="meta">
+                        {{ certificate.category|e }}
+                        {% if certificate.level %} • {{ certificate.level|e }}{% endif %}
+                        <br>
+                        Issued: {{ certificate.issued_at }}
+                    </div>
+                    <div class="id">{{ certificate.certificate_id|e }}</div>
+                    <div class="actions">
+                        <a class="btn primary" href="{{ url_for('certificate_view', certificate_id=certificate.id) }}">View Certificate</a>
+                        <a class="btn" href="{{ url_for('certificate_download', certificate_id=certificate.id) }}">Download PDF</a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty">
+            <div style="font-size:42px;margin-bottom:12px">🎓</div>
+            <h2>No certificates yet</h2>
+            <p>Complete a CareerCraft AI learning module to unlock your first certificate.</p>
+        </div>
+    {% endif %}
+</div>
+<script>
+    (function () {
+        const saved = localStorage.getItem("cc-theme");
+        if (saved === "dark") document.documentElement.setAttribute("data-cc-theme", "dark");
+    })();
+</script>
+</body>
+</html>

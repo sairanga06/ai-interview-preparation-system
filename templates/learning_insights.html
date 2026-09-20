@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Insights | CareerCraft AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --cc-bg:#f7f8fc;
+            --cc-surface:#fff;
+            --cc-surface-2:#f1f4f9;
+            --cc-text:#171923;
+            --cc-muted:#667085;
+            --cc-border:#e6e9f0;
+            --cc-primary:#635bff;
+            --cc-primary-dark:#5148e5;
+            --cc-success:#16a34a;
+            --cc-warning:#d97706;
+            --cc-danger:#dc2626;
+            --cc-shadow:0 18px 45px rgba(31,35,48,.08);
+        }
+
+        * { box-sizing:border-box; }
+
+        body {
+            margin:0;
+            font-family:"Inter",sans-serif;
+            background:var(--cc-bg);
+            color:var(--cc-text);
+        }
+
+        a { color:inherit; text-decoration:none; }
+
+        .cc-navbar {
+            position:sticky;
+            top:0;
+            z-index:100;
+            min-height:70px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:24px;
+            padding:12px clamp(18px,4vw,64px);
+            background:var(--cc-surface);
+            border-bottom:1px solid var(--cc-border);
+            backdrop-filter:blur(14px);
+        }
+
+        .cc-brand {
+            display:flex;
+            align-items:center;
+            gap:11px;
+            font-weight:800;
+            white-space:nowrap;
+        }
+
+        .cc-brand-icon {
+            width:40px;height:40px;
+            display:grid;place-items:center;
+            border-radius:12px;color:#fff;
+            background:linear-gradient(135deg,#635bff,#8b5cf6);
+        }
+
+        .cc-nav-links {
+            display:flex;
+            align-items:center;
+            gap:7px;
+            margin:0;padding:0;
+            list-style:none;
+            overflow-x:auto;
+        }
+
+        .cc-nav-links a {
+            display:inline-flex;
+            align-items:center;
+            min-height:42px;
+            padding:0 13px;
+            border-radius:10px;
+            color:var(--cc-muted);
+            font-size:14px;
+            font-weight:600;
+            white-space:nowrap;
+        }
+
+        .cc-nav-links a:hover,
+        .cc-nav-links a.active {
+            color:var(--cc-primary);
+            background:rgba(99,91,255,.09);
+        }
+
+        .cc-main {
+            width:min(1180px,calc(100% - 32px));
+            margin:0 auto;
+            padding:38px 0 70px;
+        }
+
+        .cc-hero {
+            padding:clamp(28px,4vw,46px);
+            border:1px solid var(--cc-border);
+            border-radius:24px;
+            background:var(--cc-surface);
+            box-shadow:var(--cc-shadow);
+            margin-bottom:24px;
+        }
+
+        .cc-eyebrow {
+            color:var(--cc-primary);
+            font-size:11px;
+            font-weight:800;
+            letter-spacing:.11em;
+            text-transform:uppercase;
+        }
+
+        h1 {
+            margin:10px 0 8px;
+            font-size:clamp(30px,4vw,46px);
+            line-height:1.05;
+            letter-spacing:-.04em;
+        }
+
+        .cc-hero p {
+            margin:0;
+            max-width:760px;
+            color:var(--cc-muted);
+            font-size:15px;
+            line-height:1.7;
+        }
+
+        .cc-grid {
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:14px;
+            margin-bottom:24px;
+        }
+
+        .cc-stat {
+            padding:22px;
+            border:1px solid var(--cc-border);
+            border-radius:18px;
+            background:var(--cc-surface);
+            box-shadow:var(--cc-shadow);
+        }
+
+        .cc-stat-icon {
+            width:38px;height:38px;
+            display:grid;place-items:center;
+            border-radius:11px;
+            background:rgba(99,91,255,.10);
+            color:var(--cc-primary);
+            margin-bottom:16px;
+        }
+
+        .cc-stat strong {
+            display:block;
+            font-size:27px;
+            letter-spacing:-.03em;
+        }
+
+        .cc-stat span {
+            color:var(--cc-muted);
+            font-size:12px;
+            font-weight:700;
+        }
+
+        .cc-section {
+            padding:25px;
+            margin-bottom:22px;
+            border:1px solid var(--cc-border);
+            border-radius:20px;
+            background:var(--cc-surface);
+            box-shadow:var(--cc-shadow);
+        }
+
+        .cc-section-head {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:18px;
+            margin-bottom:18px;
+        }
+
+        .cc-section h2 {
+            margin:0 0 5px;
+            font-size:19px;
+        }
+
+        .cc-section-head p {
+            margin:0;
+            color:var(--cc-muted);
+            font-size:12px;
+            line-height:1.5;
+        }
+
+        .cc-progress {
+            height:9px;
+            margin-top:12px;
+            overflow:hidden;
+            border-radius:999px;
+            background:var(--cc-surface-2);
+        }
+
+        .cc-progress span {
+            display:block;
+            width:{{ insights.lesson_progress|default(0,true) }}%;
+            height:100%;
+            border-radius:inherit;
+            background:linear-gradient(90deg,#635bff,#8b5cf6);
+        }
+
+        .cc-progress-label {
+            display:flex;
+            justify-content:space-between;
+            gap:12px;
+            margin-top:9px;
+            color:var(--cc-muted);
+            font-size:12px;
+            font-weight:700;
+        }
+
+        .cc-cards {
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:14px;
+        }
+
+        .cc-card {
+            padding:19px;
+            border:1px solid var(--cc-border);
+            border-radius:15px;
+            background:var(--cc-surface-2);
+        }
+
+        .cc-card h3 {
+            margin:10px 0 6px;
+            font-size:15px;
+        }
+
+        .cc-card p {
+            margin:0;
+            color:var(--cc-muted);
+            font-size:12px;
+            line-height:1.6;
+        }
+
+        .cc-badge {
+            display:inline-flex;
+            align-items:center;
+            gap:5px;
+            padding:6px 9px;
+            border-radius:999px;
+            background:rgba(99,91,255,.09);
+            color:var(--cc-primary);
+            font-size:10px;
+            font-weight:800;
+        }
+
+        .cc-badge.high {
+            color:var(--cc-danger);
+            background:rgba(220,38,38,.08);
+        }
+
+        .cc-badge.medium {
+            color:var(--cc-warning);
+            background:rgba(217,119,6,.09);
+        }
+
+        .cc-button {
+            min-height:42px;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:8px;
+            padding:0 14px;
+            border-radius:10px;
+            font-size:12px;
+            font-weight:800;
+            background:var(--cc-surface-2);
+        }
+
+        .cc-button.primary {
+            background:var(--cc-primary);
+            color:#fff;
+        }
+
+        .cc-button.primary:hover { background:var(--cc-primary-dark); }
+
+        .cc-button.success {
+            background:rgba(22,163,74,.10);
+            color:var(--cc-success);
+        }
+
+        .cc-empty {
+            padding:25px;
+            text-align:center;
+            color:var(--cc-muted);
+            border:1px dashed var(--cc-border);
+            border-radius:14px;
+            font-size:13px;
+        }
+
+        .cc-activity {
+            display:grid;
+            gap:9px;
+        }
+
+        .cc-activity-row {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:15px;
+            padding:13px 14px;
+            border:1px solid var(--cc-border);
+            border-radius:12px;
+        }
+
+        .cc-activity-left {
+            display:flex;
+            align-items:center;
+            gap:11px;
+            min-width:0;
+        }
+
+        .cc-activity-icon {
+            width:34px;height:34px;
+            flex:0 0 auto;
+            display:grid;place-items:center;
+            border-radius:10px;
+            background:rgba(99,91,255,.09);
+            color:var(--cc-primary);
+        }
+
+        .cc-activity-left strong {
+            display:block;
+            font-size:12px;
+        }
+
+        .cc-activity-left small {
+            color:var(--cc-muted);
+            font-size:10px;
+        }
+
+        .cc-time {
+            color:var(--cc-muted);
+            font-size:10px;
+            white-space:nowrap;
+        }
+
+        @media (max-width:900px) {
+            .cc-grid { grid-template-columns:repeat(2,1fr); }
+            .cc-cards { grid-template-columns:1fr; }
+        }
+
+        @media (max-width:650px) {
+            .cc-navbar {
+                align-items:flex-start;
+                flex-direction:column;
+                gap:10px;
+                padding:12px 16px;
+            }
+
+            .cc-nav-links { width:100%; }
+
+            .cc-main {
+                width:min(100% - 20px,1180px);
+                padding-top:22px;
+            }
+
+            .cc-grid { grid-template-columns:1fr 1fr; }
+            .cc-section { padding:19px; }
+            .cc-section-head { align-items:flex-start; flex-direction:column; }
+            .cc-activity-row { align-items:flex-start; }
+            .cc-time { white-space:normal; }
+        }
+
+        @media (max-width:430px) {
+            .cc-grid { grid-template-columns:1fr; }
+            h1 { font-size:30px; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="cc-navbar">
+        <a href="{{ url_for('dashboard') }}" class="cc-brand">
+            <span class="cc-brand-icon"><i class="fas fa-brain"></i></span>
+            <span>CareerCraft AI</span>
+        </a>
+
+        <ul class="cc-nav-links">
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('category') }}">Interview</a></li>
+            <li><a href="{{ url_for('learning') }}">Learning</a></li>
+            <li><a href="{{ url_for('learning_insights') }}" class="active">Insights</a></li>
+            <li><a href="{{ url_for('learning_tests') }}">Test History</a></li>
+            <li><a href="{{ url_for('history') }}">Interview History</a></li>
+            <li><a href="{{ url_for('edit_profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+
+    <main class="cc-main">
+        <section class="cc-hero">
+            <div class="cc-eyebrow"><i class="fas fa-chart-line"></i> Learning Intelligence</div>
+            <h1>Know what to learn next.</h1>
+            <p>
+                Track your learning progress, identify modules that need revision,
+                and continue from the most useful next step.
+            </p>
+        </section>
+
+        <section class="cc-grid">
+            <article class="cc-stat">
+                <div class="cc-stat-icon"><i class="fas fa-book-open"></i></div>
+                <strong>{{ insights.lesson_progress }}%</strong>
+                <span>Lesson progress</span>
+            </article>
+
+            <article class="cc-stat">
+                <div class="cc-stat-icon"><i class="fas fa-clipboard-check"></i></div>
+                <strong>{{ insights.average_test_score }}%</strong>
+                <span>Average best test score</span>
+            </article>
+
+            <article class="cc-stat">
+                <div class="cc-stat-icon"><i class="fas fa-fire"></i></div>
+                <strong>{{ insights.streak }}</strong>
+                <span>Learning day streak</span>
+            </article>
+
+            <article class="cc-stat">
+                <div class="cc-stat-icon"><i class="fas fa-check-circle"></i></div>
+                <strong>{{ insights.passed_modules }}/{{ insights.total_modules }}</strong>
+                <span>Modules passed</span>
+            </article>
+        </section>
+
+        <section class="cc-section">
+            <div class="cc-section-head">
+                <div>
+                    <h2>Overall learning progress</h2>
+                    <p>{{ insights.completed_lessons }} of {{ insights.total_lessons }} lessons completed.</p>
+                </div>
+                <span class="cc-badge">{{ insights.completed_modules }}/{{ insights.total_modules }} modules complete</span>
+            </div>
+
+            <div class="cc-progress">
+                <span></span>
+            </div>
+
+            <div class="cc-progress-label">
+                <span>Learning path</span>
+                <strong>{{ insights.lesson_progress }}%</strong>
+            </div>
+        </section>
+
+        <section class="cc-section">
+            <div class="cc-section-head">
+                <div>
+                    <h2>Continue learning</h2>
+                    <p>Pick up exactly where your learning path should continue.</p>
+                </div>
+            </div>
+
+            {% if insights.continue_module %}
+            <div class="cc-card">
+                <span class="cc-badge"><i class="fas fa-forward"></i> NEXT STEP</span>
+                <h3>{{ insights.continue_module.title }}</h3>
+                <p>
+                    {{ insights.continue_module.category }} ·
+                    {{ insights.continue_module.level }} ·
+                    {{ insights.continue_module.progress }}% complete
+                </p>
+                <div style="margin-top:15px;">
+                    <a class="cc-button primary"
+                       href="{{ url_for('learning_module', slug=insights.continue_module.slug) }}">
+                        <i class="fas fa-play"></i> Continue Module
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <div class="cc-empty">
+                🎉 All learning modules are complete. Keep your test scores fresh with revision.
+            </div>
+            {% endif %}
+        </section>
+
+        <section class="cc-section">
+            <div class="cc-section-head">
+                <div>
+                    <h2>Revision priorities</h2>
+                    <p>Modules are prioritized from your test performance and learning progress.</p>
+                </div>
+            </div>
+
+            {% if insights.revision %}
+            <div class="cc-cards">
+                {% for module in insights.revision %}
+                <article class="cc-card">
+                    {% if module.priority == "High" %}
+                    <span class="cc-badge high"><i class="fas fa-triangle-exclamation"></i> HIGH PRIORITY</span>
+                    {% elif module.priority == "Medium" %}
+                    <span class="cc-badge medium"><i class="fas fa-clock"></i> REVISION</span>
+                    {% else %}
+                    <span class="cc-badge"><i class="fas fa-arrow-right"></i> NEXT</span>
+                    {% endif %}
+
+                    <h3>{{ module.title }}</h3>
+
+                    {% if module.best_score is not none %}
+                    <p>Best test score: <strong>{{ module.best_score }}%</strong> · {{ module.attempts }} attempt{% if module.attempts != 1 %}s{% endif %}</p>
+                    {% else %}
+                    <p>This module has not been completed yet. Continue the lessons to build your foundation.</p>
+                    {% endif %}
+
+                    <div style="margin-top:14px;">
+                        <a class="cc-button primary"
+                           href="{{ url_for('learning_module', slug=module.slug) }}">
+                            <i class="fas fa-book-open"></i> Review Module
+                        </a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="cc-empty">
+                No revision priorities right now. Your learning path is in good shape.
+            </div>
+            {% endif %}
+        </section>
+
+        <section class="cc-section">
+            <div class="cc-section-head">
+                <div>
+                    <h2>Recent learning activity</h2>
+                    <p>Your latest lesson and assessment activity.</p>
+                </div>
+                <span class="cc-badge">{{ insights.total_attempts }} test attempts</span>
+            </div>
+
+            {% if insights.recent_activity %}
+            <div class="cc-activity">
+                {% for item in insights.recent_activity %}
+                <div class="cc-activity-row">
+                    <div class="cc-activity-left">
+                        <span class="cc-activity-icon">
+                            {% if item.type == "Module test" %}
+                            <i class="fas fa-clipboard-check"></i>
+                            {% else %}
+                            <i class="fas fa-book-open"></i>
+                            {% endif %}
+                        </span>
+                        <div>
+                            <strong>{{ item.type }}</strong>
+                            <small>{{ item.label }}</small>
+                        </div>
+                    </div>
+                    <span class="cc-time">{{ item.time }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="cc-empty">
+                Start a lesson or take a module test and your activity will appear here.
+            </div>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

@@ -365,6 +365,19 @@
             transition: 0.25s ease;
         }
 
+        /* Clickable module cards */
+        .cc-module-card-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .cc-module-card-link:focus-visible {
+            outline: 3px solid rgba(99, 91, 255, 0.28);
+            outline-offset: 3px;
+        }
+
         .cc-module-card:hover {
             border-color: #c7c3ff;
             transform: translateY(-3px);
@@ -954,6 +967,785 @@
             }
         }
 
+    
+        /* ================= DAY 14 CODING PROGRESS ================= */
+        .cc-coding-dashboard-card{margin:0 0 30px;padding:30px;border-radius:24px;background:#fff;border:1px solid #e5e7eb;box-shadow:0 15px 45px rgba(15,23,42,.06)}
+        .cc-coding-dashboard-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:24px}
+        .cc-coding-dashboard-title{display:flex;align-items:center;gap:14px}
+        .cc-coding-dashboard-icon{width:48px;height:48px;border-radius:15px;display:flex;align-items:center;justify-content:center;flex:0 0 48px;background:linear-gradient(135deg,#635bff,#3b82f6);color:#fff;font-size:20px;box-shadow:0 10px 24px rgba(99,91,255,.2)}
+        .cc-coding-dashboard-title h2{margin:0;font-size:21px;color:#111827}
+        .cc-coding-dashboard-title p{margin:5px 0 0;color:#64748b;font-size:13px}
+        .cc-coding-dashboard-link{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border-radius:11px;background:#635bff;color:#fff!important;text-decoration:none;font-size:12px;font-weight:700;white-space:nowrap;transition:.2s ease}
+        .cc-coding-dashboard-link:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(99,91,255,.18)}
+        .cc-coding-dashboard-main{display:grid;grid-template-columns:minmax(360px,1.35fr) minmax(300px,1fr);gap:24px;align-items:stretch}
+        .cc-coding-leetcode-panel{min-height:245px;display:grid;grid-template-columns:220px 1fr;align-items:center;gap:25px;padding:22px;border-radius:20px;background:#f8fafc;border:1px solid #e5e7eb}
+        .cc-coding-ring{--coding-progress:0;width:184px;height:184px;margin:0 auto;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(#635bff calc(var(--coding-progress)*1%),#dbe2ec 0);box-shadow:0 12px 28px rgba(15,23,42,.08)}
+        .cc-coding-ring:after{content:"";position:absolute;width:144px;height:144px;border-radius:50%;background:#f8fafc}
+        .cc-coding-ring-content{position:relative;z-index:1;text-align:center}
+        .cc-coding-ring-value{display:block;font-size:34px;line-height:1;font-weight:800;color:#111827;letter-spacing:-1px}
+        .cc-coding-ring-total{font-size:16px;font-weight:600;color:#64748b}
+        .cc-coding-ring-label{display:block;margin-top:7px;font-size:13px;font-weight:600;color:#475569}
+        .cc-coding-ring-attempting{display:block;margin-top:9px;font-size:12px;color:#64748b}
+        .cc-coding-ring-attempting strong{color:#111827}
+        .cc-coding-difficulty-list{display:grid;gap:12px}
+        .cc-coding-difficulty-card{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:13px 15px;border-radius:13px;background:#fff;border:1px solid #e5e7eb}
+        .cc-coding-difficulty-info{display:flex;align-items:center;gap:10px;min-width:0}
+        .cc-coding-difficulty-dot{width:9px;height:9px;border-radius:50%;background:#22c55e;flex:0 0 auto}
+        .cc-coding-difficulty-card.medium .cc-coding-difficulty-dot{background:#f59e0b}
+        .cc-coding-difficulty-card.hard .cc-coding-difficulty-dot{background:#ef4444}
+        .cc-coding-difficulty-info span{color:#64748b;font-size:12px}
+        .cc-coding-difficulty-count{font-size:13px;font-weight:800;color:#111827;white-space:nowrap}
+        .cc-coding-stats-panel{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+        .cc-coding-mini-stat{min-height:108px;padding:16px;border-radius:15px;background:#f8fafc;border:1px solid #e5e7eb;display:flex;flex-direction:column;justify-content:space-between}
+        .cc-coding-mini-stat-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#eeecff;color:#635bff;font-size:14px}
+        .cc-coding-mini-stat strong{display:block;margin-top:12px;font-size:23px;line-height:1;color:#111827}
+        .cc-coding-mini-stat span{display:block;margin-top:6px;color:#64748b;font-size:11px}
+        .cc-coding-dashboard-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:20px;padding-top:18px;border-top:1px solid #e5e7eb}
+        .cc-coding-progress-line{flex:1;min-width:0}
+        .cc-coding-progress-line-top{display:flex;justify-content:space-between;gap:15px;margin-bottom:8px;font-size:11px;font-weight:700;color:#475569}
+        .cc-coding-progress-track{height:8px;overflow:hidden;border-radius:999px;background:#e5e7eb}
+        .cc-coding-progress-fill{--dashboard-coding-progress:0;width:calc(var(--dashboard-coding-progress) * 1%);height:100%;border-radius:inherit;background:linear-gradient(90deg,#635bff,#3b82f6)}
+        .cc-coding-dashboard-note{flex:0 0 auto;color:#64748b;font-size:11px}
+        @media(max-width:1000px){.cc-coding-dashboard-main{grid-template-columns:1fr}}
+        @media(max-width:720px){.cc-coding-dashboard-card{padding:22px}.cc-coding-dashboard-head{flex-direction:column}.cc-coding-dashboard-link{width:100%;justify-content:center}.cc-coding-leetcode-panel{grid-template-columns:1fr;padding:20px}.cc-coding-difficulty-list{grid-template-columns:repeat(3,1fr)}.cc-coding-difficulty-card{min-height:78px;flex-direction:column;justify-content:center;text-align:center;padding:10px}.cc-coding-difficulty-info{flex-direction:column;gap:5px}}
+        @media(max-width:520px){.cc-coding-dashboard-title h2{font-size:18px}.cc-coding-dashboard-title p{font-size:12px}.cc-coding-ring{width:165px;height:165px}.cc-coding-ring:after{width:129px;height:129px}.cc-coding-ring-value{font-size:29px}.cc-coding-difficulty-list{grid-template-columns:1fr}.cc-coding-difficulty-card{min-height:58px;flex-direction:row;text-align:left;justify-content:space-between}.cc-coding-difficulty-info{flex-direction:row;gap:9px}.cc-coding-stats-panel{grid-template-columns:1fr 1fr}.cc-coding-dashboard-footer{align-items:stretch;flex-direction:column}.cc-coding-dashboard-note{text-align:center}}
+        /* Existing CareerCraft theme is html[data-cc-theme], not body.dark-mode. */
+        html[data-cc-theme="dark"] .cc-coding-dashboard-card{background:#111827!important;color:#f8fafc!important;border-color:#263247!important;box-shadow:none!important}
+        html[data-cc-theme="dark"] .cc-coding-dashboard-title h2,html[data-cc-theme="dark"] .cc-coding-ring-value,html[data-cc-theme="dark"] .cc-coding-mini-stat strong,html[data-cc-theme="dark"] .cc-coding-difficulty-count{color:#f8fafc!important}
+        html[data-cc-theme="dark"] .cc-coding-dashboard-title p,html[data-cc-theme="dark"] .cc-coding-ring-label,html[data-cc-theme="dark"] .cc-coding-ring-attempting,html[data-cc-theme="dark"] .cc-coding-difficulty-info span,html[data-cc-theme="dark"] .cc-coding-mini-stat span,html[data-cc-theme="dark"] .cc-coding-dashboard-note,html[data-cc-theme="dark"] .cc-coding-progress-line-top{color:#94a3b8!important}
+        html[data-cc-theme="dark"] .cc-coding-leetcode-panel,html[data-cc-theme="dark"] .cc-coding-mini-stat{background:#0f172a!important;border-color:#263247!important}
+        html[data-cc-theme="dark"] .cc-coding-ring:after{background:#0f172a!important}
+        html[data-cc-theme="dark"] .cc-coding-ring{background:conic-gradient(#818cf8 calc(var(--coding-progress)*1%),#2a3548 0)}
+        html[data-cc-theme="dark"] .cc-coding-difficulty-card{background:#172033!important;border-color:#2b3950!important}
+        html[data-cc-theme="dark"] .cc-coding-mini-stat-icon{background:#252344!important;color:#a5b4fc!important}
+        html[data-cc-theme="dark"] .cc-coding-dashboard-footer{border-top-color:#263247!important}
+        html[data-cc-theme="dark"] .cc-coding-progress-track{background:#2a3548!important}
+
+
+        /* =====================================================
+           CAREERCRAFT AI — SIDEBAR DASHBOARD LAYOUT
+           Layout-only enhancement. Existing routes, buttons,
+           forms, charts and functionality remain unchanged.
+           ===================================================== */
+
+        .cc-dashboard {
+            min-height: 100vh;
+            background: #f8fafc;
+        }
+
+        /* Left navigation rail */
+        .cc-navbar {
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: 252px;
+            height: 100vh;
+            box-sizing: border-box;
+            padding: 28px 16px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            gap: 0;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            border-bottom: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 1000;
+        }
+
+        .cc-brand {
+            flex: 0 0 auto;
+            justify-content: flex-start;
+            gap: 12px;
+            margin: 0 8px 30px;
+            padding: 0 6px;
+            min-height: 48px;
+            font-size: 21px;
+            letter-spacing: -0.4px;
+        }
+
+        .cc-brand-icon {
+            width: 46px;
+            height: 46px;
+            flex: 0 0 46px;
+            border-radius: 14px;
+        }
+
+        .cc-nav-links {
+            flex: 1 1 auto;
+            width: 100%;
+            min-height: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+            gap: 5px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .cc-nav-links li {
+            width: 100%;
+            list-style: none;
+        }
+
+        .cc-nav-links a {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            min-height: 46px;
+            box-sizing: border-box;
+            padding: 11px 14px;
+            border-radius: 12px;
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.2;
+            text-decoration: none;
+            transition: background .2s ease, color .2s ease, transform .2s ease;
+        }
+
+        .cc-nav-links a:hover {
+            color: #4f46e5;
+            background: #f3f2ff;
+            transform: translateX(2px);
+        }
+
+        .cc-nav-links a:focus-visible {
+            outline: 3px solid rgba(99, 91, 255, .22);
+            outline-offset: 2px;
+        }
+
+        /* Small visual navigation markers; no JavaScript or route changes. */
+        .cc-nav-links li:nth-child(1) a::before { content: "⌂"; }
+        .cc-nav-links li:nth-child(2) a::before { content: "◉"; }
+        .cc-nav-links li:nth-child(3) a::before { content: "▣"; }
+        .cc-nav-links li:nth-child(4) a::before { content: "◆"; }
+        .cc-nav-links li:nth-child(5) a::before { content: "‹/›"; }
+        .cc-nav-links li:nth-child(6) a::before { content: "✓"; }
+        .cc-nav-links li:nth-child(7) a::before { content: "▤"; }
+        .cc-nav-links li:nth-child(8) a::before { content: "✦"; }
+        .cc-nav-links li:nth-child(9) a::before { content: "◌"; }
+        .cc-nav-links li:nth-child(10) a::before { content: "↪"; }
+
+        .cc-nav-links a::before {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            margin-right: 9px;
+            color: #94a3b8;
+            font-size: 15px;
+            font-weight: 800;
+            flex: 0 0 26px;
+        }
+
+        .cc-nav-links a:hover::before {
+            color: #635bff;
+        }
+
+        /* Keep Logout anchored at the bottom of the sidebar. */
+        .cc-nav-links li:last-child {
+            margin-top: auto;
+            padding-top: 18px;
+        }
+
+        .cc-nav-links .cc-logout {
+            justify-content: center;
+            min-height: 44px;
+            padding: 11px 16px;
+            border-radius: 11px;
+            background: #635bff;
+            color: #ffffff !important;
+            box-shadow: 0 8px 20px rgba(99, 91, 255, .16);
+        }
+
+        .cc-nav-links .cc-logout:hover {
+            background: #574ff0;
+            color: #ffffff !important;
+            transform: translateY(-1px);
+        }
+
+        .cc-nav-links .cc-logout::before {
+            color: #ffffff;
+        }
+
+        /* Main content moves beside the sidebar; all existing sections stay intact. */
+        .cc-main {
+            width: auto;
+            max-width: none;
+            margin: 0;
+            margin-left: 252px;
+            padding: 36px 42px 70px;
+            box-sizing: border-box;
+        }
+
+        /* Keep wide dashboard content comfortable on large screens. */
+        .cc-main > * {
+            max-width: 1320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Preserve the two-button coding header without changing their routes. */
+        .cc-coding-dashboard-head {
+            flex-wrap: wrap;
+        }
+
+        .cc-coding-dashboard-head > .cc-coding-dashboard-link {
+            margin-left: 0;
+        }
+
+        /* Dark theme compatibility */
+        html[data-cc-theme="dark"] .cc-navbar {
+            background: #0f172a;
+            border-right-color: #263247;
+        }
+
+        html[data-cc-theme="dark"] .cc-nav-links a {
+            color: #94a3b8;
+        }
+
+        html[data-cc-theme="dark"] .cc-nav-links a:hover {
+            color: #c7d2fe;
+            background: #1b2440;
+        }
+
+        html[data-cc-theme="dark"] .cc-nav-links a::before {
+            color: #64748b;
+        }
+
+        html[data-cc-theme="dark"] .cc-nav-links a:hover::before {
+            color: #a5b4fc;
+        }
+
+        /* Responsive: retain the sidebar on tablets; switch to a compact top bar on phones. */
+        @media (max-width: 900px) {
+            .cc-navbar {
+                width: 214px;
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .cc-main {
+                margin-left: 214px;
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .cc-brand {
+                margin-left: 4px;
+                margin-right: 4px;
+            }
+
+            .cc-nav-links a {
+                font-size: 12px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .cc-navbar {
+                position: sticky;
+                inset: auto;
+                width: 100%;
+                height: auto;
+                min-height: 0;
+                padding: 13px 14px;
+                flex-direction: row;
+                align-items: center;
+                gap: 12px;
+                overflow: visible;
+            }
+
+            .cc-brand {
+                margin: 0;
+                min-height: 44px;
+                flex: 0 0 auto;
+                font-size: 18px;
+            }
+
+            .cc-brand-icon {
+                width: 40px;
+                height: 40px;
+                flex-basis: 40px;
+            }
+
+            .cc-nav-links {
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 4px;
+                overflow-x: auto;
+                padding-bottom: 2px;
+            }
+
+            .cc-nav-links li,
+            .cc-nav-links li:last-child {
+                flex: 0 0 auto;
+                margin-top: 0;
+                padding-top: 0;
+            }
+
+            .cc-nav-links a {
+                width: auto;
+                min-height: 40px;
+                padding: 9px 10px;
+                white-space: nowrap;
+                font-size: 11px;
+            }
+
+            .cc-nav-links a::before {
+                display: none;
+            }
+
+            .cc-main {
+                margin-left: 0;
+                padding: 25px 16px 55px;
+            }
+        }
+
+
+        /* =====================================================
+           PREMIUM MINIMAL SIDEBAR — VISUAL ONLY
+           Existing routes and functionality are intentionally unchanged.
+           ===================================================== */
+        .cc-navbar {
+            width: 248px;
+            padding: 24px 14px 16px;
+            background: rgba(255,255,255,.94);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-right: 1px solid #e8ebf2;
+            box-shadow: 10px 0 35px rgba(15,23,42,.035);
+        }
+
+        .cc-brand {
+            margin: 0 8px 24px;
+            padding: 0 6px;
+            gap: 11px;
+        }
+
+        .cc-brand-icon {
+            width: 43px;
+            height: 43px;
+            flex-basis: 43px;
+            border-radius: 13px;
+            background: linear-gradient(145deg,#6d63ff,#4b8dff);
+            box-shadow: 0 9px 22px rgba(99,91,255,.20);
+            font-size: 17px;
+        }
+
+        .cc-brand-copy {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 3px;
+            line-height: 1;
+        }
+
+        .cc-brand-name {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -.55px;
+            color: #111827;
+        }
+
+        .cc-brand-ai {
+            font-size: 13px;
+            font-weight: 800;
+            color: #635bff;
+            letter-spacing: -.2px;
+        }
+
+        .cc-sidebar-label,
+        .cc-sidebar-label-item {
+            padding: 0 13px;
+            color: #a0a9b8;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.25px;
+        }
+
+        .cc-sidebar-label {
+            margin: 0 0 8px;
+        }
+
+        .cc-sidebar-label-item {
+            margin: 5px 0 8px;
+        }
+
+        .cc-nav-links {
+            gap: 3px;
+        }
+
+        .cc-nav-item {
+            position: relative;
+        }
+
+        .cc-nav-links .cc-nav-item a {
+            min-height: 44px;
+            padding: 10px 12px;
+            border-radius: 11px;
+            gap: 12px;
+            color: #687386;
+            font-size: 12.5px;
+            font-weight: 600;
+            transform: none;
+        }
+
+        .cc-nav-links .cc-nav-item a::before {
+            display: none;
+        }
+
+        .cc-nav-links .cc-nav-item a i {
+            width: 18px;
+            text-align: center;
+            color: #8d97a8;
+            font-size: 14px;
+            transition: color .2s ease, transform .2s ease;
+        }
+
+        .cc-nav-links .cc-nav-item a:hover {
+            background: #f7f7fb;
+            color: #4338ca;
+            transform: translateX(1px);
+        }
+
+        .cc-nav-links .cc-nav-item a:hover i {
+            color: #635bff;
+            transform: scale(1.05);
+        }
+
+        .cc-nav-links .cc-nav-item.active a,
+        .cc-nav-links .cc-nav-item.active a:hover {
+            color: #4f46e5;
+            background: #f0efff;
+            box-shadow: inset 3px 0 0 #635bff;
+            transform: none;
+        }
+
+        .cc-nav-links .cc-nav-item.active a i {
+            color: #635bff;
+        }
+
+        .cc-nav-dot {
+            width: 6px;
+            height: 6px;
+            margin-left: auto;
+            border-radius: 50%;
+            background: #635bff;
+            box-shadow: 0 0 0 4px rgba(99,91,255,.08);
+        }
+
+        .cc-sidebar-divider {
+            height: 1px;
+            margin: 13px 12px 9px;
+            background: #edf0f5;
+            list-style: none;
+        }
+
+        .cc-sidebar-bottom {
+            flex: 0 0 auto;
+            margin-top: 18px;
+            padding: 0 5px;
+        }
+
+        .cc-sidebar-tip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px;
+            margin-bottom: 10px;
+            border: 1px solid #eceef5;
+            border-radius: 12px;
+            background: #fafaff;
+        }
+
+        .cc-tip-icon {
+            width: 31px;
+            height: 31px;
+            flex: 0 0 31px;
+            display: grid;
+            place-items: center;
+            border-radius: 9px;
+            background: #eeecff;
+            color: #635bff;
+            font-size: 12px;
+        }
+
+        .cc-sidebar-tip strong,
+        .cc-sidebar-tip span {
+            display: block;
+        }
+
+        .cc-sidebar-tip strong {
+            color: #273044;
+            font-size: 10.5px;
+            font-weight: 800;
+        }
+
+        .cc-sidebar-tip span {
+            margin-top: 2px;
+            color: #8b94a5;
+            font-size: 9px;
+        }
+
+        .cc-nav-links .cc-logout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            min-height: 42px;
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: #111827;
+            color: #fff !important;
+            box-shadow: none;
+        }
+
+        .cc-sidebar-bottom .cc-logout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            width: 100%;
+            min-height: 42px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: #111827;
+            color: #fff !important;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+        }
+
+        .cc-sidebar-bottom .cc-logout:hover {
+            background: #1f2937;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(15,23,42,.12);
+        }
+
+        .cc-sidebar-bottom .cc-logout i {
+            font-size: 12px;
+        }
+
+        .cc-main {
+            margin-left: 248px;
+            padding: 30px 38px 64px;
+            background: #f7f8fc;
+        }
+
+        .cc-welcome {
+            position: relative;
+            overflow: hidden;
+            padding: 34px;
+            border-radius: 20px;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(15,23,42,.045);
+        }
+
+        .cc-welcome::after {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            right: -100px;
+            top: -100px;
+            border-radius: 50%;
+            background: #f1efff;
+            pointer-events: none;
+        }
+
+        .cc-welcome > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cc-section-title {
+            margin-top: 32px;
+        }
+
+        .cc-stat-card,
+        .cc-card,
+        .cc-coding-dashboard-card {
+            box-shadow: 0 7px 24px rgba(15,23,42,.035);
+            border-color: #e9ecf2;
+        }
+
+        .cc-stat-card:hover,
+        .cc-module-card:hover,
+        .cc-action:hover {
+            box-shadow: 0 12px 28px rgba(15,23,42,.065);
+        }
+
+        /* Dark mode keeps the same minimalist hierarchy. */
+        html[data-cc-theme="dark"] .cc-navbar {
+            background: rgba(15,23,42,.96);
+            border-right-color: #263247;
+            box-shadow: 10px 0 35px rgba(0,0,0,.12);
+        }
+
+        html[data-cc-theme="dark"] .cc-brand-name { color: #f8fafc; }
+        html[data-cc-theme="dark"] .cc-brand-ai { color: #a5b4fc; }
+        html[data-cc-theme="dark"] .cc-sidebar-label,
+        html[data-cc-theme="dark"] .cc-sidebar-label-item { color: #64748b; }
+        html[data-cc-theme="dark"] .cc-nav-links .cc-nav-item a { color: #94a3b8; }
+        html[data-cc-theme="dark"] .cc-nav-links .cc-nav-item a i { color: #64748b; }
+        html[data-cc-theme="dark"] .cc-nav-links .cc-nav-item a:hover { background: #172033; color: #c7d2fe; }
+        html[data-cc-theme="dark"] .cc-nav-links .cc-nav-item.active a { background: #252344; color: #c7d2fe; }
+        html[data-cc-theme="dark"] .cc-nav-links .cc-nav-item.active a i { color: #a5b4fc; }
+        html[data-cc-theme="dark"] .cc-sidebar-divider { background: #263247; }
+        html[data-cc-theme="dark"] .cc-sidebar-tip { background: #111827; border-color: #263247; }
+        html[data-cc-theme="dark"] .cc-sidebar-tip strong { color: #e2e8f0; }
+        html[data-cc-theme="dark"] .cc-sidebar-tip span { color: #64748b; }
+        html[data-cc-theme="dark"] .cc-tip-icon { background: #252344; color: #a5b4fc; }
+        html[data-cc-theme="dark"] .cc-main { background: #0b1120; }
+        html[data-cc-theme="dark"] .cc-welcome::after { background: #1b2440; }
+
+        @media (max-width: 900px) {
+            .cc-navbar { width: 218px; }
+            .cc-main { margin-left: 218px; padding-left: 24px; padding-right: 24px; }
+        }
+
+        @media (max-width: 680px) {
+            .cc-navbar { width: 100%; padding: 12px 14px; }
+            .cc-sidebar-label, .cc-sidebar-label-item, .cc-sidebar-divider, .cc-sidebar-bottom { display: none; }
+            .cc-brand-copy { display: inline-flex; }
+            .cc-nav-links { overflow-x: auto; }
+            .cc-nav-links .cc-nav-item a { min-height: 40px; padding: 8px 10px; }
+            .cc-nav-links .cc-nav-item a span { display: none; }
+            .cc-nav-links .cc-nav-item a i { width: 20px; }
+            .cc-nav-dot { display: none; }
+            .cc-main { margin-left: 0; padding: 22px 15px 50px; }
+        }
+
+
+        /* =====================================================
+           SIDEBAR SPACING FIX
+           Keeps Profile, the progress tip, and Logout separated.
+           Navigation routes and functionality are unchanged.
+           ===================================================== */
+        .cc-navbar {
+            overflow: hidden;
+        }
+
+        .cc-nav-links {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: thin;
+        }
+
+        /* Profile remains part of the normal navigation flow.
+           It must not consume the auto space above the sidebar footer. */
+        .cc-nav-links li:last-child {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .cc-sidebar-bottom {
+            flex: 0 0 auto;
+            margin-top: 16px;
+            padding: 0 5px;
+        }
+
+        .cc-sidebar-tip {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 680px) {
+            .cc-navbar {
+                overflow: visible;
+            }
+
+            .cc-nav-links {
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+
+            .cc-sidebar-bottom {
+                margin-top: 0;
+            }
+        }
+
+
+        /* =====================================================
+           LOGOUT THEME VISIBILITY FIX
+           Visual-only: keeps the existing /logout route and
+           navigation intact while making the button readable
+           in both light and dark themes.
+           ===================================================== */
+
+        .cc-sidebar-bottom .cc-logout {
+            box-sizing: border-box;
+            border: 1px solid #e2e5ee;
+            background: #635bff;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff;
+            text-shadow: none;
+            opacity: 1;
+            visibility: visible;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cc-sidebar-bottom .cc-logout span,
+        .cc-sidebar-bottom .cc-logout i {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cc-sidebar-bottom .cc-logout:hover,
+        .cc-sidebar-bottom .cc-logout:focus-visible {
+            background: #554be8;
+            color: #ffffff !important;
+            border-color: #554be8;
+        }
+
+        .cc-sidebar-bottom .cc-logout:focus-visible {
+            outline: 3px solid rgba(99, 91, 255, .24);
+            outline-offset: 2px;
+        }
+
+        html[data-cc-theme="dark"] .cc-sidebar-bottom .cc-logout {
+            background: #6366f1;
+            color: #ffffff !important;
+            border-color: #818cf8;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, .18);
+        }
+
+        html[data-cc-theme="dark"] .cc-sidebar-bottom .cc-logout span,
+        html[data-cc-theme="dark"] .cc-sidebar-bottom .cc-logout i {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff;
+        }
+
+        html[data-cc-theme="dark"] .cc-sidebar-bottom .cc-logout:hover,
+        html[data-cc-theme="dark"] .cc-sidebar-bottom .cc-logout:focus-visible {
+            background: #818cf8;
+            color: #0f172a !important;
+            border-color: #a5b4fc;
+        }
+
+        html[data-cc-theme="dark"] .cc-sidebar-bottom .cc-logout:hover span,
+        html[data-cc-theme="dark"] .cc-sidebar-bottom .cc-logout:hover i,
+        html[data-cc-theme="dark"] .cc-sidebar-bottom .cc-logout:focus-visible span,
+        html[data-cc-theme="dark"] .cc-sidebar-bottom .cc-logout:focus-visible i {
+            color: #0f172a !important;
+            -webkit-text-fill-color: #0f172a;
+        }
+
+        /* Keep the existing mobile navigation behavior intact. */
+
     </style>
 
 </head>
@@ -968,44 +1760,68 @@
          NAVIGATION
          ===================================================== -->
 
-    <nav class="cc-navbar">
+    <nav class="cc-navbar" aria-label="CareerCraft AI navigation">
 
         <div class="cc-brand">
-
-            <div class="cc-brand-icon">
+            <div class="cc-brand-icon" aria-hidden="true">
                 <i class="fas fa-brain"></i>
             </div>
-
-            <span>CareerCraft AI</span>
-
+            <div class="cc-brand-copy">
+                <span class="cc-brand-name">CareerCraft</span>
+                <span class="cc-brand-ai">AI</span>
+            </div>
         </div>
 
+        <div class="cc-sidebar-label">WORKSPACE</div>
 
         <ul class="cc-nav-links">
-
-            <li>
-                <a href="/dashboard">Dashboard</a>
+            <li class="cc-nav-item active">
+                <a href="/dashboard" aria-current="page"><i class="fas fa-grid-2"></i><span>Dashboard</span></a>
+            </li>
+            <li class="cc-nav-item">
+                <a href="/category"><i class="fas fa-microphone-lines"></i><span>Interview</span></a>
+            </li>
+            <li class="cc-nav-item">
+                <a href="/learning"><i class="fas fa-book-open"></i><span>Learning</span></a>
+            </li>
+            <li class="cc-nav-item">
+                <a href="/coding"><i class="fas fa-code"></i><span>Coding Practice</span></a>
+            </li>
+            <li class="cc-nav-item">
+                <a href="/certificates"><i class="fas fa-award"></i><span>Certificates</span></a>
             </li>
 
-            <li>
-                <a href="/category">Interview</a>
-            </li>
+            <li class="cc-sidebar-divider" aria-hidden="true"></li>
+            <li class="cc-sidebar-label-item">TRACKING</li>
 
-            <li>
-                <a href="/history">History</a>
+            <li class="cc-nav-item">
+                <a href="/learning/tests"><i class="fas fa-clipboard-check"></i><span>Test History</span></a>
             </li>
-
-            <li>
-                <a href="/edit_profile">Profile</a>
+            <li class="cc-nav-item">
+                <a href="/history"><i class="fas fa-clock-rotate-left"></i><span>Interview History</span></a>
             </li>
-
-            <li>
-                <a href="/logout" class="cc-logout">
-                    Logout
-                </a>
+            <li class="cc-nav-item">
+                <a href="/career_intelligence"><i class="fas fa-sparkles"></i><span>Insights</span><span class="cc-nav-dot"></span></a>
             </li>
-
+            <li class="cc-nav-item">
+                <a href="/edit_profile"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+            </li>
         </ul>
+
+        <div class="cc-sidebar-bottom">
+            <div class="cc-sidebar-tip">
+                <div class="cc-tip-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                <div>
+                    <strong>Keep building</strong>
+                    <span>Small progress adds up.</span>
+                </div>
+            </div>
+
+            <a href="/logout" class="cc-logout">
+                <i class="fas fa-arrow-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </div>
 
     </nav>
 
@@ -1060,6 +1876,81 @@
         </section>
 
 
+
+        <!-- =================================================
+             CODING PROGRESS — DAY 14
+             LeetCode-inspired circular progress overview.
+             ================================================= -->
+        <section class="cc-coding-dashboard-card">
+            <div class="cc-coding-dashboard-head">
+                <div class="cc-coding-dashboard-title">
+                    <div class="cc-coding-dashboard-icon"><i class="fas fa-laptop-code"></i></div>
+                    <div>
+                        <h2>Coding Progress</h2>
+                        <p>Your problem-solving progress across CareerCraft AI.</p>
+                    </div>
+                </div>
+                <a href="/coding" class="cc-coding-dashboard-link">
+                    <i class="fas fa-code"></i> Continue Coding <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="/coding/progress" class="cc-coding-dashboard-link" style="background:#eef0ff;color:#4f46e5!important;box-shadow:none;">
+                    <i class="fas fa-chart-line"></i> View Analytics
+                </a>
+            </div>
+
+            <div class="cc-coding-dashboard-main">
+                <div class="cc-coding-leetcode-panel">
+                    <div class="cc-coding-ring"
+                         data-coding-progress="{{ coding_progress.progress_percent|default(0) }}"
+                         aria-label="Coding progress {{ coding_progress.progress_percent|default(0) }} percent">
+                        <div class="cc-coding-ring-content">
+                            <span class="cc-coding-ring-value">
+                                {{ coding_progress.solved|default(0) }}<span class="cc-coding-ring-total">/{{ coding_progress.total_problems|default(0) }}</span>
+                            </span>
+                            <span class="cc-coding-ring-label">Solved</span>
+                            <span class="cc-coding-ring-attempting">
+                                <strong>{{ [coding_progress.practiced|default(0) - coding_progress.solved|default(0), 0]|max }}</strong>
+                                Attempting
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="cc-coding-difficulty-list">
+                        <div class="cc-coding-difficulty-card easy">
+                            <div class="cc-coding-difficulty-info"><span class="cc-coding-difficulty-dot"></span><span>Easy</span></div>
+                            <strong class="cc-coding-difficulty-count">{{ coding_progress.difficulty.Easy|default(0) }} solved</strong>
+                        </div>
+                        <div class="cc-coding-difficulty-card medium">
+                            <div class="cc-coding-difficulty-info"><span class="cc-coding-difficulty-dot"></span><span>Medium</span></div>
+                            <strong class="cc-coding-difficulty-count">{{ coding_progress.difficulty.Medium|default(0) }} solved</strong>
+                        </div>
+                        <div class="cc-coding-difficulty-card hard">
+                            <div class="cc-coding-difficulty-info"><span class="cc-coding-difficulty-dot"></span><span>Hard</span></div>
+                            <strong class="cc-coding-difficulty-count">{{ coding_progress.difficulty.Hard|default(0) }} solved</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cc-coding-stats-panel">
+                    <div class="cc-coding-mini-stat"><div class="cc-coding-mini-stat-icon"><i class="fas fa-check-circle"></i></div><div><strong>{{ coding_progress.solved|default(0) }}</strong><span>Problems Solved</span></div></div>
+                    <div class="cc-coding-mini-stat"><div class="cc-coding-mini-stat-icon"><i class="fas fa-code"></i></div><div><strong>{{ coding_progress.practiced|default(0) }}</strong><span>Problems Practiced</span></div></div>
+                    <div class="cc-coding-mini-stat"><div class="cc-coding-mini-stat-icon"><i class="fas fa-paper-plane"></i></div><div><strong>{{ coding_progress.submissions|default(0) }}</strong><span>Submissions</span></div></div>
+                    <div class="cc-coding-mini-stat"><div class="cc-coding-mini-stat-icon"><i class="fas fa-bullseye"></i></div><div><strong>{{ coding_progress.success_rate|default(0) }}%</strong><span>Submission Success</span></div></div>
+                </div>
+            </div>
+
+            <div class="cc-coding-dashboard-footer">
+                <div class="cc-coding-progress-line">
+                    <div class="cc-coding-progress-line-top">
+                        <span>Overall coding progress</span>
+                        <span>{{ coding_progress.progress_percent|default(0) }}%</span>
+                    </div>
+                    <div class="cc-coding-progress-track"><div class="cc-coding-progress-fill" data-coding-progress-fill></div></div>
+                </div>
+                <div class="cc-coding-dashboard-note">{{ coding_progress.total_problems|default(0) }} structured problems available</div>
+            </div>
+        </section>
+
         <!-- =================================================
              PROFILE OVERVIEW — DAY 5
              ================================================= -->
@@ -1079,7 +1970,8 @@
 
                     <div
                         class="cc-profile-ring"
-                        style="--completion: {{ profile_completion }};"
+                        data-profile-completion="{{ profile_completion|default(0) }}"
+                        aria-label="Profile completion {{ profile_completion|default(0) }} percent"
                     >
                         <span>{{ profile_completion }}%</span>
                     </div>
@@ -1488,7 +2380,7 @@
 
 
 
-                    <div class="cc-module-card">
+                    <a href="/resume-builder" class="cc-module-card cc-module-card-link" aria-label="Open Resume Builder">
 
                         <div class="cc-module-icon">
                             <i class="fas fa-file-lines"></i>
@@ -1499,14 +2391,14 @@
                         </h3>
 
                         <p>
-                            Create professional resumes from templates.
+                            Create and manage your professional resume.
                         </p>
 
                         <span class="cc-module-status">
-                            COMING SOON
+                            AVAILABLE • OPEN →
                         </span>
 
-                    </div>
+                    </a>
 
 
                 </div>
@@ -1768,6 +2660,14 @@
                     <p>Analyze your career fit, skills and next steps.</p>
                 </a>
 
+                <a href="/certificates" class="cc-action">
+                    <div class="cc-action-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>My Certificates</h3>
+                    <p>View earned certificates and download professional PDFs.</p>
+                </a>
+
                 <a href="/history" class="cc-action">
                     <div class="cc-action-icon">
                         <i class="fas fa-clock-rotate-left"></i>
@@ -1830,10 +2730,17 @@
      CHART JS
      ===================================================== -->
 
-<script>
+<script type="application/json" id="dashboardRuntimeData">
+{{ {"scores": scores|default([])} | tojson }}
+</script>
 
-    const scoreData =
-        JSON.parse('{{ scores | tojson | safe }}');
+<script>
+    const runtimeData =
+        JSON.parse(document.getElementById("dashboardRuntimeData").textContent || "{}");
+
+    const scoreData = Array.isArray(runtimeData.scores)
+        ? runtimeData.scores
+        : [];
 
     const labels = [];
 
@@ -1847,8 +2754,46 @@
     const ctx =
         document.getElementById("scoreChart");
 
+    const codingProgressRing =
+        document.querySelector("[data-coding-progress]");
 
-    new Chart(ctx, {
+    const codingProgressFill =
+        document.querySelector("[data-coding-progress-fill]");
+
+    const codingProgress =
+        Number(codingProgressRing?.dataset.codingProgress || 0);
+
+    const profileRing =
+        document.querySelector("[data-profile-completion]");
+
+    const profileCompletion =
+        Number(profileRing?.dataset.profileCompletion || 0);
+
+    if (profileRing) {
+        profileRing.style.setProperty(
+            "--completion",
+            String(Math.max(0, Math.min(100, profileCompletion)))
+        );
+    }
+
+    if (codingProgressRing) {
+        codingProgressRing.style.setProperty(
+            "--coding-progress",
+            String(Math.max(0, Math.min(100, codingProgress)))
+        );
+    }
+
+    if (codingProgressFill) {
+        codingProgressFill.style.setProperty(
+            "--dashboard-coding-progress",
+            String(Math.max(0, Math.min(100, codingProgress)))
+        );
+    }
+
+    if (!ctx || typeof Chart === "undefined") {
+        console.warn("Interview performance chart could not be initialized.");
+    } else {
+        new Chart(ctx, {
 
         type: "line",
 
@@ -1919,6 +2864,7 @@
         }
 
     });
+    }
 
 </script>
 

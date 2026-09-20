@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning | CareerCraft AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --cc-bg: #f7f8fc;
+            --cc-surface: #ffffff;
+            --cc-surface-2: #f1f4f9;
+            --cc-text: #171923;
+            --cc-muted: #667085;
+            --cc-border: #e6e9f0;
+            --cc-primary: #635bff;
+            --cc-primary-dark: #5148e5;
+            --cc-success: #16a34a;
+            --cc-shadow: 0 18px 45px rgba(31, 35, 48, 0.08);
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            background: var(--cc-bg);
+            color: var(--cc-text);
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .cc-learning {
+            min-height: 100vh;
+        }
+
+        .cc-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 12px clamp(18px, 4vw, 64px);
+            background: color-mix(in srgb, var(--cc-surface) 94%, transparent);
+            border-bottom: 1px solid var(--cc-border);
+            backdrop-filter: blur(14px);
+        }
+
+        .cc-brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .cc-brand-icon {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            color: #fff;
+            background: linear-gradient(135deg, #635bff, #8b5cf6);
+            box-shadow: 0 8px 20px rgba(99, 91, 255, .24);
+        }
+
+        .cc-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .cc-nav-links a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 42px;
+            padding: 0 13px;
+            border-radius: 10px;
+            color: var(--cc-muted);
+            font-size: 14px;
+            font-weight: 600;
+            transition: .2s ease;
+        }
+
+        .cc-nav-links a:hover,
+        .cc-nav-links a.active {
+            color: var(--cc-primary);
+            background: rgba(99, 91, 255, .09);
+        }
+
+        .cc-main {
+            width: min(1240px, calc(100% - 36px));
+            margin: 0 auto;
+            padding: 48px 0 70px;
+        }
+
+        .cc-hero {
+            display: grid;
+            grid-template-columns: 1.4fr .6fr;
+            gap: 28px;
+            align-items: stretch;
+            margin-bottom: 28px;
+        }
+
+        .cc-hero-card,
+        .cc-stat-card,
+        .cc-section,
+        .cc-module-card {
+            background: var(--cc-surface);
+            border: 1px solid var(--cc-border);
+            box-shadow: var(--cc-shadow);
+        }
+
+        .cc-hero-card {
+            padding: clamp(28px, 4vw, 46px);
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cc-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--cc-primary);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .cc-hero h1 {
+            margin: 12px 0 10px;
+            font-size: clamp(30px, 4vw, 48px);
+            line-height: 1.05;
+            letter-spacing: -.04em;
+        }
+
+        .cc-hero p {
+            max-width: 700px;
+            margin: 0;
+            color: var(--cc-muted);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .cc-hero-glow {
+            position: absolute;
+            right: -80px;
+            bottom: -100px;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: rgba(99, 91, 255, .10);
+            filter: blur(8px);
+            pointer-events: none;
+        }
+
+        .cc-stat-card {
+            border-radius: 24px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .cc-stat-label {
+            color: var(--cc-muted);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .cc-stat-value {
+            margin: 8px 0;
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -.04em;
+        }
+
+        .cc-stat-meta {
+            color: var(--cc-muted);
+            font-size: 13px;
+        }
+
+        .cc-progress {
+            height: 9px;
+            margin-top: 18px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: var(--cc-surface-2);
+        }
+
+        .cc-progress > span {
+            display: block;
+            height: 100%;
+            width: var(--progress, 0%);
+            border-radius: inherit;
+            background: linear-gradient(90deg, #635bff, #8b5cf6);
+            transition: width .35s ease;
+        }
+
+        .cc-section {
+            padding: 28px;
+            margin-top: 28px;
+            border-radius: 24px;
+        }
+
+        .cc-section-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .cc-section-head h2 {
+            margin: 0 0 5px;
+            font-size: 23px;
+            letter-spacing: -.02em;
+        }
+
+        .cc-section-head p {
+            margin: 0;
+            color: var(--cc-muted);
+            font-size: 14px;
+        }
+
+        .cc-recommended {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .cc-recommended-card {
+            min-height: 150px;
+            padding: 20px;
+            border-radius: 18px;
+            border: 1px solid var(--cc-border);
+            background: linear-gradient(145deg, var(--cc-surface), var(--cc-surface-2));
+            transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .cc-recommended-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(99, 91, 255, .35);
+            box-shadow: 0 14px 30px rgba(31, 35, 48, .08);
+        }
+
+        .cc-recommended-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .cc-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: rgba(99, 91, 255, .10);
+            font-size: 22px;
+        }
+
+        .cc-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 9px;
+            border-radius: 999px;
+            background: rgba(99, 91, 255, .10);
+            color: var(--cc-primary);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .cc-recommended-card h3,
+        .cc-module-card h3 {
+            margin: 0 0 7px;
+            font-size: 17px;
+        }
+
+        .cc-recommended-card p,
+        .cc-module-card p {
+            margin: 0;
+            color: var(--cc-muted);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .cc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 15px;
+            color: var(--cc-primary);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .cc-module-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .cc-module-card {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: none;
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+        }
+
+        .cc-module-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 91, 255, .30);
+            box-shadow: 0 18px 35px rgba(31, 35, 48, .09);
+        }
+
+        .cc-module-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 22px 22px 8px;
+        }
+
+        .cc-module-body {
+            padding: 12px 22px 22px;
+            flex: 1;
+        }
+
+        .cc-module-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 14px 0;
+        }
+
+        .cc-meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 9px;
+            border-radius: 8px;
+            background: var(--cc-surface-2);
+            color: var(--cc-muted);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .cc-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 13px 0 18px;
+        }
+
+        .cc-topic {
+            padding: 5px 8px;
+            border-radius: 7px;
+            background: rgba(99, 91, 255, .07);
+            color: var(--cc-muted);
+            font-size: 11px;
+        }
+
+        .cc-card-progress {
+            margin-top: auto;
+        }
+
+        .cc-card-progress-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 8px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .cc-card-progress-row span:first-child { color: var(--cc-muted); }
+        .cc-card-progress-row span:last-child { color: var(--cc-primary); }
+
+        .cc-card-progress .cc-progress {
+            height: 7px;
+            margin-top: 0;
+        }
+
+        .cc-button {
+            width: 100%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            min-height: 44px;
+            margin-top: 16px;
+            padding: 0 16px;
+            border: 0;
+            border-radius: 11px;
+            background: var(--cc-primary);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 800;
+            transition: .2s ease;
+        }
+
+        .cc-button:hover {
+            background: var(--cc-primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .cc-button.complete {
+            background: rgba(22, 163, 74, .11);
+            color: var(--cc-success);
+        }
+
+        .cc-empty {
+            padding: 24px;
+            text-align: center;
+            color: var(--cc-muted);
+            border: 1px dashed var(--cc-border);
+            border-radius: 16px;
+        }
+
+        .cc-card-actions {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 9px;
+        }
+
+        .cc-button.secondary {
+            background: var(--cc-surface-2);
+            color: var(--cc-text);
+            border: 1px solid var(--cc-border);
+        }
+
+        .cc-test-status {
+            margin-top: 9px;
+            color: var(--cc-muted);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .cc-pass {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 5px;
+            color: var(--cc-success);
+        }
+
+        .cc-test-overview {
+            margin-top: 22px;
+        }
+
+        .cc-test-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .cc-test-mini {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            border: 1px solid var(--cc-border);
+            border-radius: 14px;
+            background: var(--cc-surface-2);
+        }
+
+        .cc-test-mini > div {
+            display: grid;
+            gap: 2px;
+        }
+
+        .cc-test-mini strong {
+            font-size: 20px;
+        }
+
+        .cc-test-mini small {
+            color: var(--cc-muted);
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .cc-mini-icon {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            background: rgba(99,91,255,.10);
+            color: var(--cc-primary);
+        }
+
+        .cc-mini-icon.success {
+            background: rgba(22,163,74,.10);
+            color: var(--cc-success);
+        }
+
+        .cc-footer {
+            padding: 35px 0 0;
+            text-align: center;
+            color: var(--cc-muted);
+            font-size: 12px;
+        }
+
+        @media (max-width: 1000px) {
+            .cc-hero { grid-template-columns: 1fr; }
+            .cc-recommended,
+            .cc-module-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 720px) {
+            .cc-navbar {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px 16px;
+            }
+
+            .cc-nav-links {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 2px;
+            }
+
+            .cc-nav-links a {
+                min-height: 38px;
+                white-space: nowrap;
+            }
+
+            .cc-main {
+                width: min(100% - 24px, 1240px);
+                padding-top: 25px;
+            }
+
+            .cc-hero-card,
+            .cc-stat-card,
+            .cc-section {
+                border-radius: 18px;
+            }
+
+            .cc-hero-card { padding: 25px; }
+            .cc-section { padding: 20px; }
+
+            .cc-recommended,
+            .cc-module-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cc-section-head {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .cc-test-mini-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cc-card-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .cc-brand { font-size: 15px; }
+            .cc-brand-icon { width: 36px; height: 36px; }
+            .cc-hero h1 { font-size: 31px; }
+            .cc-stat-value { font-size: 36px; }
+        }
+    </style>
+</head>
+
+<body>
+<div class="cc-learning">
+
+    <nav class="cc-navbar">
+        <a href="/dashboard" class="cc-brand" aria-label="CareerCraft AI Dashboard">
+            <span class="cc-brand-icon"><i class="fas fa-brain"></i></span>
+            <span>CareerCraft AI</span>
+        </a>
+
+        <ul class="cc-nav-links">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/category">Interview</a></li>
+            <li><a href="/learning" class="active">Learning</a></li>
+            <li><a href="{{ url_for('learning_insights') }}">Insights</a></li>
+            <li><a href="{{ url_for('coding_practice') }}">Coding Practice</a></li>
+            <li><a href="/history">History</a></li>
+            <li><a href="/edit_profile">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <main class="cc-main">
+
+        <section class="cc-hero">
+            <div class="cc-hero-card">
+                <div class="cc-eyebrow">
+                    <i class="fas fa-graduation-cap"></i>
+                    CareerCraft Learning
+                </div>
+
+                <h1>Learn the skills that move your career forward.</h1>
+
+                <p>
+                    Build practical knowledge through structured lessons designed
+                    around programming, databases, development, DSA and Generative AI.
+                    Your progress is saved automatically so you can continue anytime.
+                </p>
+
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;position:relative;z-index:1;">
+                    <a class="cc-button primary" href="{{ url_for('learning_insights') }}">
+                        <i class="fas fa-chart-line"></i> Learning Insights
+                    </a>
+                    <a class="cc-button secondary" href="{{ url_for('learning_tests') }}">
+                        <i class="fas fa-clipboard-check"></i> Test History
+                    </a>
+                    <a class="cc-button secondary" href="{{ url_for('coding_practice') }}">
+                        <i class="fas fa-code"></i> Coding Practice
+                    </a>
+                </div>
+
+                <div class="cc-hero-glow"></div>
+            </div>
+
+            <div class="cc-stat-card">
+                <div class="cc-stat-label">MODULES COMPLETED</div>
+                <div class="cc-stat-value">
+                    {{ completed_modules }}<span style="font-size:22px;color:var(--cc-muted)"> / {{ total_modules }}</span>
+                </div>
+                <div class="cc-stat-meta">Keep building your skill stack.</div>
+                <div class="cc-progress" style="--progress: {{ ((completed_modules / total_modules) * 100) if total_modules else 0 }}%;">
+                    <span></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="cc-section cc-test-overview">
+            <div class="cc-section-head">
+                <div>
+                    <h2>Knowledge Checks</h2>
+                    <p>Test what you learned and track your strongest modules.</p>
+                </div>
+                <a class="cc-button secondary" href="{{ url_for('learning_tests') }}">
+                    <i class="fas fa-chart-column"></i> Test History
+                </a>
+            </div>
+
+            <div class="cc-test-mini-grid">
+                <div class="cc-test-mini">
+                    <span class="cc-mini-icon"><i class="fas fa-pen-to-square"></i></span>
+                    <div><strong>{{ total_test_attempts }}</strong><small>Test attempts</small></div>
+                </div>
+                <div class="cc-test-mini">
+                    <span class="cc-mini-icon success"><i class="fas fa-circle-check"></i></span>
+                    <div><strong>{{ passed_tests }}</strong><small>Modules passed</small></div>
+                </div>
+                <div class="cc-test-mini">
+                    <span class="cc-mini-icon"><i class="fas fa-list-check"></i></span>
+                    <div><strong>5</strong><small>Questions per test</small></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cc-section">
+            <div class="cc-section-head">
+                <div>
+                    <h2>Recommended for You</h2>
+                    <p>Learning paths selected from your profile and interview performance.</p>
+                </div>
+            </div>
+
+            {% if recommended %}
+            <div class="cc-recommended">
+                {% for module in recommended %}
+                <a class="cc-recommended-card" href="{{ url_for('learning_module', slug=module.slug) }}">
+                    <div class="cc-recommended-top">
+                        <span class="cc-icon">{{ module.icon }}</span>
+                        <span class="cc-badge">RECOMMENDED</span>
+                    </div>
+                    <h3>{{ module.title }}</h3>
+                    <p>{{ module.category }} · {{ module.level }} · {{ module.duration }}</p>
+                    <span class="cc-link">
+                        Continue learning <i class="fas fa-arrow-right"></i>
+                    </span>
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="cc-empty">
+                <i class="fas fa-compass"></i>
+                <p>No personalized recommendations yet. Explore the modules below.</p>
+            </div>
+            {% endif %}
+        </section>
+
+        <section class="cc-section">
+            <div class="cc-section-head">
+                <div>
+                    <h2>Learning Modules</h2>
+                    <p>Structured lessons you can complete at your own pace.</p>
+                </div>
+                <span class="cc-badge">{{ total_modules }} MODULES</span>
+            </div>
+
+            <div class="cc-module-grid">
+                {% for module in modules %}
+                <article class="cc-module-card">
+
+                    <div class="cc-module-top">
+                        <span class="cc-icon">{{ module.icon }}</span>
+
+                        {% if module.completed %}
+                        <span class="cc-badge" style="color:var(--cc-success);background:rgba(22,163,74,.10);">
+                            <i class="fas fa-check"></i>&nbsp; COMPLETE
+                        </span>
+                        {% else %}
+                        <span class="cc-badge">{{ module.level }}</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="cc-module-body">
+                        <h3>{{ module.title }}</h3>
+                        <p>{{ module.category }} · {{ module.duration }}</p>
+
+                        <div class="cc-module-meta">
+                            <span class="cc-meta">
+                                <i class="fas fa-layer-group"></i>
+                                {{ module.lessons|length }} lessons
+                            </span>
+                            <span class="cc-meta">
+                                <i class="fas fa-signal"></i>
+                                {{ module.level }}
+                            </span>
+                        </div>
+
+                        <div class="cc-topics">
+                            {% for topic in module.topics %}
+                            <span class="cc-topic">{{ topic }}</span>
+                            {% endfor %}
+                        </div>
+
+                        <div class="cc-card-progress">
+                            <div class="cc-card-progress-row">
+                                <span>Progress</span>
+                                <span>{{ module.progress }}%</span>
+                            </div>
+
+                            <div class="cc-progress" style="--progress: {{ module.progress }}%;">
+                                <span></span>
+                            </div>
+
+                            <div class="cc-card-actions">
+                                <a href="{{ url_for('learning_module', slug=module.slug) }}" class="cc-button {% if module.completed %}complete{% endif %}">
+                                    {% if module.completed %}
+                                        <i class="fas fa-circle-check"></i> Review Module
+                                    {% elif module.lesson_index > 0 %}
+                                        <i class="fas fa-play"></i> Continue Learning
+                                    {% else %}
+                                        <i class="fas fa-rocket"></i> Start Module
+                                    {% endif %}
+                                </a>
+                                <a href="{{ url_for('learning_test', slug=module.slug) }}" class="cc-button secondary">
+                                    <i class="fas fa-clipboard-check"></i> Test
+                                </a>
+                            </div>
+
+                            <div class="cc-test-status">
+                                {% if module.test.attempts %}
+                                    Best: <strong>{{ module.test.best_score|round(0)|int }}%</strong>
+                                    · {{ module.test.attempts }} attempt{% if module.test.attempts != 1 %}s{% endif %}
+                                    {% if module.test.passed %}<span class="cc-pass"><i class="fas fa-check"></i> Passed</span>{% endif %}
+                                {% else %}
+                                    <span>No test taken yet</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <footer class="cc-footer">
+            <strong>CareerCraft AI</strong> · Learn • Practice • Build • Interview • Get Hired
+        </footer>
+
+    </main>
+</div>
+</body>
+</html>

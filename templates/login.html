@@ -1,96 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Login | AI Interview Preparation System</title>
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
+    <title>Login | AI Career Copilot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        *{box-sizing:border-box}
+        body.cc-auth-body{
+            margin:0;
+            min-height:100vh;
+            font-family:"Poppins",sans-serif;
+            color:#172033;
+            background:
+                radial-gradient(circle at 8% 12%,rgba(99,91,255,.11),transparent 27%),
+                radial-gradient(circle at 92% 85%,rgba(59,130,246,.10),transparent 28%),
+                linear-gradient(135deg,#f8f9ff 0%,#fff 52%,#f5f8ff 100%);
+            overflow-x:hidden;
+        }
+        .cc-auth-shell{
+            min-height:100vh;
+            display:grid;
+            grid-template-columns:1.05fr .95fr;
+            max-width:1180px;
+            margin:auto;
+            padding:28px;
+            gap:34px;
+            align-items:center;
+        }
+        .cc-auth-brand{
+            display:inline-flex;
+            align-items:center;
+            gap:10px;
+            color:#111827;
+            text-decoration:none;
+            font-weight:800;
+            font-size:20px;
+            margin-bottom:50px;
+        }
+        .cc-brand-mark{
+            width:42px;height:42px;border-radius:13px;
+            display:grid;place-items:center;
+            color:#fff;
+            background:linear-gradient(135deg,#635bff,#3b82f6);
+            box-shadow:0 10px 24px rgba(99,91,255,.23);
+        }
+        .cc-auth-copy{padding:24px 18px 24px 18px}
+        .cc-auth-eyebrow{
+            display:inline-flex;align-items:center;gap:7px;
+            padding:8px 12px;border-radius:999px;
+            background:#f0eeff;color:#635bff;
+            font-size:11px;font-weight:800;letter-spacing:.06em;
+            text-transform:uppercase;
+        }
+        .cc-auth-copy h1{
+            margin:18px 0 14px;
+            font-size:clamp(38px,5vw,60px);
+            line-height:1.08;
+            letter-spacing:-.04em;
+            color:#111827;
+        }
+        .cc-auth-copy h1 span{color:#635bff}
+        .cc-auth-copy p{
+            max-width:520px;margin:0;
+            color:#64748b;font-size:15px;line-height:1.8;
+        }
+        .cc-auth-points{
+            display:grid;gap:12px;margin-top:28px;
+        }
+        .cc-auth-point{
+            display:flex;align-items:center;gap:11px;
+            color:#475569;font-size:13px;
+        }
+        .cc-auth-point i{color:#635bff}
+        .cc-auth-card{
+            width:100%;
+            max-width:460px;
+            justify-self:end;
+            background:rgba(255,255,255,.94);
+            border:1px solid #e7eaf3;
+            border-radius:26px;
+            padding:34px;
+            box-shadow:0 25px 70px rgba(30,41,59,.10);
+        }
+        .cc-card-icon{
+            width:50px;height:50px;border-radius:15px;
+            display:grid;place-items:center;
+            color:#635bff;background:#f0eeff;
+            margin-bottom:22px;font-size:20px;
+        }
+        .cc-auth-card h2{
+            margin:0;color:#111827;font-size:27px;letter-spacing:-.025em;
+        }
+        .cc-auth-card .cc-sub{
+            margin:8px 0 24px;color:#64748b;font-size:13px;line-height:1.65;
+        }
+        .cc-field{margin-bottom:15px}
+        .cc-field label{
+            display:block;margin-bottom:7px;
+            color:#334155;font-size:12px;font-weight:700;
+        }
+        .cc-input{
+            position:relative;
+        }
+        .cc-input i{
+            position:absolute;left:15px;top:50%;
+            transform:translateY(-50%);
+            color:#94a3b8;font-size:13px;
+            pointer-events:none;
+        }
+        .cc-input input{
+            width:100%;height:50px;
+            border:1px solid #dfe4ee;
+            border-radius:13px;
+            background:#fff;color:#172033;
+            padding:0 14px 0 43px;
+            font:500 13px "Poppins",sans-serif;
+            outline:none;
+            transition:.2s ease;
+        }
+        .cc-input input::placeholder{color:#a0a9b8}
+        .cc-input input:focus{
+            border-color:#8b84ff;
+            box-shadow:0 0 0 4px rgba(99,91,255,.09);
+        }
+        .cc-submit{
+            width:100%;height:50px;
+            margin-top:7px;border:0;border-radius:13px;
+            color:#fff;background:linear-gradient(135deg,#635bff,#5146e5);
+            font:700 13px "Poppins",sans-serif;
+            cursor:pointer;
+            box-shadow:0 10px 25px rgba(99,91,255,.20);
+            transition:.22s ease;
+        }
+        .cc-submit:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(99,91,255,.27)}
+        .cc-switch{
+            margin:19px 0 0;text-align:center;
+            color:#64748b;font-size:12px;
+        }
+        .cc-switch a{color:#635bff;font-weight:700;text-decoration:none}
+        .cc-back{
+            display:flex;justify-content:center;align-items:center;gap:7px;
+            margin-top:18px;padding-top:17px;
+            border-top:1px solid #eef0f5;
+            color:#64748b;text-decoration:none;font-size:12px;font-weight:600;
+        }
+        .cc-back:hover{color:#635bff}
+        @media(max-width:850px){
+            .cc-auth-shell{grid-template-columns:1fr;max-width:560px;padding:20px}
+            .cc-auth-copy{display:none}
+            .cc-auth-card{justify-self:center}
+        }
+        @media(max-width:500px){
+            .cc-auth-shell{padding:12px}
+            .cc-auth-card{padding:25px 20px;border-radius:21px}
+            .cc-auth-brand{margin-bottom:25px;font-size:18px}
+        }
+    </style>
 </head>
-
-<body>
-
-<div class="login-page">
-
-    <div class="login-card">
-
-        <h1>Welcome Back 👋</h1>
-
-        <p class="login-subtitle">
-
-            Login to continue your AI Interview Preparation.
-
-        </p>
-
-        <form action="/login" method="POST">
-
-            <div class="input-box">
-
-                <i class="fa-solid fa-envelope"></i>
-
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your Email"
-                    required>
-
-            </div>
-
-            <div class="input-box">
-
-                <i class="fa-solid fa-lock"></i>
-
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Enter your Password"
-                    required>
-
-            </div>
-
-            <button type="submit" class="login-submit">
-
-                Login
-
-            </button>
-
-        </form>
-
-        <p class="bottom-text">
-
-            Don't have an account?
-
-            <a href="/register">
-
-                Register
-
+<body class="cc-auth-body">
+    <main class="cc-auth-shell">
+        <section class="cc-auth-copy">
+            <a href="/" class="cc-auth-brand">
+                <span class="cc-brand-mark"><i class="fas fa-brain"></i></span>
+                AI Career Copilot
             </a>
+            <span class="cc-auth-eyebrow"><i class="fas fa-sparkles"></i> AI-powered preparation</span>
+            <h1>Welcome back.<br><span>Let's get you ready.</span></h1>
+            <p>Continue your personalized interview preparation, learning progress and career growth journey.</p>
+            <div class="cc-auth-points">
+                <div class="cc-auth-point"><i class="fas fa-circle-check"></i> AI-powered interview practice</div>
+                <div class="cc-auth-point"><i class="fas fa-circle-check"></i> Personalized performance insights</div>
+                <div class="cc-auth-point"><i class="fas fa-circle-check"></i> Structured learning and revision</div>
+            </div>
+        </section>
 
-        </p>
+        <section class="cc-auth-card">
+            <div class="cc-card-icon"><i class="fas fa-right-to-bracket"></i></div>
+            <h2>Sign in</h2>
+            <p class="cc-sub">Access your CareerCraft AI workspace.</p>
 
-        <br>
+            <form action="/login" method="POST">
+                <div class="cc-field">
+                    <label for="email">Email address</label>
+                    <div class="cc-input">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input id="email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+                    </div>
+                </div>
 
-        <a href="/" class="secondary-btn">
+                <div class="cc-field">
+                    <label for="password">Password</label>
+                    <div class="cc-input">
+                        <i class="fa-solid fa-lock"></i>
+                        <input id="password" type="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+                    </div>
+                </div>
 
-            ⬅ Back to Home
+                <button type="submit" class="cc-submit">
+                    Sign In <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
 
-        </a>
-
-    </div>
-
-</div>
-
+            <p class="cc-switch">Don't have an account? <a href="/register">Create one</a></p>
+            <a href="/" class="cc-back"><i class="fas fa-arrow-left"></i> Back to home</a>
+        </section>
+    </main>
 </body>
-
 </html>

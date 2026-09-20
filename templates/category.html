@@ -1,112 +1,1037 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-cc-theme="light">
 <head>
-    <title>Select Interview Category</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Setup | CareerCraft AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
-        body{
-            background:#0f172a;
-            color:white;
-            font-family:Arial,sans-serif;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-            margin:0;
+        :root {
+            --bg: #f5f7fb;
+            --surface: #ffffff;
+            --surface-2: #f8f9fd;
+            --surface-3: #f1f3f9;
+            --text: #172033;
+            --muted: #667085;
+            --border: #e2e6ef;
+            --primary: #635bff;
+            --primary-2: #4f46e5;
+            --blue: #3b82f6;
+            --green: #16a34a;
+            --orange: #f59e0b;
+            --red: #ef4444;
+            --shadow: 0 18px 55px rgba(15, 23, 42, .08);
+            --shadow-soft: 0 8px 28px rgba(15, 23, 42, .055);
         }
 
-        .container{
-            background:#1e293b;
-            padding:30px;
-            border-radius:15px;
-            box-shadow:0 0 20px #38bdf8;
-            width:450px;
-            text-align:center;
+        html[data-cc-theme="dark"] {
+            --bg: #0b1120;
+            --surface: #111827;
+            --surface-2: #172033;
+            --surface-3: #1c273b;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --border: #29364c;
+            --shadow: 0 20px 55px rgba(0, 0, 0, .28);
+            --shadow-soft: 0 8px 28px rgba(0, 0, 0, .2);
         }
 
-        h1{
-            color:#38bdf8;
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            min-height: 100%;
+            font-family: "Inter", system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
         }
 
-        label{
-            display:block;
-            text-align:left;
-            margin-top:15px;
-            margin-bottom:5px;
-            font-weight:bold;
+        body { min-height: 100vh; }
+
+        button, select { font: inherit; }
+
+        button { cursor: pointer; }
+
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
-        select{
-            width:100%;
-            padding:12px;
-            margin-bottom:20px;
-            font-size:16px;
-            border-radius:8px;
+        .app {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 8% 0%, rgba(99,91,255,.09), transparent 28%),
+                radial-gradient(circle at 92% 8%, rgba(59,130,246,.07), transparent 25%),
+                var(--bg);
         }
 
-        button{
-            width:100%;
-            padding:12px;
-            background:#38bdf8;
-            color:black;
-            font-size:18px;
-            font-weight:bold;
-            border:none;
-            border-radius:8px;
-            cursor:pointer;
+        .topbar {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 0 30px;
+            background: rgba(255,255,255,.84);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(18px);
+            position: sticky;
+            top: 0;
+            z-index: 30;
         }
 
-        button:hover{
-            background:#0ea5e9;
+        html[data-cc-theme="dark"] .topbar {
+            background: rgba(11,17,32,.84);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .brand-icon {
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            color: #fff;
+            background: linear-gradient(135deg, #635bff, #3b82f6);
+            box-shadow: 0 7px 18px rgba(99,91,255,.22);
+        }
+
+        .brand-copy strong {
+            display: block;
+            font-size: 14px;
+            letter-spacing: -.2px;
+        }
+
+        .brand-copy span {
+            display: block;
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .nav-link,
+        .theme-btn {
+            height: 38px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--muted);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 0 12px;
+            font-size: 10px;
+            font-weight: 800;
+            transition: .18s ease;
+        }
+
+        .theme-btn { width: 38px; padding: 0; }
+
+        .nav-link:hover,
+        .theme-btn:hover {
+            color: var(--primary);
+            border-color: rgba(99,91,255,.35);
+            transform: translateY(-1px);
+        }
+
+        .page {
+            width: min(1380px, calc(100% - 48px));
+            margin: 0 auto;
+            padding: 44px 0 80px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 28px;
+            align-items: end;
+            margin-bottom: 25px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+        }
+
+        .hero h1 {
+            margin: 9px 0 8px;
+            font-size: clamp(28px, 4vw, 42px);
+            line-height: 1.08;
+            letter-spacing: -1.2px;
+        }
+
+        .hero p {
+            max-width: 670px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .setup-status {
+            min-width: 230px;
+            padding: 15px 17px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: var(--surface);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .setup-status .small {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .setup-status strong {
+            display: block;
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-height: 62px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--surface);
+        }
+
+        .step.active {
+            border-color: rgba(99,91,255,.3);
+            background: linear-gradient(135deg, rgba(99,91,255,.08), var(--surface));
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            flex: 0 0 30px;
+            display: grid;
+            place-items: center;
+            border-radius: 9px;
+            background: var(--surface-3);
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .step.active .step-number {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .step strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .step span {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 9px;
+        }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 350px;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .panel {
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: var(--surface);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .panel-head {
+            padding: 24px 25px 19px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-head-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .panel-head h2 {
+            margin: 0;
+            font-size: 18px;
+            letter-spacing: -.2px;
+        }
+
+        .panel-head p {
+            margin: 5px 0 0;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .track-count {
+            padding: 7px 9px;
+            border-radius: 999px;
+            background: var(--surface-3);
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .tracks {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            padding: 22px;
+        }
+
+        .track-card {
+            position: relative;
+            padding: 24px;
+            min-height: 238px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: var(--surface);
+            transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+        }
+
+        .track-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(99,91,255,.3);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .track-card.selected {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99,91,255,.09);
+        }
+
+        .track-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .track-icon {
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: var(--surface-3);
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .track-card.selected .track-icon {
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary), var(--blue));
+        }
+
+        .track-info h3 {
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .track-info p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.55;
+        }
+
+        .check {
+            width: 22px;
+            height: 22px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            color: transparent;
+            font-size: 9px;
+        }
+
+        .track-card.selected .check {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .difficulty-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 22px;
+            margin-bottom: 10px;
+        }
+
+        .difficulty-title span:first-child {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+        }
+
+        .difficulty-title span:last-child {
+            color: var(--muted);
+            font-size: 8px;
+            font-weight: 700;
+        }
+
+        .difficulty-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+
+        .difficulty {
+            min-height: 43px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: var(--surface-2);
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            transition: .16s ease;
+        }
+
+        .difficulty:hover {
+            border-color: rgba(99,91,255,.35);
+            color: var(--primary);
+        }
+
+        .difficulty.selected {
+            border-color: var(--primary);
+            background: rgba(99,91,255,.1);
+            color: var(--primary);
+        }
+
+        .difficulty.easy.selected { border-color: var(--green); background: rgba(22,163,74,.1); color: var(--green); }
+        .difficulty.medium.selected { border-color: var(--orange); background: rgba(245,158,11,.1); color: var(--orange); }
+        .difficulty.hard.selected { border-color: var(--red); background: rgba(239,68,68,.1); color: var(--red); }
+
+        .difficulty i {
+            margin-right: 4px;
+            font-size: 8px;
+        }
+
+        .side {
+            position: sticky;
+            top: 90px;
+            display: grid;
+            gap: 18px;
+        }
+
+        .summary {
+            padding: 24px;
+        }
+
+        .summary-label {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .summary h2 {
+            margin: 8px 0 5px;
+            font-size: 24px;
+            letter-spacing: -.5px;
+        }
+
+        .summary-subtitle {
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .selection-box {
+            margin-top: 17px;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface-2);
+        }
+
+        .selection-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 7px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .selection-row:last-child { border-bottom: 0; }
+
+        .selection-row span:first-child {
+            color: var(--muted);
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .selection-row strong {
+            font-size: 10px;
+            text-align: right;
+        }
+
+        .start-btn {
+            width: 100%;
+            margin-top: 16px;
+            min-height: 48px;
+            border: 0;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-2));
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+            box-shadow: 0 10px 22px rgba(99,91,255,.22);
+            transition: .18s ease;
+        }
+
+        .start-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 13px 26px rgba(99,91,255,.27);
+        }
+
+        .start-btn:disabled {
+            cursor: not-allowed;
+            opacity: .45;
+            box-shadow: none;
+        }
+
+        .info-card {
+            padding: 17px 18px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 10px;
+            font-size: 12px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        .info-item i {
+            width: 20px;
+            height: 20px;
+            flex: 0 0 20px;
+            display: grid;
+            place-items: center;
+            border-radius: 6px;
+            background: rgba(99,91,255,.1);
+            color: var(--primary);
+            font-size: 8px;
+        }
+
+        .timer-choice { margin-top: 15px; }
+        .timer-choice-head { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+        .timer-choice-head strong { display:block; font-size:10px; }
+        .timer-choice-head span { display:block; margin-top:3px; color:var(--muted); font-size:8px; }
+        .timer-choice-head > i { color:var(--primary); font-size:13px; }
+        .timer-options { display:grid; gap:7px; }
+        .timer-option { width:100%; display:grid; grid-template-columns:30px minmax(0,1fr) 18px; align-items:center; gap:9px; padding:9px; text-align:left; border:1px solid var(--border); border-radius:10px; background:var(--surface-2); color:var(--text); }
+        .timer-option:hover { border-color:rgba(99,91,255,.35); }
+        .timer-option.selected { border-color:var(--primary); background:rgba(99,91,255,.08); }
+        .timer-option-icon { width:30px; height:30px; display:grid; place-items:center; border-radius:8px; background:var(--surface-3); color:var(--primary); }
+        .timer-option > span:nth-child(2) strong { display:block; font-size:9px; }
+        .timer-option > span:nth-child(2) small { display:block; margin-top:3px; color:var(--muted); font-size:8px; }
+        .option-check { justify-self:end; color:transparent; font-size:9px; }
+        .timer-option.selected .option-check { color:var(--primary); }
+
+        .native-fields {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform: translate(-50%, 18px);
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: #111827;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            opacity: 0;
+            pointer-events: none;
+            transition: .2s ease;
+            z-index: 100;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        @media (max-width: 980px) {
+            .workspace { grid-template-columns: 1fr; }
+            .side { position: static; grid-template-columns: 1fr 1fr; }
+            .setup-status { min-width: 200px; }
+        }
+
+        @media (max-width: 720px) {
+            .track-card { min-height: 220px; }
+            .topbar { height: auto; min-height: 64px; padding: 10px 15px; }
+            .brand-copy span, .nav-link span { display: none; }
+            .nav-link { width: 38px; padding: 0; }
+            .page { width: min(100% - 24px, 620px); padding-top: 26px; }
+            .hero { grid-template-columns: 1fr; gap: 14px; }
+            .setup-status { min-width: 0; }
+            .steps { grid-template-columns: 1fr; }
+            .tracks { grid-template-columns: 1fr; padding: 13px; }
+            .side { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 430px) {
+            .hero h1 { font-size: 28px; }
+            .track-card { padding: 14px; }
+            .difficulty-options { gap: 5px; }
+            .difficulty { font-size: 8px; }
         }
     </style>
-
 </head>
 
 <body>
+<div class="app">
+    <header class="topbar">
+        <a class="brand" href="{{ url_for('dashboard') }}">
+            <span class="brand-icon"><i class="fas fa-brain"></i></span>
+            <span class="brand-copy">
+                <strong>CareerCraft AI</strong>
+                <span>AI-powered interview preparation</span>
+            </span>
+        </a>
 
-<div class="container">
+        <div class="top-actions">
+            <a class="nav-link" href="{{ url_for('dashboard') }}" aria-label="Dashboard">
+                <i class="fas fa-grid-2"></i><span>Dashboard</span>
+            </a>
+            <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle theme">
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+    </header>
 
-<h1>Select Interview Category</h1>
+    <main class="page">
+        <section class="hero">
+            <div>
+                <span class="eyebrow"><i class="fas fa-sparkles"></i> AI Interview Studio</span>
+                <h1>Build your interview session.</h1>
+                <p>
+                    Choose a technical track and difficulty. CareerCraft AI will use your selection
+                    to start a focused interview and adapt the question difficulty as you perform.
+                </p>
+            </div>
 
-<form action="/set_category" method="POST">
+            <div class="setup-status">
+                <span class="small">Session setup</span>
+                <strong id="statusText">Choose a track to continue</strong>
+            </div>
+        </section>
 
-<label>Category</label>
+        <section class="steps" aria-label="Interview setup steps">
+            <div class="step active">
+                <div class="step-number">01</div>
+                <div><strong>Choose track</strong><span>Select your interview subject.</span></div>
+            </div>
+            <div class="step">
+                <div class="step-number">02</div>
+                <div><strong>Set difficulty</strong><span>Start Easy, Medium or Hard.</span></div>
+            </div>
+            <div class="step">
+                <div class="step-number">03</div>
+                <div><strong>Start interview</strong><span>Begin your adaptive session.</span></div>
+            </div>
+        </section>
 
-<select name="category" required>
+        <form action="{{ url_for('set_category') }}" method="POST" id="interviewSetupForm">
+            <div class="workspace">
+                <section class="panel">
+                    <div class="panel-head">
+                        <div class="panel-head-row">
+                            <div>
+                                <span style="display:inline-flex;align-items:center;gap:6px;color:var(--primary);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">
+                                    <i class="fas fa-layer-group"></i> Technical Interview Library
+                                </span>
+                                <h2>Choose your interview track</h2>
+                                <p>Pick a technology or computer-science specialization, then set the difficulty for a focused adaptive session.</p>
+                            </div>
+                            <span class="track-count"><i class="fas fa-bolt"></i> 8 tracks · 3 levels</span>
+                        </div>
+                    </div>
 
-<option value="">--Select Category--</option>
+                    <div class="tracks" id="trackGrid">
+                        <article class="track-card" data-category="python" data-name="Python">
+                            <div class="track-top">
+                                <div class="track-icon"><i class="fab fa-python"></i></div>
+                                <div class="track-info"><h3>Python</h3><p>Core syntax, problem solving &amp; Python concepts.</p></div>
+                                <span class="check"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="difficulty-title"><span>Difficulty level</span><span>Adaptive after each answer</span></div>
+                            <div class="difficulty-options">
+                                <button class="difficulty easy" type="button" data-difficulty="easy"><i class="fas fa-circle"></i>Easy</button>
+                                <button class="difficulty medium" type="button" data-difficulty="medium"><i class="fas fa-circle"></i>Medium</button>
+                                <button class="difficulty hard" type="button" data-difficulty="hard"><i class="fas fa-circle"></i>Hard</button>
+                            </div>
+                        </article>
 
-<option value="python">Python</option>
-<option value="sql">SQL</option>
-<option value="django">Django</option>
-<option value="flask">Flask</option>
-<option value="html">HTML & CSS</option>
-<option value="javascript">JavaScript</option>
-<option value="oop">OOP</option>
-<option value="dsa">DSA</option>
+                        <article class="track-card" data-category="javascript" data-name="JavaScript">
+                            <div class="track-top">
+                                <div class="track-icon"><i class="fab fa-js"></i></div>
+                                <div class="track-info"><h3>JavaScript</h3><p>Language fundamentals, DOM, ES6+ &amp; logic.</p></div>
+                                <span class="check"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="difficulty-title"><span>Difficulty level</span><span>Adaptive after each answer</span></div>
+                            <div class="difficulty-options">
+                                <button class="difficulty easy" type="button" data-difficulty="easy">Easy</button>
+                                <button class="difficulty medium" type="button" data-difficulty="medium">Medium</button>
+                                <button class="difficulty hard" type="button" data-difficulty="hard">Hard</button>
+                            </div>
+                        </article>
 
-</select>
+                        <article class="track-card" data-category="sql" data-name="SQL">
+                            <div class="track-top">
+                                <div class="track-icon"><i class="fas fa-database"></i></div>
+                                <div class="track-info"><h3>SQL</h3><p>Queries, joins, aggregation &amp; database reasoning.</p></div>
+                                <span class="check"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="difficulty-title"><span>Difficulty level</span><span>Adaptive after each answer</span></div>
+                            <div class="difficulty-options">
+                                <button class="difficulty easy" type="button" data-difficulty="easy">Easy</button>
+                                <button class="difficulty medium" type="button" data-difficulty="medium">Medium</button>
+                                <button class="difficulty hard" type="button" data-difficulty="hard">Hard</button>
+                            </div>
+                        </article>
 
-<label>Difficulty</label>
+                        <article class="track-card" data-category="dsa" data-name="DSA">
+                            <div class="track-top">
+                                <div class="track-icon"><i class="fas fa-diagram-project"></i></div>
+                                <div class="track-info"><h3>DSA</h3><p>Algorithms, data structures &amp; interview problem solving.</p></div>
+                                <span class="check"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="difficulty-title"><span>Difficulty level</span><span>Adaptive after each answer</span></div>
+                            <div class="difficulty-options">
+                                <button class="difficulty easy" type="button" data-difficulty="easy">Easy</button>
+                                <button class="difficulty medium" type="button" data-difficulty="medium">Medium</button>
+                                <button class="difficulty hard" type="button" data-difficulty="hard">Hard</button>
+                            </div>
+                        </article>
 
-<select name="difficulty" required>
+                        <article class="track-card" data-category="django" data-name="Django">
+                            <div class="track-top">
+                                <div class="track-icon"><i class="fas fa-layer-group"></i></div>
+                                <div class="track-info"><h3>Django</h3><p>Models, views, ORM, routing &amp; web architecture.</p></div>
+                                <span class="check"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="difficulty-title"><span>Difficulty level</span><span>Adaptive after each answer</span></div>
+                            <div class="difficulty-options">
+                                <button class="difficulty easy" type="button" data-difficulty="easy">Easy</button>
+                                <button class="difficulty medium" type="button" data-difficulty="medium">Medium</button>
+                                <button class="difficulty hard" type="button" data-difficulty="hard">Hard</button>
+                            </div>
+                        </article>
 
-<option value="">--Select Difficulty--</option>
+                        <article class="track-card" data-category="flask" data-name="Flask">
+                            <div class="track-top">
+                                <div class="track-icon"><i class="fas fa-flask"></i></div>
+                                <div class="track-info"><h3>Flask</h3><p>Routes, templates, APIs, sessions &amp; extensions.</p></div>
+                                <span class="check"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="difficulty-title"><span>Difficulty level</span><span>Adaptive after each answer</span></div>
+                            <div class="difficulty-options">
+                                <button class="difficulty easy" type="button" data-difficulty="easy">Easy</button>
+                                <button class="difficulty medium" type="button" data-difficulty="medium">Medium</button>
+                                <button class="difficulty hard" type="button" data-difficulty="hard">Hard</button>
+                            </div>
+                        </article>
 
-<option value="easy">Easy</option>
-<option value="medium">Medium</option>
-<option value="hard">Hard</option>
+                        <article class="track-card" data-category="html" data-name="HTML & CSS">
+                            <div class="track-top">
+                                <div class="track-icon"><i class="fab fa-html5"></i></div>
+                                <div class="track-info"><h3>HTML &amp; CSS</h3><p>Semantic markup, layout, responsive UI &amp; styling.</p></div>
+                                <span class="check"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="difficulty-title"><span>Difficulty level</span><span>Adaptive after each answer</span></div>
+                            <div class="difficulty-options">
+                                <button class="difficulty easy" type="button" data-difficulty="easy">Easy</button>
+                                <button class="difficulty medium" type="button" data-difficulty="medium">Medium</button>
+                                <button class="difficulty hard" type="button" data-difficulty="hard">Hard</button>
+                            </div>
+                        </article>
 
-</select>
+                        <article class="track-card" data-category="oop" data-name="OOP">
+                            <div class="track-top">
+                                <div class="track-icon"><i class="fas fa-cubes"></i></div>
+                                <div class="track-info"><h3>OOP</h3><p>Classes, inheritance, abstraction &amp; design thinking.</p></div>
+                                <span class="check"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="difficulty-title"><span>Difficulty level</span><span>Adaptive after each answer</span></div>
+                            <div class="difficulty-options">
+                                <button class="difficulty easy" type="button" data-difficulty="easy">Easy</button>
+                                <button class="difficulty medium" type="button" data-difficulty="medium">Medium</button>
+                                <button class="difficulty hard" type="button" data-difficulty="hard">Hard</button>
+                            </div>
+                        </article>
+                    </div>
+                </section>
 
-<button type="submit">
-Start Interview
-</button>
+                <aside class="side">
+                    <section class="panel summary">
+                        <span class="summary-label">Interview configuration</span>
+                        <h2 id="summaryTitle">Not selected</h2>
+                        <div class="summary-subtitle" id="summarySubtitle">
+                            Select a track and difficulty to configure your session.
+                        </div>
 
-</form>
+                        <div class="selection-box">
+                            <div class="selection-row">
+                                <span>Track</span>
+                                <strong id="selectedCategory">—</strong>
+                            </div>
+                            <div class="selection-row">
+                                <span>Difficulty</span>
+                                <strong id="selectedDifficulty">—</strong>
+                            </div>
+                            <div class="selection-row">
+                                <span>Interview mode</span>
+                                <strong>Adaptive AI</strong>
+                            </div>
+                        </div>
 
+                        <div class="timer-choice">
+                            <div class="timer-choice-head">
+                                <div><strong>Session timer</strong><span>Choose how you want to practice.</span></div>
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="timer-options" id="timerOptions">
+                                <button type="button" class="timer-option selected" data-timer="timed"><span class="timer-option-icon"><i class="fas fa-stopwatch"></i></span><span><strong>With timer</strong><small>15-minute session</small></span><i class="fas fa-check option-check"></i></button>
+                                <button type="button" class="timer-option" data-timer="untimed"><span class="timer-option-icon"><i class="fas fa-infinity"></i></span><span><strong>Without timer</strong><small>Practice at your own pace</small></span><i class="fas fa-check option-check"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="native-fields">
+                            <select name="category" id="categorySelect" required>
+                                <option value="">Select category</option>
+                                <option value="python">Python</option>
+                                <option value="sql">SQL</option>
+                                <option value="django">Django</option>
+                                <option value="flask">Flask</option>
+                                <option value="html">HTML &amp; CSS</option>
+                                <option value="javascript">JavaScript</option>
+                                <option value="oop">OOP</option>
+                                <option value="dsa">DSA</option>
+                            </select>
+                            <select name="timer_mode" id="timerModeSelect" required>
+                                <option value="timed" selected>With timer</option>
+                                <option value="untimed">Without timer</option>
+                            </select>
+                            <select name="difficulty" id="difficultySelect" required>
+                                <option value="">Select difficulty</option>
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+
+                        <button class="start-btn" id="startButton" type="submit" disabled>
+                            <i class="fas fa-play"></i> Start Interview
+                        </button>
+                    </section>
+
+                    <section class="panel info-card">
+                        <h3>How adaptive mode works</h3>
+                        <div class="info-item"><i class="fas fa-brain"></i><span>Your starting difficulty becomes the baseline for the session.</span></div>
+                        <div class="info-item"><i class="fas fa-chart-line"></i><span>Performance is evaluated after each answer.</span></div>
+                        <div class="info-item"><i class="fas fa-arrows-up-down"></i><span>Question difficulty can move up or down based on performance.</span></div>
+                    </section>
+                </aside>
+            </div>
+        </form>
+    </main>
+
+    <div class="toast" id="toast"></div>
 </div>
 
+<script>
+(function () {
+    const root = document.documentElement;
+    const themeButton = document.getElementById("themeToggle");
+    const themeIcon = themeButton.querySelector("i");
+
+    function applyTheme(theme) {
+        const safeTheme = theme === "dark" ? "dark" : "light";
+        root.setAttribute("data-cc-theme", safeTheme);
+        localStorage.setItem("careercraft-theme", safeTheme);
+        themeIcon.className = safeTheme === "dark" ? "fas fa-moon" : "fas fa-sun";
+        themeButton.setAttribute(
+            "aria-label",
+            safeTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+        );
+    }
+
+    applyTheme(localStorage.getItem("careercraft-theme") || "light");
+
+    themeButton.addEventListener("click", function () {
+        applyTheme(root.getAttribute("data-cc-theme") === "dark" ? "light" : "dark");
+    });
+
+    const cards = Array.from(document.querySelectorAll(".track-card"));
+    const categorySelect = document.getElementById("categorySelect");
+    const difficultySelect = document.getElementById("difficultySelect");
+    const timerModeSelect = document.getElementById("timerModeSelect");
+    const timerOptions = Array.from(document.querySelectorAll(".timer-option"));
+    const selectedCategory = document.getElementById("selectedCategory");
+    const selectedDifficulty = document.getElementById("selectedDifficulty");
+    const summaryTitle = document.getElementById("summaryTitle");
+    const summarySubtitle = document.getElementById("summarySubtitle");
+    const statusText = document.getElementById("statusText");
+    const startButton = document.getElementById("startButton");
+    const toast = document.getElementById("toast");
+
+    let chosenCategory = "";
+    let chosenDifficulty = "";
+    let chosenTimerMode = "timed";
+
+    function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        window.clearTimeout(showToast.timer);
+        showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    function updateUI() {
+        const categoryName = chosenCategory
+            ? cards.find(card => card.dataset.category === chosenCategory)?.dataset.name
+            : "";
+
+        selectedCategory.textContent = categoryName || "—";
+        selectedDifficulty.textContent = chosenDifficulty
+            ? chosenDifficulty.charAt(0).toUpperCase() + chosenDifficulty.slice(1)
+            : "—";
+
+        if (categoryName && chosenDifficulty) {
+            summaryTitle.textContent = categoryName;
+            const timerLabel = chosenTimerMode === "timed" ? "15-minute timed session" : "Untimed practice";
+            summarySubtitle.textContent = `${chosenDifficulty.charAt(0).toUpperCase() + chosenDifficulty.slice(1)} difficulty · ${timerLabel}`;
+            statusText.textContent = "Ready to start";
+            startButton.disabled = false;
+        } else if (categoryName) {
+            summaryTitle.textContent = categoryName;
+            summarySubtitle.textContent = "Now choose a difficulty for this track.";
+            statusText.textContent = "Choose difficulty";
+            startButton.disabled = true;
+        } else {
+            summaryTitle.textContent = "Not selected";
+            summarySubtitle.textContent = "Select a track and difficulty to configure your session.";
+            statusText.textContent = "Choose a track to continue";
+            startButton.disabled = true;
+        }
+    }
+
+    cards.forEach(card => {
+        card.addEventListener("click", function (event) {
+            const difficultyButton = event.target.closest(".difficulty");
+
+            if (!difficultyButton) {
+                chosenCategory = card.dataset.category;
+                cards.forEach(item => item.classList.toggle("selected", item === card));
+                categorySelect.value = chosenCategory;
+                chosenDifficulty = "";
+                difficultySelect.value = "";
+                cards.forEach(item => item.querySelectorAll(".difficulty").forEach(btn => btn.classList.remove("selected")));
+                updateUI();
+                return;
+            }
+
+            chosenCategory = card.dataset.category;
+            chosenDifficulty = difficultyButton.dataset.difficulty;
+
+            cards.forEach(item => item.classList.toggle("selected", item === card));
+            cards.forEach(item => item.querySelectorAll(".difficulty").forEach(btn => {
+                btn.classList.toggle("selected", item === card && btn === difficultyButton);
+            }));
+
+            categorySelect.value = chosenCategory;
+            difficultySelect.value = chosenDifficulty;
+            updateUI();
+        });
+    });
+
+    timerOptions.forEach(option => {
+        option.addEventListener("click", function () {
+            chosenTimerMode = option.dataset.timer;
+            timerModeSelect.value = chosenTimerMode;
+            timerOptions.forEach(item => item.classList.toggle("selected", item === option));
+            updateUI();
+        });
+    });
+
+    document.getElementById("interviewSetupForm").addEventListener("submit", function (event) {
+        if (!chosenCategory || !chosenDifficulty) {
+            event.preventDefault();
+            showToast("Choose an interview track and difficulty first.");
+        }
+    });
+
+    updateUI();
+})();
+</script>
 </body>
 </html>

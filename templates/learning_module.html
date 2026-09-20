@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ lesson.title }} | CareerCraft AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --cc-bg: #f7f8fc;
+            --cc-surface: #ffffff;
+            --cc-surface-2: #f1f4f9;
+            --cc-text: #171923;
+            --cc-muted: #667085;
+            --cc-border: #e6e9f0;
+            --cc-primary: #635bff;
+            --cc-primary-dark: #5148e5;
+            --cc-success: #16a34a;
+            --cc-shadow: 0 18px 45px rgba(31, 35, 48, 0.08);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            background: var(--cc-bg);
+            color: var(--cc-text);
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .cc-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 12px clamp(18px, 4vw, 64px);
+            background: var(--cc-surface);
+            background: color-mix(in srgb, var(--cc-surface) 94%, transparent);
+            border-bottom: 1px solid var(--cc-border);
+            backdrop-filter: blur(14px);
+        }
+
+        .cc-brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .cc-brand-icon {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            color: #fff;
+            background: linear-gradient(135deg, #635bff, #8b5cf6);
+        }
+
+        .cc-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .cc-nav-links a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 42px;
+            padding: 0 13px;
+            border-radius: 10px;
+            color: var(--cc-muted);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .cc-nav-links a:hover {
+            color: var(--cc-primary);
+            background: rgba(99,91,255,.09);
+        }
+
+        .cc-main {
+            width: min(980px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 36px 0 70px;
+        }
+
+        .cc-breadcrumb {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+            color: var(--cc-muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .cc-breadcrumb a:hover { color: var(--cc-primary); }
+
+        .cc-module-header {
+            padding: 30px;
+            border: 1px solid var(--cc-border);
+            border-radius: 22px;
+            background: var(--cc-surface);
+            box-shadow: var(--cc-shadow);
+        }
+
+        .cc-module-title-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .cc-icon {
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border-radius: 15px;
+            background: rgba(99,91,255,.10);
+            font-size: 26px;
+        }
+
+        .cc-eyebrow {
+            margin: 0 0 7px;
+            color: var(--cc-primary);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .cc-module-header h1 {
+            margin: 0;
+            font-size: clamp(27px, 4vw, 39px);
+            letter-spacing: -.04em;
+        }
+
+        .cc-module-header p {
+            margin: 10px 0 0;
+            color: var(--cc-muted);
+            line-height: 1.65;
+            font-size: 14px;
+        }
+
+        .cc-progress-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 24px;
+            color: var(--cc-muted);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .cc-progress-row strong { color: var(--cc-primary); }
+
+        .cc-progress {
+            height: 9px;
+            margin-top: 8px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: var(--cc-surface-2);
+        }
+
+        .cc-progress > span {
+            display: block;
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #635bff, #8b5cf6);
+            transition: width .3s ease;
+        }
+
+        .cc-test-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-top: 20px;
+            padding: 16px 18px;
+            border: 1px solid rgba(99,91,255,.18);
+            border-radius: 15px;
+            background: rgba(99,91,255,.055);
+        }
+
+        .cc-test-banner div {
+            display: grid;
+            gap: 4px;
+        }
+
+        .cc-test-banner strong {
+            font-size: 13px;
+        }
+
+        .cc-test-banner span {
+            color: var(--cc-muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .cc-layout {
+            display: grid;
+            grid-template-columns: 230px minmax(0, 1fr);
+            gap: 22px;
+            margin-top: 22px;
+            align-items: start;
+        }
+
+        .cc-sidebar,
+        .cc-lesson {
+            background: var(--cc-surface);
+            border: 1px solid var(--cc-border);
+            border-radius: 20px;
+            box-shadow: var(--cc-shadow);
+        }
+
+        .cc-sidebar {
+            padding: 16px;
+            position: sticky;
+            top: 90px;
+        }
+
+        .cc-sidebar-title {
+            padding: 7px 8px 13px;
+            color: var(--cc-muted);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .cc-lesson-link {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 11px 9px;
+            border-radius: 11px;
+            color: var(--cc-muted);
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .cc-lesson-link:hover {
+            background: var(--cc-surface-2);
+            color: var(--cc-text);
+        }
+
+        .cc-lesson-link.active {
+            background: rgba(99,91,255,.10);
+            color: var(--cc-primary);
+        }
+
+        .cc-lesson-number {
+            width: 23px;
+            height: 23px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border-radius: 7px;
+            background: var(--cc-surface-2);
+            font-size: 10px;
+        }
+
+        .cc-lesson-link.active .cc-lesson-number {
+            background: var(--cc-primary);
+            color: #fff;
+        }
+
+        .cc-lesson {
+            padding: clamp(25px, 4vw, 42px);
+        }
+
+        .cc-lesson-kicker {
+            color: var(--cc-muted);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .cc-lesson h2 {
+            margin: 8px 0 22px;
+            font-size: clamp(25px, 4vw, 34px);
+            line-height: 1.15;
+            letter-spacing: -.035em;
+        }
+
+        .cc-content {
+            color: var(--cc-text);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .cc-content h2,
+        .cc-content h3,
+        .cc-content h4 {
+            margin: 28px 0 10px;
+            line-height: 1.3;
+        }
+
+        .cc-content h2 { font-size: 24px; }
+        .cc-content h3 { font-size: 19px; }
+        .cc-content h4 { font-size: 16px; }
+
+        .cc-content p { margin: 0 0 16px; }
+
+        .cc-content ul,
+        .cc-content ol {
+            margin: 10px 0 20px;
+            padding-left: 24px;
+        }
+
+        .cc-content li { margin: 7px 0; }
+
+        .cc-content code {
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: var(--cc-surface-2);
+            font-size: .9em;
+        }
+
+        .cc-content pre {
+            overflow-x: auto;
+            margin: 18px 0;
+            padding: 18px;
+            border-radius: 13px;
+            background: #151827;
+            color: #eef0ff;
+            line-height: 1.6;
+        }
+
+        .cc-content pre code {
+            padding: 0;
+            background: transparent;
+            color: inherit;
+        }
+
+        .cc-content blockquote {
+            margin: 20px 0;
+            padding: 14px 18px;
+            border-left: 4px solid var(--cc-primary);
+            border-radius: 0 10px 10px 0;
+            background: rgba(99,91,255,.07);
+            color: var(--cc-muted);
+        }
+
+        .cc-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 35px;
+            padding-top: 22px;
+            border-top: 1px solid var(--cc-border);
+        }
+
+        .cc-button {
+            min-height: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 17px;
+            border: 0;
+            border-radius: 11px;
+            background: var(--cc-surface-2);
+            color: var(--cc-text);
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .cc-button:hover {
+            transform: translateY(-1px);
+            background: var(--cc-border);
+        }
+
+        .cc-button.primary {
+            background: var(--cc-primary);
+            color: #fff;
+        }
+
+        .cc-button.primary:hover { background: var(--cc-primary-dark); }
+
+        .cc-button.success {
+            background: rgba(22,163,74,.11);
+            color: var(--cc-success);
+        }
+
+        .cc-button:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .cc-complete {
+            margin-bottom: 24px;
+            padding: 17px 18px;
+            border: 1px solid rgba(22,163,74,.20);
+            border-radius: 13px;
+            background: rgba(22,163,74,.07);
+            color: var(--cc-success);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .cc-toast {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            z-index: 200;
+            transform: translate(-50%, 20px);
+            opacity: 0;
+            pointer-events: none;
+            padding: 11px 15px;
+            border-radius: 10px;
+            background: #171923;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            transition: .25s ease;
+        }
+
+        .cc-toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        @media (max-width: 850px) {
+            .cc-layout { grid-template-columns: 1fr; }
+            .cc-sidebar {
+                position: static;
+                overflow-x: auto;
+            }
+            .cc-sidebar-title { display: none; }
+            .cc-sidebar-list {
+                display: flex;
+                gap: 7px;
+                min-width: max-content;
+            }
+            .cc-lesson-link { width: 210px; }
+        }
+
+        @media (max-width: 650px) {
+            .cc-navbar {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px 16px;
+            }
+
+            .cc-nav-links {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 2px;
+            }
+
+            .cc-nav-links a {
+                min-height: 38px;
+                white-space: nowrap;
+            }
+
+            .cc-main {
+                width: min(100% - 20px, 980px);
+                padding-top: 22px;
+            }
+
+            .cc-module-header,
+            .cc-lesson,
+            .cc-sidebar { border-radius: 17px; }
+
+            .cc-module-header { padding: 22px; }
+
+            .cc-module-title-row { gap: 12px; }
+
+            .cc-test-banner {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .cc-lesson { padding: 22px 18px; }
+
+            .cc-actions {
+                flex-direction: column-reverse;
+            }
+
+            .cc-button { width: 100%; }
+        }
+
+        @media (max-width: 430px) {
+            .cc-module-title-row { align-items: center; }
+            .cc-icon { width: 45px; height: 45px; font-size: 22px; }
+        }
+
+        /* Contextual navigation — dark mode only */
+        html[data-cc-theme="dark"] .cc-context-back {
+            background: #111827 !important;
+            border-color: #263247 !important;
+            color: #c7d2fe !important;
+        }
+
+        html[data-cc-theme="dark"] .cc-context-back:hover {
+            background: #172033 !important;
+            border-color: #3b82f6 !important;
+            color: #f8fafc !important;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="cc-navbar">
+        <a href="{{ url_for('dashboard') }}" class="cc-brand">
+            <span class="cc-brand-icon"><i class="fas fa-brain"></i></span>
+            <span>CareerCraft AI</span>
+        </a>
+
+        <ul class="cc-nav-links">
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('category') }}">Interview</a></li>
+            <li><a href="{{ url_for('learning') }}">Learning</a></li>
+            <li><a href="{{ url_for('certificates') }}">Certificates</a></li>
+            <li><a href="{{ url_for('history') }}">History</a></li>
+            <li><a href="{{ url_for('edit_profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+<!-- CONTEXTUAL NAVIGATION -->
+<div style="width:min(100% - 32px,980px);margin:14px auto 0;">
+    <a href="{{ url_for('learning') }}"
+       class="cc-context-back"
+       style="display:inline-flex;align-items:center;gap:8px;
+              min-height:38px;padding:0 14px;border:1px solid var(--cc-border);
+              border-radius:10px;background:var(--cc-surface);
+              color:var(--cc-muted);font-size:12px;font-weight:800;
+              text-decoration:none;transition:.2s ease;">
+        <i class="fas fa-arrow-left"></i>
+        Back to Learning
+    </a>
+</div>
+
+    <main class="cc-main">
+
+        <div class="cc-breadcrumb">
+            <a href="/learning"><i class="fas fa-graduation-cap"></i> Learning</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>{{ module.title }}</span>
+        </div>
+
+        <section class="cc-module-header">
+            <div class="cc-module-title-row">
+                <div style="display:flex;gap:15px;min-width:0;">
+                    <span class="cc-icon">{{ module.icon }}</span>
+                    <div>
+                        <div class="cc-eyebrow">{{ module.category }} · {{ module.level }}</div>
+                        <h1>{{ module.title }}</h1>
+                        <p>{{ module.duration }} · {{ total_lessons }} structured lessons</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cc-progress-row">
+                <span>Module progress</span>
+                <strong>{{ progress|default(0, true) }}%</strong>
+            </div>
+            <div class="cc-progress">
+                <span id="progressBar" data-progress="{{ progress|default(0, true) }}"></span>
+            </div>
+
+            <div class="cc-test-banner">
+                <div>
+                    <strong>Ready to check your knowledge?</strong>
+                    <span>Take the 5-question module test and get an instant score.</span>
+                </div>
+                <a class="cc-button primary" href="{{ url_for('learning_test', slug=module.slug) }}">
+                    <i class="fas fa-clipboard-check"></i> Take Module Test
+                </a>
+            </div>
+        </section>
+
+        <div class="cc-layout">
+
+            <aside class="cc-sidebar">
+                <div class="cc-sidebar-title">Lessons</div>
+
+                <div class="cc-sidebar-list">
+                    {% for item in module.lessons %}
+                    <a href="{{ url_for('learning_module', slug=module.slug) }}?lesson={{ loop.index0 }}"
+                       class="cc-lesson-link {% if loop.index0 == lesson_index %}active{% endif %}">
+                        <span class="cc-lesson-number">{{ loop.index }}</span>
+                        <span>{{ item.title }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </aside>
+
+            <article class="cc-lesson">
+
+                <div class="cc-lesson-kicker">
+                    LESSON {{ lesson_index + 1 }} OF {{ total_lessons }}
+                </div>
+
+                <h2>{{ lesson.title }}</h2>
+
+                {% if completed and lesson_index == total_lessons - 1 %}
+                <div class="cc-complete">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+                        <div>
+                            <i class="fas fa-circle-check"></i>
+                            Module completed. You can review these lessons anytime.
+                        </div>
+                        {% if certificate_id %}
+                        <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;">
+                            <a class="cc-button primary" href="{{ url_for('certificate_view', certificate_id=certificate_id) }}">
+                                <i class="fas fa-award"></i> View Certificate
+                            </a>
+                            <a class="cc-button" href="{{ url_for('certificate_download', certificate_id=certificate_id) }}">
+                                <i class="fas fa-download"></i> Download PDF
+                            </a>
+                            <a class="cc-button" href="{{ url_for('certificates') }}">
+                                <i class="fas fa-folder-open"></i> All Certificates
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="cc-content">
+                    {{ lesson.content | safe }}
+                </div>
+
+                <div class="cc-actions">
+                    {% if lesson_index > 0 %}
+                    <a class="cc-button"
+                       href="{{ url_for('learning_module', slug=module.slug) }}?lesson={{ lesson_index - 1 }}">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </a>
+                    {% else %}
+                    <a class="cc-button" href="{{ url_for('learning') }}">
+                        <i class="fas fa-grid-2"></i> All Modules
+                    </a>
+                    {% endif %}
+
+                    {% if lesson_index < total_lessons - 1 %}
+                    <button
+                        type="button"
+                        class="cc-button primary"
+                        id="completeLesson"
+                        data-next-lesson="{{ (lesson_index|default(0, true)) + 1 }}"
+                        data-total-lessons="{{ total_lessons|default(0, true) }}"
+                        data-progress-url="{{ url_for('learning_progress', slug=module.slug) }}"
+                        data-module-url="{{ url_for('learning_module', slug=module.slug) }}"
+                    >
+                        Complete &amp; Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                    {% elif not completed %}
+                    <button
+                        type="button"
+                        class="cc-button primary"
+                        id="completeLesson"
+                        data-next-lesson="{{ (lesson_index|default(0, true)) + 1 }}"
+                        data-total-lessons="{{ total_lessons|default(0, true) }}"
+                        data-progress-url="{{ url_for('learning_progress', slug=module.slug) }}"
+                        data-module-url="{{ url_for('learning_module', slug=module.slug) }}"
+                    >
+                        <i class="fas fa-check"></i> Complete Module
+                    </button>
+                    {% else %}
+                    <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;">
+                        {% if certificate_id %}
+                        <a class="cc-button primary" href="{{ url_for('certificate_view', certificate_id=certificate_id) }}">
+                            <i class="fas fa-award"></i> View Certificate
+                        </a>
+                        <a class="cc-button" href="{{ url_for('certificate_download', certificate_id=certificate_id) }}">
+                            <i class="fas fa-download"></i> Download PDF
+                        </a>
+                        {% endif %}
+                        <a class="cc-button success" href="{{ url_for('learning') }}">
+                            <i class="fas fa-check-double"></i> Module Complete
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <div class="cc-toast" id="toast" role="status"></div>
+
+    <script>
+        (() => {
+            const completeButton = document.getElementById("completeLesson");
+            const toast = document.getElementById("toast");
+            const progressBar = document.getElementById("progressBar");
+
+            if (progressBar) {
+                const progressValue = Number(progressBar.dataset.progress || 0);
+                progressBar.style.width = `${Math.max(0, Math.min(100, progressValue))}%`;
+            }
+
+            function showToast(message) {
+                if (!toast) return;
+                toast.textContent = message;
+                toast.classList.add("show");
+                window.clearTimeout(window.__ccToastTimer);
+                window.__ccToastTimer = window.setTimeout(() => {
+                    toast.classList.remove("show");
+                }, 1800);
+            }
+
+            if (!completeButton) return;
+
+            completeButton.addEventListener("click", async () => {
+                if (completeButton.disabled) return;
+
+                completeButton.disabled = true;
+                const originalHtml = completeButton.innerHTML;
+
+                const nextLesson = Number(completeButton.dataset.nextLesson || 0);
+                const totalLessons = Number(completeButton.dataset.totalLessons || 0);
+                const progressUrl = completeButton.dataset.progressUrl;
+                const moduleUrl = completeButton.dataset.moduleUrl;
+
+                try {
+                    const response = await fetch(
+                        progressUrl,
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json"
+                            },
+                            credentials: "same-origin",
+                            body: JSON.stringify({
+                                lesson_index: nextLesson
+                            })
+                        }
+                    );
+
+                    const contentType = response.headers.get("content-type") || "";
+                    const data = contentType.includes("application/json")
+                        ? await response.json()
+                        : null;
+
+                    if (!response.ok || !data || !data.success) {
+                        throw new Error(
+                            (data && data.message) ||
+                            `Unable to save progress (${response.status}).`
+                        );
+                    }
+
+                    if (nextLesson < totalLessons) {
+                        showToast("Progress saved. Loading next lesson...");
+                        window.setTimeout(() => {
+                            window.location.href =
+                                moduleUrl + "?lesson=" + nextLesson;
+                        }, 450);
+                    } else {
+                        showToast("Module completed!");
+                        window.setTimeout(() => window.location.reload(), 450);
+                    }
+                } catch (error) {
+                    completeButton.disabled = false;
+                    completeButton.innerHTML = originalHtml;
+                    showToast(error.message || "Something went wrong.");
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ module.title }} Test | CareerCraft AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{--bg:#f7f8fc;--surface:#fff;--surface2:#f1f4f9;--text:#171923;--muted:#667085;--border:#e6e9f0;--primary:#635bff;--success:#16a34a;--danger:#dc2626;--shadow:0 18px 45px rgba(31,35,48,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,sans-serif;background:var(--bg);color:var(--text)}a{text-decoration:none;color:inherit}
+.nav{position:sticky;top:0;z-index:20;min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px clamp(16px,4vw,64px);background:var(--surface);border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;white-space:nowrap}.brand-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,#635bff,#8b5cf6);color:#fff}
+.navlinks{display:flex;gap:6px;list-style:none;margin:0;padding:0;overflow-x:auto}.navlinks a{display:inline-flex;align-items:center;min-height:40px;padding:0 12px;border-radius:10px;color:var(--muted);font-size:13px;font-weight:700;white-space:nowrap}.navlinks a:hover{background:rgba(99,91,255,.08);color:var(--primary)}
+.main{width:min(900px,calc(100% - 28px));margin:auto;padding:30px 0 70px}.crumb{font-size:12px;font-weight:800;color:var(--muted);margin-bottom:16px}.crumb a:hover{color:var(--primary)}
+.hero,.question,.result{background:var(--surface);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow)}.hero{padding:27px;margin-bottom:18px}.eyebrow{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);font-weight:800}.hero h1{font-size:clamp(27px,4vw,38px);margin:7px 0 8px;letter-spacing:-.04em}.hero p{margin:0;color:var(--muted);line-height:1.6;font-size:13px}.hero-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.pill{padding:7px 10px;border-radius:999px;background:var(--surface2);color:var(--muted);font-size:11px;font-weight:800}
+.progress{height:8px;background:var(--surface2);border-radius:999px;overflow:hidden;margin-top:17px}.progress span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#635bff,#8b5cf6)}
+.form{display:grid;gap:14px}.question{padding:22px}.qtop{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:11px;font-weight:800}.question h2{font-size:17px;line-height:1.5;margin:10px 0 16px}.options{display:grid;gap:9px}.option{display:flex;align-items:flex-start;gap:11px;padding:13px;border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:.18s}.option:hover{border-color:rgba(99,91,255,.45);background:rgba(99,91,255,.035)}.option input{margin-top:3px;accent-color:var(--primary)}.option span{font-size:13px;line-height:1.45;font-weight:600}
+.submitbar{position:sticky;bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:18px;padding:13px 15px;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.94);box-shadow:0 12px 35px rgba(20,25,40,.12);backdrop-filter:blur(10px)}.submitbar small{color:var(--muted);font-size:11px;font-weight:700}.btn{min-height:44px;padding:0 17px;border:0;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:800;cursor:pointer;background:var(--surface2);color:var(--text)}.btn.primary{background:var(--primary);color:#fff}.btn:disabled{opacity:.6;cursor:not-allowed}
+.result{padding:28px}.result-head{display:flex;align-items:center;justify-content:space-between;gap:20px}.result h1{margin:0 0 7px;font-size:30px;letter-spacing:-.04em}.result p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}.score{width:110px;height:110px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:rgba(99,91,255,.09);border:8px solid rgba(99,91,255,.13);font-size:27px;font-weight:800;color:var(--primary)}.score.pass{color:var(--success);background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.15)}.score.fail{color:var(--danger);background:rgba(220,38,38,.07);border-color:rgba(220,38,38,.14)}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}.summary-card{padding:14px;border:1px solid var(--border);border-radius:13px;background:var(--surface2)}.summary-card strong{display:block;font-size:20px}.summary-card span{color:var(--muted);font-size:10px;font-weight:800}
+.review{margin-top:22px;display:grid;gap:10px}.review-item{padding:15px;border:1px solid var(--border);border-radius:13px}.review-q{font-size:13px;font-weight:800;line-height:1.5}.review-state{margin-top:8px;font-size:11px;font-weight:800}.review-state.correct{color:var(--success)}.review-state.wrong{color:var(--danger)}.explanation{margin-top:7px;color:var(--muted);font-size:12px;line-height:1.55}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+@media(max-width:650px){.nav{align-items:flex-start;flex-direction:column;gap:8px;padding:11px 14px}.navlinks{width:100%}.main{width:min(100% - 18px,900px);padding-top:20px}.hero,.question,.result{border-radius:17px}.hero,.question,.result{padding:20px}.result-head{align-items:flex-start;flex-direction:column-reverse}.score{width:82px;height:82px;font-size:21px}.summary-grid{grid-template-columns:1fr}.submitbar{align-items:stretch;flex-direction:column}.btn{width:100%}}
+</style>
+</head>
+<body>
+<nav class="nav">
+<a class="brand" href="/dashboard"><span class="brand-icon"><i class="fas fa-brain"></i></span>CareerCraft AI</a>
+<ul class="navlinks">
+<li><a href="/dashboard">Dashboard</a></li><li><a href="/learning">Learning</a></li><li><a href="/learning/tests">Test History</a></li><li><a href="/history">Interview History</a></li><li><a href="/edit_profile">Profile</a></li><li><a href="/logout">Logout</a></li>
+</ul>
+</nav>
+<main class="main">
+<div class="crumb"><a href="/learning">Learning</a> / {{ module.title }} / Knowledge Check</div>
+
+{% if result %}
+<section class="result">
+<div class="result-head">
+<div>
+<div class="eyebrow">TEST COMPLETE</div>
+<h1>{% if result.passed %}Great work — you passed!{% else %}Good attempt — keep practicing{% endif %}</h1>
+<p>You answered {{ result.correct }} of {{ result.total }} questions correctly. Passing score is 70%.</p>
+</div>
+<div class="score {% if result.passed %}pass{% else %}fail{% endif %}">{{ result.score|round(0)|int }}%</div>
+</div>
+<div class="summary-grid">
+<div class="summary-card"><strong>{{ result.correct }}</strong><span>CORRECT</span></div>
+<div class="summary-card"><strong>{{ result.total - result.correct }}</strong><span>TO REVIEW</span></div>
+<div class="summary-card"><strong>{{ result.total }}</strong><span>TOTAL</span></div>
+</div>
+<div class="review">
+{% for item in result.answers %}
+{% set q = result_questions[item.question_index] %}
+<div class="review-item">
+<div class="review-q">{{ loop.index }}. {{ q.question }}</div>
+<div class="review-state {% if item.is_correct %}correct{% else %}wrong{% endif %}">
+{% if item.is_correct %}<i class="fas fa-circle-check"></i> Correct{% else %}<i class="fas fa-circle-xmark"></i> Review this concept{% endif %}
+</div>
+<div class="explanation">{{ item.explanation }}</div>
+</div>
+{% endfor %}
+</div>
+<div class="actions">
+<a class="btn primary" href="{{ url_for('learning_test', slug=module.slug) }}"><i class="fas fa-rotate-right"></i> Retake Test</a>
+<a class="btn" href="{{ url_for('learning_module', slug=module.slug) }}"><i class="fas fa-book-open"></i> Review Lessons</a>
+<a class="btn" href="/learning/tests"><i class="fas fa-chart-column"></i> Test History</a>
+</div>
+</section>
+{% else %}
+<section class="hero">
+<div class="eyebrow">KNOWLEDGE CHECK</div>
+<h1>{{ module.title }}</h1>
+<p>Five focused questions to check your understanding. Choose the best answer for every question, then submit once.</p>
+<div class="hero-meta"><span class="pill"><i class="fas fa-list-check"></i> 5 questions</span><span class="pill"><i class="fas fa-clock"></i> ~5 minutes</span><span class="pill"><i class="fas fa-trophy"></i> 70% to pass</span></div>
+<div class="progress"><span></span></div>
+</section>
+<form class="form" method="POST" id="testForm">
+{% for q in questions %}
+{% set q_index = loop.index0 %}
+<section class="question">
+<div class="qtop"><span>QUESTION {{ loop.index }} OF {{ questions|length }}</span><span>{{ module.category }}</span></div>
+<h2>{{ q.question }}</h2>
+<div class="options">
+{% for option in q.options %}
+<label class="option"><input type="radio" name="question_{{ q_index }}" value="{{ loop.index0 }}" required><span>{{ option }}</span></label>
+{% endfor %}
+</div>
+</section>
+{% endfor %}
+<div class="submitbar"><small><i class="fas fa-shield-halved"></i> Answers are checked securely on the server.</small><button class="btn primary" id="submitBtn" type="submit"><i class="fas fa-paper-plane"></i> Submit Test</button></div>
+</form>
+{% endif %}
+</main>
+<script>
+const form=document.getElementById("testForm"),btn=document.getElementById("submitBtn");
+if(form){form.addEventListener("submit",e=>{if(!form.checkValidity()){return;}btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Checking...';});}
+</script>
+</body>
+</html>

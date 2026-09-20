@@ -18,21 +18,103 @@
 .pill{display:inline-block;margin-top:15px;padding:9px 13px;border-radius:999px;background:#fff;border:1px solid #e1e5f0;font-size:12px;font-weight:700}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.card{padding:26px}.full{grid-column:1/-1}
 .head{display:flex;justify-content:space-between;gap:15px;margin-bottom:18px}.head h2{font:700 20px Poppins;margin:0 0 4px}.head p{margin:0;color:#94a3b8;font-size:12px}.icon{width:43px;height:43px;border-radius:13px;background:#eeecff;color:#635bff;display:grid;place-items:center;flex-shrink:0}
-.ringwrap{display:flex;align-items:center;gap:25px}.ring{width:130px;height:130px;border-radius:50%;background:conic-gradient(#635bff {{readiness_score}}%,#e8eaf0 0);display:grid;place-items:center;position:relative;flex-shrink:0}.ring:before{content:"";position:absolute;width:96px;height:96px;border-radius:50%;background:#fff}.ring b{position:relative;font-size:25px}
+.ringwrap{display:flex;align-items:center;gap:25px}.ring{width:130px;height:130px;border-radius:50%;background:conic-gradient(#635bff var(--readiness-score, 0%),#e8eaf0 0);display:grid;place-items:center;position:relative;flex-shrink:0}.ring:before{content:"";position:absolute;width:96px;height:96px;border-radius:50%;background:#fff}.ring b{position:relative;font-size:25px}
 .summary{color:#475569;font-size:14px;line-height:1.9}.preview{padding:22px;border:1px solid #e5e7eb;border-radius:16px;background:#fbfcff}.preview h3{font:700 20px Poppins;margin:0 0 5px}.preview small{color:#64748b}.preview p{color:#475569;line-height:1.8;font-size:13px}
 .tags{display:flex;flex-wrap:wrap;gap:9px}.tag{padding:8px 11px;border-radius:999px;background:#f0fdf4;color:#15803d;font-size:11px;font-weight:700}.tag.miss{background:#fff7ed;color:#c2410c}
 .steps{list-style:none;padding:0;margin:0;display:grid;gap:10px}.steps li{padding:13px;border-radius:12px;background:#f8fafc;color:#475569;font-size:13px;line-height:1.6}.steps i{color:#635bff;margin-right:9px}
 .matches{display:grid;gap:10px}.match{display:flex;justify-content:space-between;gap:10px;padding:13px;border-radius:12px;background:#f8fafc;font-size:12px}.ok{color:#16a34a}.need{color:#ea580c}
 .btn{display:inline-block;margin-top:20px;padding:11px 15px;border-radius:12px;text-decoration:none;background:#635bff;color:#fff;font-size:12px;font-weight:800}
+
+
+/* ==========================================================
+   DAY 22 — PROFILE INTELLIGENCE EXTENSIONS
+   ========================================================== */
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}.metric{padding:18px;border:1px solid #e5e7eb;border-radius:16px;background:#fff}.metric-label{color:#64748b;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.45px}.metric-value{font:800 26px Poppins;margin-top:7px;color:#111827}.metric-note{margin-top:5px;color:#94a3b8;font-size:10px;line-height:1.5}.progress-mini{height:7px;border-radius:999px;background:#e8eaf0;overflow:hidden;margin-top:10px}.progress-mini span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#635bff,#3b82f6)}
+.intel-overview{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;margin-bottom:22px}.signal-card{padding:25px}.signal{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:14px;border-radius:13px;background:#f8fafc;border:1px solid #e8ebf2}.signal+.signal{margin-top:10px}.signal span{color:#64748b;font-size:12px}.signal b{font-size:12px}.good{color:#16a34a}.warn{color:#ea580c}.info{color:#635bff}
+.gap-list{display:grid;gap:10px}.gap-item{padding:15px;border:1px solid #e5e7eb;border-radius:14px;background:#fff}.gap-top{display:flex;justify-content:space-between;gap:12px;align-items:center}.gap-title{font-weight:800;font-size:13px;color:#111827}.gap-priority{font-size:10px;font-weight:800;padding:5px 8px;border-radius:999px;background:#eef2ff;color:#635bff}.gap-item.high .gap-priority{background:#fee2e2;color:#b91c1c}.gap-item.medium .gap-priority{background:#fef3c7;color:#b45309}.gap-item.low .gap-priority{background:#ecfdf5;color:#047857}.gap-message{margin:8px 0 0;color:#64748b;font-size:11px;line-height:1.65}.category-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.category-card{padding:15px;border:1px solid #e5e7eb;border-radius:14px;background:#f8fafc}.category-card h3{font-size:13px;margin:0 0 8px}.category-card .tag{background:#fff}.empty-state{padding:14px;border-radius:12px;background:#f8fafc;color:#64748b;font-size:12px;line-height:1.6}.small-link{font-size:11px;color:#635bff;text-decoration:none;font-weight:800}.button-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.button-secondary{display:inline-block;padding:10px 13px;border-radius:11px;text-decoration:none;border:1px solid #dbe2ea;color:#475569;background:#fff;font-size:11px;font-weight:800}.scoreline{display:grid;gap:8px}.scoreline-row{display:flex;justify-content:space-between;font-size:11px;color:#64748b}.scoreline-track{height:8px;border-radius:999px;background:#e8eaf0;overflow:hidden}.scoreline-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,#635bff,#3b82f6)}
+@media(max-width:950px){.metric-grid{grid-template-columns:repeat(2,1fr)}.intel-overview{grid-template-columns:1fr}}
+@media(max-width:560px){.metric-grid{grid-template-columns:1fr}.category-grid{grid-template-columns:1fr}.gap-top{align-items:flex-start;flex-direction:column}}
+
+html[data-cc-theme="dark"] .metric,html[data-cc-theme="dark"] .signal-card,html[data-cc-theme="dark"] .gap-item{background:#111827!important;color:#f8fafc!important;border-color:#263247!important;box-shadow:none!important}
+html[data-cc-theme="dark"] .metric-label,html[data-cc-theme="dark"] .metric-note,html[data-cc-theme="dark"] .signal span,html[data-cc-theme="dark"] .gap-message{color:#94a3b8!important}
+html[data-cc-theme="dark"] .metric-value,html[data-cc-theme="dark"] .gap-title{color:#f8fafc!important}
+html[data-cc-theme="dark"] .progress-mini,html[data-cc-theme="dark"] .scoreline-track{background:#2a3548!important}
+html[data-cc-theme="dark"] .signal,html[data-cc-theme="dark"] .category-card,html[data-cc-theme="dark"] .empty-state{background:#172033!important;border-color:#2b3950!important;color:#e2e8f0!important}
+html[data-cc-theme="dark"] .button-secondary{background:#172033!important;color:#e2e8f0!important;border-color:#334155!important}
+
 @media(max-width:760px){.top{padding:0 4%}.brand{font-size:18px}.wrap{width:94%;padding-top:28px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.hero,.card{padding:21px}.ringwrap{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
 <header class="top"><div class="brand"><div class="logo"><i class="fas fa-brain"></i></div>CareerCraft AI</div><a class="back" href="/dashboard">← Back to Dashboard</a></header>
 <main class="wrap">
-<section class="hero"><div class="eyebrow">Career Intelligence</div><h1>Your AI Career Roadmap 🧠</h1><p>CareerCraft AI analyzes your profile, target role and interview progress to show your career fit, skill gaps and next steps.</p>{% if target_role %}<span class="pill">🎯 Target Role: {{target_role}}</span>{% endif %}</section>
+<section class="hero"><div class="eyebrow">Career Intelligence</div><h1>Your AI Career Roadmap 🧠</h1><p>CareerCraft AI analyzes your profile, target role and interview progress to show your career fit, skill gaps and next steps.</p>{% if target_role %}<span class="pill">🎯 Target Role: {{target_role}}</span>{% endif %}<div class="button-row" style="margin-top:16px;"><a class="button-secondary" href="/career-roadmap">🗺️ Open Career Roadmap</a></div>
+</section>
+
+<section class="metric-grid" aria-label="Profile intelligence metrics">
+    <div class="metric">
+        <div class="metric-label">Profile Strength</div>
+        <div class="metric-value">{{ profile_strength_score }}%</div>
+        <div class="metric-note">{{ strength_label }}</div>
+        <div class="progress-mini"><span data-progress="{{ profile_strength_score|default(0) }}"></span></div>
+    </div>
+    <div class="metric">
+        <div class="metric-label">Career Alignment</div>
+        <div class="metric-value">{{ career_alignment_score }}%</div>
+        <div class="metric-note">{{ career_alignment_label }}</div>
+        <div class="progress-mini"><span data-progress="{{ career_alignment_score|default(0) }}"></span></div>
+    </div>
+    <div class="metric">
+        <div class="metric-label">Skill Coverage</div>
+        <div class="metric-value">{{ skill_coverage_score }}%</div>
+        <div class="metric-note">{{ matching_skills|length }} of {{ required_skills|length }} mapped role skills covered</div>
+        <div class="progress-mini"><span data-progress="{{ skill_coverage_score|default(0) }}"></span></div>
+    </div>
+    <div class="metric">
+        <div class="metric-label">Profile Completion</div>
+        <div class="metric-value">{{ profile_completion }}%</div>
+        <div class="metric-note">Based on the saved Day 21 career profile fields</div>
+        <div class="progress-mini"><span data-progress="{{ profile_completion|default(0) }}"></span></div>
+    </div>
+</section>
+
+<section class="intel-overview">
+    <div class="card signal-card">
+        <div class="head"><div><h2>Profile Intelligence Signals</h2><p>What CareerCraft AI sees in your current profile</p></div><div class="icon"><i class="fas fa-brain"></i></div></div>
+        <div class="scoreline">
+            <div class="scoreline-row"><span>Projects / Practical Evidence</span><b>{{ project_evidence_score }}%</b></div>
+            <div class="scoreline-track"><div class="scoreline-fill" data-progress="{{ project_evidence_score|default(0) }}"></div></div>
+            <div class="scoreline-row"><span>Experience Evidence</span><b>{{ experience_score }}%</b></div>
+            <div class="scoreline-track"><div class="scoreline-fill" data-progress="{{ experience_score|default(0) }}"></div></div>
+            <div class="scoreline-row"><span>Professional Presence</span><b>{{ professional_presence_score }}%</b></div>
+            <div class="scoreline-track"><div class="scoreline-fill" data-progress="{{ professional_presence_score|default(0) }}"></div></div>
+            <div class="scoreline-row"><span>Career Clarity</span><b>{{ career_clarity_score }}%</b></div>
+            <div class="scoreline-track"><div class="scoreline-fill" data-progress="{{ career_clarity_score|default(0) }}"></div></div>
+        </div>
+        <div class="button-row">
+            <a class="button-secondary" href="/edit_profile">✏️ Improve Profile</a>
+            <a class="button-secondary" href="/resume-builder">📄 Open Resume Builder</a>
+        </div>
+    </div>
+
+    <div class="card signal-card">
+        <div class="head"><div><h2>Priority Skill Focus</h2><p>Role-specific skills currently missing</p></div><div class="icon"><i class="fas fa-bullseye"></i></div></div>
+        {% if priority_skills %}
+            <div class="tags">
+                {% for skill in priority_skills %}
+                    <span class="tag miss">+ {{ skill }}</span>
+                {% endfor %}
+            </div>
+            <p class="sub" style="margin-top:16px">These are the first skills CareerCraft AI recommends strengthening for your selected role.</p>
+        {% else %}
+            <div class="empty-state">Your current saved skills cover the mapped requirements for your selected role. Keep practicing and add stronger project evidence.</div>
+        {% endif %}
+    </div>
+</section>
+
 <div class="grid">
-<section class="card"><div class="head"><div><h2>Career Readiness</h2><p>Your current preparation level</p></div><div class="icon"><i class="fas fa-chart-line"></i></div></div><div class="ringwrap"><div class="ring"><b>{{readiness_score}}%</b></div><div class="summary"><b>{{readiness_label}}</b><p>Based on profile completion, relevant skills, projects, experience and interview practice.</p></div></div></section>
+
+<section class="card"><div class="head"><div><h2>Career Readiness</h2><p>Your current preparation level</p></div><div class="icon"><i class="fas fa-chart-line"></i></div></div><div class="ringwrap"><div class="ring" style="--readiness-score: {{ readiness_score|default(0) }}%;"><b>{{ readiness_score|default(0) }}%</b></div><div class="summary"><b>{{readiness_label}}</b><p>Based on profile completion, relevant skills, projects, experience and interview practice.</p></div></div></section>
 <section class="card"><div class="head"><div><h2>Career Fit</h2><p>How your profile matches your goal</p></div><div class="icon"><i class="fas fa-bullseye"></i></div></div><div class="matches">
 <div class="match"><span>Target Role</span><b>{{target_role or "Not selected"}}</b></div>
 <div class="match"><span>Education</span><b class="{{'ok' if education else 'need'}}">{{education or "Add education"}}</b></div>
@@ -42,6 +124,43 @@
 <section class="card full"><div class="head"><div><h2>Professional Summary</h2><p>Recruiter-ready summary from your current profile</p></div><div class="icon"><i class="fas fa-file-lines"></i></div></div><div class="preview"><h3>{{summary_name}}</h3><small>{{target_role or "Aspiring Technology Professional"}}</small><p>{{professional_summary}}</p></div></section>
 <section class="card"><div class="head"><div><h2>Skill Gap</h2><p>Skills to strengthen for your target role</p></div><div class="icon"><i class="fas fa-puzzle-piece"></i></div></div>{% if matching_skills %}<p class="sub">Skills you already have</p><div class="tags">{% for s in matching_skills %}<span class="tag">✓ {{s}}</span>{% endfor %}</div>{% endif %}<p class="sub" style="margin-top:18px">Recommended skills to learn</p>{% if missing_skills %}<div class="tags">{% for s in missing_skills %}<span class="tag miss">+ {{s}}</span>{% endfor %}</div>{% else %}<p class="summary">Your current skills cover the mapped skills for this role. Keep practicing and building projects.</p>{% endif %}</section>
 <section class="card"><div class="head"><div><h2>Recommended Next Steps</h2><p>Your practical learning order</p></div><div class="icon"><i class="fas fa-road"></i></div></div><ul class="steps">{% for s in learning_steps %}<li><i class="fas fa-arrow-right"></i>{{s}}</li>{% endfor %}</ul></section>
+
+<section class="card full">
+    <div class="head"><div><h2>Profile Improvement Checklist</h2><p>Prioritized actions based on your saved profile</p></div><div class="icon"><i class="fas fa-list-check"></i></div></div>
+    {% if profile_gaps %}
+        <div class="gap-list">
+            {% for gap in profile_gaps %}
+                <div class="gap-item {{ gap.priority|lower }}">
+                    <div class="gap-top"><div class="gap-title">{{ gap.title }}</div><span class="gap-priority">{{ gap.priority }} Priority</span></div>
+                    <p class="gap-message">{{ gap.message }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">Your current profile does not have any major missing sections. Keep improving the quality of your evidence and results.</div>
+    {% endif %}
+</section>
+
+<section class="card full">
+    <div class="head"><div><h2>Your Skills by Category</h2><p>How your saved technical profile is organized</p></div><div class="icon"><i class="fas fa-layer-group"></i></div></div>
+    {% if skill_categories %}
+        <div class="category-grid">
+            {% for category, skills in skill_categories.items() %}
+                <div class="category-card">
+                    <h3>{{ category }}</h3>
+                    <div class="tags">
+                        {% for skill in skills %}
+                            <span class="tag">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">Add technical skills and programming languages in your Career Profile to see them categorized here.</div>
+    {% endif %}
+</section>
+
 <section class="card full"><div class="head"><div><h2>Professional Profile Preview</h2><p>How your profile can be presented professionally</p></div><div class="icon"><i class="fas fa-user-tie"></i></div></div><div class="preview"><h3>{{summary_name}}</h3><small>{{target_role or "Career-focused technology professional"}}{% if target_industry %} • {{target_industry}}{% endif %}</small><p>{{professional_summary}}</p></div><a class="btn" href="/edit_profile">✏️ Update Profile</a></section>
 </div>
 </main>

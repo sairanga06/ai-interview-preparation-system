@@ -82,6 +82,13 @@
 </head>
 <body>
 <main class="interview-page">
+    <div
+        id="interviewConfig"
+        data-timer-enabled="{{ 'true' if timer_enabled else 'false' }}"
+        data-deadline="{{ interview_deadline if interview_deadline else '' }}"
+        aria-hidden="true"
+        hidden
+    ></div>
     <div class="interview-shell">
         <header class="interview-topbar">
             <div class="brand">
@@ -93,7 +100,11 @@
             </div>
             <div class="top-actions">
                 <div class="meta-pill">{{ category }} · {{ difficulty }}</div>
-                <div class="timer" id="timer">15:00</div>
+                {% if timer_enabled %}
+                    <div class="timer" id="timer">15:00</div>
+                {% else %}
+                    <div class="timer untimed" id="timer"><i class="fas fa-infinity"></i> Untimed</div>
+                {% endif %}
             </div>
         </header>
 
@@ -103,7 +114,7 @@
                 <div class="progress-percent">{{ ((number / total) * 100) | round(0) | int }}% complete</div>
             </div>
             <div class="progress-track">
-                <div class="progress-fill" style="width:{{ ((number / total) * 100) | round(0) }}%;"></div>
+                <div class="progress-fill" id="progressFill" data-progress="{{ ((number / total) * 100) | round(0) }}"></div>
             </div>
         </section>
 
@@ -147,6 +158,19 @@
     const answerBox = document.getElementById("answerBox");
     const characterCount = document.getElementById("characterCount");
     const timerElement = document.getElementById("timer");
+    const progressFill = document.getElementById("progressFill");
+    const interviewConfig = document.getElementById("interviewConfig");
+
+    const timerEnabled = interviewConfig?.dataset.timerEnabled === "true";
+    const deadlineValue = Number(interviewConfig?.dataset.deadline || "");
+    const interviewDeadline = Number.isFinite(deadlineValue) && deadlineValue > 0
+        ? deadlineValue
+        : null;
+
+    if (progressFill) {
+        const progressValue = Number(progressFill.dataset.progress || 0);
+        progressFill.style.width = `${Math.max(0, Math.min(100, progressValue))}%`;
+    }
 
     const answerStorageKey =
         "careercraft_interview_answer_{{ session.get('user_id', 'guest') }}_{{ number }}";
@@ -167,30 +191,35 @@
 
     updateCharacterCount();
 
-    let remainingSeconds = 15 * 60;
+    let timerInterval = null;
 
-    function updateTimer() {
-        const minutes = Math.floor(remainingSeconds / 60);
-        const seconds = remainingSeconds % 60;
-        timerElement.textContent =
-            `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-    }
+    if (timerEnabled && interviewDeadline) {
+        function updateTimer() {
+            const remainingSeconds = Math.max(0, Math.ceil(interviewDeadline - (Date.now() / 1000)));
+            const minutes = Math.floor(remainingSeconds / 60);
+            const seconds = remainingSeconds % 60;
+            timerElement.textContent =
+                `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
-    updateTimer();
+            if (remainingSeconds <= 60) {
+                timerElement.classList.add("urgent");
+            }
 
-    const timerInterval = setInterval(function () {
-        remainingSeconds--;
-        updateTimer();
-
-        if (remainingSeconds <= 0) {
-            clearInterval(timerInterval);
-            if (answerBox.value.trim()) {
-                interviewForm.requestSubmit();
-            } else {
-                answerBox.focus();
+            if (remainingSeconds <= 0) {
+                clearInterval(timerInterval);
+                if (answerBox.value.trim()) {
+                    interviewForm.requestSubmit();
+                } else {
+                    answerBox.focus();
+                    submitButton.disabled = true;
+                    submitButton.textContent = "Time expired";
+                }
             }
         }
-    }, 1000);
+
+        updateTimer();
+        timerInterval = setInterval(updateTimer, 1000);
+    }
 
     interviewForm.addEventListener("submit", function (event) {
         if (!answerBox.value.trim()) {
