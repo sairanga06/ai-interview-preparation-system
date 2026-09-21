@@ -28,12 +28,64 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 from groq import Groq
 from abc import ABC, abstractmethod
+from pathlib import Path
 
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, send_file
 from werkzeug.security import generate_password_hash, check_password_hash
+
 app = Flask(__name__)
-app.secret_key = "interview_project_secret_2026"
 load_dotenv()
+app.secret_key = os.getenv("SECRET_KEY", "interview_project_secret_2026")
+
+# ==========================================================
+# Persistent SQLite storage
+# ==========================================================
+# Keep the database path independent of the terminal working directory.
+# This prevents Flask from silently creating a second interview.db when
+# it is started from a different folder. A deployment can override this
+# with CAREERCRAFT_DB_PATH (for example, a mounted persistent-disk path).
+BASE_DIR = Path(__file__).resolve().parent
+DEFAULT_DB_PATH = BASE_DIR / "interview.db"
+CONFIGURED_DB_PATH = os.getenv("CAREERCRAFT_DB_PATH", "").strip()
+DB_PATH = (
+    Path(CONFIGURED_DB_PATH).expanduser().resolve()
+    if CONFIGURED_DB_PATH
+    else DEFAULT_DB_PATH
+)
+DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+
+def _migrate_legacy_database_location():
+    """Copy an older cwd-relative SQLite DB into the stable app location once."""
+    if CONFIGURED_DB_PATH:
+        return
+
+    legacy_path = Path.cwd().resolve() / "interview.db"
+
+    if legacy_path == DB_PATH or DB_PATH.exists() or not legacy_path.exists():
+        return
+
+    source_conn = None
+    target_conn = None
+    try:
+        source_conn = sqlite3.connect(
+            f"file:{legacy_path.as_posix()}?mode=ro",
+            uri=True,
+            timeout=30,
+        )
+        target_conn = sqlite3.connect(DB_PATH, timeout=30)
+        source_conn.backup(target_conn)
+        print(f"Migrated existing SQLite database to: {DB_PATH}")
+    except sqlite3.Error as exc:
+        print(f"Could not migrate legacy SQLite database: {exc}")
+    finally:
+        if source_conn is not None:
+            source_conn.close()
+        if target_conn is not None:
+            target_conn.close()
+
+
+_migrate_legacy_database_location()
 
 @app.after_request
 def inject_careercraft_theme(response):
@@ -1387,9 +1439,11 @@ INTERVIEW_SESSION_KEYS = [
 # SQLite Database Helper
 # ==========================
 def get_db_connection():
-    conn = sqlite3.connect("interview.db", timeout=30)
+    # Every feature uses this single database location.
+    conn = sqlite3.connect(str(DB_PATH), timeout=30)
     conn.execute("PRAGMA busy_timeout = 30000")
     conn.execute("PRAGMA journal_mode = WAL")
+    conn.execute("PRAGMA foreign_keys = ON")
     return conn
 
 # ==========================
@@ -1644,20 +1698,21 @@ def register():
 
     if request.method == "POST":
 
-        username = request.form["username"]
-        email = request.form["email"]
-        password = request.form["password"]
+        username = request.form.get("username", "").strip()
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
+
+        if not username or not email or not password:
+            return "Username, email and password are required."
 
         hashed_password = generate_password_hash(password)
 
         conn = None
 
         try:
-            # Wait up to 30 seconds if SQLite is temporarily locked
-            conn = sqlite3.connect("interview.db", timeout=30)
-
-            # Tell SQLite to wait for the lock to be released
-            conn.execute("PRAGMA busy_timeout = 30000")
+            # Always use the shared database helper so registration writes
+            # to the exact same database used by login and admin.
+            conn = get_db_connection()
 
             cursor = conn.cursor()
 
@@ -1692,21 +1747,25 @@ def login():
 
     if request.method == "POST":
 
-        email = request.form["email"]
-        password = request.form["password"]
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
 
         conn = get_db_connection()
         cursor = conn.cursor()
 
         cursor.execute("""
              SELECT * FROM users
-             WHERE email=?
+             WHERE LOWER(email)=LOWER(?)
         """, (email,))
         user = cursor.fetchone()
 
         conn.close()
 
         if user and check_password_hash(user[3], password):
+            # Normal session login: the user may need to log in again when
+            # the session ends, but the account itself is never recreated.
+            session.clear()
+            session.permanent = False
             session["user_id"] = user[0]
             session["username"] = user[1]
 
