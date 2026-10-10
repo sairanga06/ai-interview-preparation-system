@@ -281,6 +281,51 @@
             border: 1px solid #e0e7ff;
         }
 
+        .cc-learning-box-link {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .cc-learning-box-link:hover {
+            border-color: #c7c3ff;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, .08);
+            transform: translateY(-2px);
+        }
+
+        .cc-learning-box-link:focus-visible,
+        .cc-card-header-link:focus-visible {
+            outline: 3px solid rgba(99, 91, 255, .35);
+            outline-offset: 3px;
+        }
+
+        .cc-learning-description {
+            margin: 0;
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .cc-learning-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 16px;
+            color: #5148d8;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .cc-card-header-link {
+            color: #5148d8;
+            font-size: 12px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .cc-card-header-link:hover { text-decoration: underline; }
+
         .cc-learning-top {
             display: flex;
             align-items: center;
@@ -1629,6 +1674,26 @@
         html[data-cc-theme="dark"] .cc-tip-icon { background: #252344; color: #a5b4fc; }
         html[data-cc-theme="dark"] .cc-main { background: #0b1120; }
         html[data-cc-theme="dark"] .cc-welcome::after { background: #1b2440; }
+        html[data-cc-theme="dark"] .cc-learning-box-link {
+            background: linear-gradient(135deg, #1b2140, #16253c);
+            border-color: #303c58;
+            color: #f8fafc;
+        }
+        html[data-cc-theme="dark"] .cc-learning-box-link:hover { border-color: #7772ff; }
+        html[data-cc-theme="dark"] .cc-learning-title p,
+        html[data-cc-theme="dark"] .cc-learning-description,
+        html[data-cc-theme="dark"] .cc-progress-text { color: #a7b5ca !important; }
+        html[data-cc-theme="dark"] .cc-learning-cta,
+        html[data-cc-theme="dark"] .cc-card-header-link { color: #b8b5ff; }
+        html[data-cc-theme="dark"] .cc-coming { background: #252344; color: #c7d2fe; }
+        html[data-cc-theme="dark"] .cc-progress { background: #29364c; }
+        html[data-cc-theme="dark"] .cc-module-card {
+            background: #111827;
+            border-color: #263247;
+            color: #f8fafc;
+        }
+        html[data-cc-theme="dark"] .cc-module-card p { color: #a7b5ca; }
+        html[data-cc-theme="dark"] .cc-module-status { color: #a5b4fc; }
 
         @media (max-width: 900px) {
             .cc-navbar { width: 218px; }
@@ -2454,14 +2519,14 @@
                         📚 Continue Learning
                     </h2>
 
-                    <span>
-                        Coming soon
-                    </span>
+                    <a class="cc-card-header-link" href="{{ url_for('learning') }}">Browse modules <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 
                 </div>
 
 
-                <div class="cc-learning-box">
+                <a class="cc-learning-box cc-learning-box-link"
+                   href="{% if learning_continue_module %}{{ url_for('learning_module', slug=learning_continue_module.slug) }}{% else %}{{ url_for('learning') }}{% endif %}"
+                   aria-label="{% if learning_continue_module %}Continue {{ learning_continue_module.title }}{% else %}Browse learning modules{% endif %}">
 
                     <div class="cc-learning-top">
 
@@ -2481,7 +2546,11 @@
                                 </h3>
 
                                 <p>
-                                    PDFs • Practice • Tests
+                                    {% if learning_continue_module %}
+                                        Continue {{ learning_continue_module.title }}
+                                    {% else %}
+                                        Lessons • Practice • Tests
+                                    {% endif %}
                                 </p>
 
                             </div>
@@ -2490,24 +2559,24 @@
 
 
                         <span class="cc-coming">
-                            BUILDING
+                            {{ learning_started_modules }} started
                         </span>
 
                     </div>
 
 
-                    <p style="margin:0;color:#64748b;font-size:12px;line-height:1.7;">
-
-                        Soon you will be able to learn languages through
-                        structured modules containing reading material,
-                        PDFs, examples, practice problems and module tests.
-
+                    <p class="cc-learning-description">
+                        Build practical skills with guided lessons, examples, coding exercises and module tests.
                     </p>
 
 
-                    <div class="cc-progress">
-
-                        <span></span>
+                    <div class="cc-progress"
+                         role="progressbar"
+                         aria-label="Learning module completion"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         aria-valuenow="{{ learning_overall_progress }}">
+                        <span style="width: {{ learning_overall_progress }}%;"></span>
 
                     </div>
 
@@ -2515,16 +2584,21 @@
                     <div class="cc-progress-text">
 
                         <span>
-                            Learning system
+                            {{ learning_completed_modules }} of {{ total_learning_modules }} modules complete
                         </span>
 
                         <span>
-                            Coming in upcoming phases
+                            {{ learning_overall_progress }}% complete
                         </span>
 
                     </div>
 
-                </div>
+                    <span class="cc-learning-cta">
+                        {% if learning_continue_module %}Continue learning{% else %}Explore modules{% endif %}
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </span>
+
+                </a>
 
             </div>
 
@@ -2546,7 +2620,9 @@
                 <div class="cc-module-grid">
 
 
-                    <div class="cc-module-card">
+                    <a href="{{ url_for('category') }}"
+                       class="cc-module-card cc-module-card-link"
+                       aria-label="Choose a technical or behavioral AI interview">
 
                         <div class="cc-module-icon">
                             <i class="fas fa-video"></i>
@@ -2557,18 +2633,20 @@
                         </h3>
 
                         <p>
-                            Practice realistic technical and HR interviews.
+                            Choose a technical subject, behavioral practice, or a mixed interview.
                         </p>
 
                         <span class="cc-module-status">
-                            AVAILABLE
+                            TECHNICAL • BEHAVIORAL →
                         </span>
 
-                    </div>
+                    </a>
 
 
 
-                    <div class="cc-module-card">
+                    <a href="{{ url_for('coding_practice') }}"
+                       class="cc-module-card cc-module-card-link"
+                       aria-label="Open Coding Practice">
 
                         <div class="cc-module-icon">
                             <i class="fas fa-code"></i>
@@ -2583,14 +2661,16 @@
                         </p>
 
                         <span class="cc-module-status">
-                            COMING SOON
+                            START PRACTICING →
                         </span>
 
-                    </div>
+                    </a>
 
 
 
-                    <div class="cc-module-card">
+                    <a href="{{ url_for('projects') }}"
+                       class="cc-module-card cc-module-card-link"
+                       aria-label="Open Real Projects">
 
                         <div class="cc-module-icon">
                             <i class="fas fa-diagram-project"></i>
@@ -2601,14 +2681,14 @@
                         </h3>
 
                         <p>
-                            Solve real-world engineering challenges.
+                            Build and manage portfolio projects, then review their career impact.
                         </p>
 
                         <span class="cc-module-status">
-                            COMING SOON
+                            VIEW PROJECTS →
                         </span>
 
-                    </div>
+                    </a>
 
 
 
