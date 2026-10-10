@@ -436,7 +436,7 @@
 
 <script>
     (function () {
-        const saved = localStorage.getItem("cc-theme");
+        const saved = localStorage.getItem("careercraft-theme") || localStorage.getItem("cc-theme");
         if (saved === "dark") {
             // Certificates intentionally remain white for a formal printable certificate.
         }

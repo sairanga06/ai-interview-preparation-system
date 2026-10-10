@@ -178,6 +178,31 @@ body {
     color: #635bff;
 }
 
+.knowledge-link {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 15px;
+    padding: 11px 12px;
+    border: 1px solid #ddd9ff;
+    border-radius: 11px;
+    background: #f7f6ff;
+    color: #5146d8;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.45;
+    text-decoration: none;
+}
+
+.knowledge-link:hover {
+    border-color: #b9b2ff;
+    background: #eeecff;
+}
+
+.knowledge-link i {
+    flex: 0 0 auto;
+}
+
 .chat {
     padding: 0;
     overflow: hidden;
@@ -641,6 +666,13 @@ body {
                     </strong>
 
                 </div>
+
+
+                <a class="knowledge-link" href="{{ url_for('knowledge_base') }}">
+                    <i class="fas fa-book-open" aria-hidden="true"></i>
+                    <span>Manage Knowledge Library</span>
+                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
 
 
                 <!-- ================= QUICK QUESTIONS ================= -->

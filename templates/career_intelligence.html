@@ -48,7 +48,7 @@ html[data-cc-theme="dark"] .button-secondary{background:#172033!important;color:
 <body>
 <header class="top"><div class="brand"><div class="logo"><i class="fas fa-brain"></i></div>CareerCraft AI</div><a class="back" href="/dashboard">← Back to Dashboard</a></header>
 <main class="wrap">
-<section class="hero"><div class="eyebrow">Career Intelligence</div><h1>Your AI Career Roadmap 🧠</h1><p>CareerCraft AI analyzes your profile, target role and interview progress to show your career fit, skill gaps and next steps.</p>{% if target_role %}<span class="pill">🎯 Target Role: {{target_role}}</span>{% endif %}<div class="button-row" style="margin-top:16px;"><a class="button-secondary" href="/career-roadmap">🗺️ Open Career Roadmap</a></div>
+<section class="hero"><div class="eyebrow">Career Intelligence</div><h1>Your AI Career Roadmap 🧠</h1><p>CareerCraft AI analyzes your profile, target role and interview progress to show your career fit, skill gaps and next steps.</p>{% if target_role %}<span class="pill">🎯 Target Role: {{target_role}}</span>{% endif %}<div class="button-row" style="margin-top:16px;"><a class="button-secondary" href="/career-roadmap">🗺️ Open Career Roadmap</a><a class="button-secondary" href="/projects">📁 Projects Workspace{% if structured_project_count %} ({{ structured_project_count }}){% endif %}</a></div>
 </section>
 
 <section class="metric-grid" aria-label="Profile intelligence metrics">
@@ -56,25 +56,25 @@ html[data-cc-theme="dark"] .button-secondary{background:#172033!important;color:
         <div class="metric-label">Profile Strength</div>
         <div class="metric-value">{{ profile_strength_score }}%</div>
         <div class="metric-note">{{ strength_label }}</div>
-        <div class="progress-mini"><span data-progress="{{ profile_strength_score|default(0) }}"></span></div>
+        <div class="progress-mini"><span data-width="{{ profile_strength_score|default(0) }}"></span></div>
     </div>
     <div class="metric">
         <div class="metric-label">Career Alignment</div>
         <div class="metric-value">{{ career_alignment_score }}%</div>
         <div class="metric-note">{{ career_alignment_label }}</div>
-        <div class="progress-mini"><span data-progress="{{ career_alignment_score|default(0) }}"></span></div>
+        <div class="progress-mini"><span data-width="{{ career_alignment_score|default(0) }}"></span></div>
     </div>
     <div class="metric">
         <div class="metric-label">Skill Coverage</div>
         <div class="metric-value">{{ skill_coverage_score }}%</div>
         <div class="metric-note">{{ matching_skills|length }} of {{ required_skills|length }} mapped role skills covered</div>
-        <div class="progress-mini"><span data-progress="{{ skill_coverage_score|default(0) }}"></span></div>
+        <div class="progress-mini"><span data-width="{{ skill_coverage_score|default(0) }}"></span></div>
     </div>
     <div class="metric">
         <div class="metric-label">Profile Completion</div>
         <div class="metric-value">{{ profile_completion }}%</div>
         <div class="metric-note">Based on the saved Day 21 career profile fields</div>
-        <div class="progress-mini"><span data-progress="{{ profile_completion|default(0) }}"></span></div>
+        <div class="progress-mini"><span data-width="{{ profile_completion|default(0) }}"></span></div>
     </div>
 </section>
 
@@ -83,13 +83,13 @@ html[data-cc-theme="dark"] .button-secondary{background:#172033!important;color:
         <div class="head"><div><h2>Profile Intelligence Signals</h2><p>What CareerCraft AI sees in your current profile</p></div><div class="icon"><i class="fas fa-brain"></i></div></div>
         <div class="scoreline">
             <div class="scoreline-row"><span>Projects / Practical Evidence</span><b>{{ project_evidence_score }}%</b></div>
-            <div class="scoreline-track"><div class="scoreline-fill" data-progress="{{ project_evidence_score|default(0) }}"></div></div>
+            <div class="scoreline-track"><div class="scoreline-fill" data-width="{{ project_evidence_score|default(0) }}"></div></div>
             <div class="scoreline-row"><span>Experience Evidence</span><b>{{ experience_score }}%</b></div>
-            <div class="scoreline-track"><div class="scoreline-fill" data-progress="{{ experience_score|default(0) }}"></div></div>
+            <div class="scoreline-track"><div class="scoreline-fill" data-width="{{ experience_score|default(0) }}"></div></div>
             <div class="scoreline-row"><span>Professional Presence</span><b>{{ professional_presence_score }}%</b></div>
-            <div class="scoreline-track"><div class="scoreline-fill" data-progress="{{ professional_presence_score|default(0) }}"></div></div>
+            <div class="scoreline-track"><div class="scoreline-fill" data-width="{{ professional_presence_score|default(0) }}"></div></div>
             <div class="scoreline-row"><span>Career Clarity</span><b>{{ career_clarity_score }}%</b></div>
-            <div class="scoreline-track"><div class="scoreline-fill" data-progress="{{ career_clarity_score|default(0) }}"></div></div>
+            <div class="scoreline-track"><div class="scoreline-fill" data-width="{{ career_clarity_score|default(0) }}"></div></div>
         </div>
         <div class="button-row">
             <a class="button-secondary" href="/edit_profile">✏️ Improve Profile</a>
@@ -114,7 +114,7 @@ html[data-cc-theme="dark"] .button-secondary{background:#172033!important;color:
 
 <div class="grid">
 
-<section class="card"><div class="head"><div><h2>Career Readiness</h2><p>Your current preparation level</p></div><div class="icon"><i class="fas fa-chart-line"></i></div></div><div class="ringwrap"><div class="ring" style="--readiness-score: {{ readiness_score|default(0) }}%;"><b>{{ readiness_score|default(0) }}%</b></div><div class="summary"><b>{{readiness_label}}</b><p>Based on profile completion, relevant skills, projects, experience and interview practice.</p></div></div></section>
+<section class="card"><div class="head"><div><h2>Career Readiness</h2><p>Your current preparation level</p></div><div class="icon"><i class="fas fa-chart-line"></i></div></div><div class="ringwrap"><div class="ring" data-readiness="{{ readiness_score|default(0) }}"><b>{{ readiness_score|default(0) }}%</b></div><div class="summary"><b>{{readiness_label}}</b><p>Based on profile completion, relevant skills, projects, experience and interview practice.</p></div></div></section>
 <section class="card"><div class="head"><div><h2>Career Fit</h2><p>How your profile matches your goal</p></div><div class="icon"><i class="fas fa-bullseye"></i></div></div><div class="matches">
 <div class="match"><span>Target Role</span><b>{{target_role or "Not selected"}}</b></div>
 <div class="match"><span>Education</span><b class="{{'ok' if education else 'need'}}">{{education or "Add education"}}</b></div>
@@ -165,4 +165,13 @@ html[data-cc-theme="dark"] .button-secondary{background:#172033!important;color:
 </div>
 </main>
 </body>
+<script>
+document.querySelectorAll('[data-width]').forEach(function (element) {
+    element.style.width = Math.max(0, Math.min(100, Number(element.dataset.width) || 0)) + '%';
+});
+document.querySelectorAll('[data-readiness]').forEach(function (element) {
+    var score = Math.max(0, Math.min(100, Number(element.dataset.readiness) || 0));
+    element.style.setProperty('--readiness-score', score + '%');
+});
+</script>
 </html>

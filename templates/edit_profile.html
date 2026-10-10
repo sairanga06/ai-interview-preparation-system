@@ -109,6 +109,103 @@
             line-height: 1.7;
         }
 
+        .onboarding-intro {
+            margin: 0 0 20px;
+            padding: 22px 24px;
+            border: 1px solid #d9d6ff;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #f5f3ff, #eff6ff);
+        }
+
+        .onboarding-intro h2 {
+            margin: 0 0 6px;
+            color: #312e81;
+            font-size: 18px;
+        }
+
+        .onboarding-intro > p {
+            margin: 0;
+            color: #475569;
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+        .onboarding-steps {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px 18px;
+            margin: 16px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .onboarding-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            color: #334155;
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        .onboarding-steps span {
+            display: inline-flex;
+            width: 22px;
+            height: 22px;
+            flex: 0 0 22px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #635bff;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .profile-section-nav {
+            margin: 0 0 22px;
+            padding: 17px 19px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            background: #fff;
+        }
+
+        .profile-section-nav p {
+            margin: 0 0 11px;
+            color: #475569;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .profile-section-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .profile-section-links a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 7px 11px;
+            border: 1px solid #e5e7eb;
+            border-radius: 999px;
+            background: #f8fafc;
+            color: #475569;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s ease;
+        }
+
+        .profile-section-links a:hover,
+        .profile-section-links a:focus-visible {
+            border-color: #c7d2fe;
+            background: #eeecff;
+            color: #5146d8;
+            outline: none;
+        }
+
         /* ================= COMPLETION ================= */
 
         .completion-card {
@@ -162,6 +259,7 @@
         /* ================= FORM CARD ================= */
 
         .profile-card {
+            scroll-margin-top: 96px;
             background: #ffffff;
             border: 1px solid #e5e7eb;
             border-radius: 20px;
@@ -471,6 +569,18 @@
                 padding: 22px;
             }
 
+            .onboarding-intro {
+                padding: 19px;
+            }
+
+            .onboarding-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-section-nav {
+                padding: 15px;
+            }
+
             .save-section {
                 flex-direction: column;
             }
@@ -542,6 +652,35 @@
     </div>
 
 
+    {% if onboarding %}
+    <section class="onboarding-intro" aria-labelledby="onboardingTitle">
+        <h2 id="onboardingTitle">Welcome! Let’s set up your career profile.</h2>
+        <p>These details help CareerCraft AI tailor career guidance and practice suggestions to you. Fill in what you know; most sections are optional.</p>
+        <ol class="onboarding-steps">
+            <li><span>1</span><div>Add your education and skills.</div></li>
+            <li><span>2</span><div>Describe your experience, or choose Student or Fresher.</div></li>
+            <li><span>3</span><div>Set a career target and add projects or links if you have them.</div></li>
+            <li><span>4</span><div>Save when ready. You can update this profile any time.</div></li>
+        </ol>
+    </section>
+    {% endif %}
+
+    <nav class="profile-section-nav" aria-label="Profile sections">
+        <p>Jump to a section</p>
+        <div class="profile-section-links">
+            <a href="#personal">Personal</a>
+            <a href="#education">Education</a>
+            <a href="#skills">Skills</a>
+            <a href="#languages">Languages</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#career-target">Career target</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#links">Professional links</a>
+        </div>
+    </nav>
+
+
     <!-- ================= COMPLETION ================= -->
 
     <div class="completion-card">
@@ -559,7 +698,13 @@
 
         </div>
 
-        <div class="completion-bar">
+        <div class="completion-bar"
+             id="completionBar"
+             role="progressbar"
+             aria-label="Career profile completion"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             aria-valuenow="0">
 
             <div class="completion-fill"
                  id="completionFill"></div>
@@ -569,7 +714,7 @@
         <p class="completion-text"
            id="completionText">
 
-            Complete your profile to unlock personalized career features.
+            Add details at your own pace. Many fields are optional, and you can save now and return later.
 
         </p>
 
@@ -581,7 +726,7 @@
 
         <!-- ================= PERSONAL ================= -->
 
-        <section class="profile-card">
+        <section class="profile-card" id="personal">
 
             <div class="card-heading">
 
@@ -642,7 +787,7 @@
 
         <!-- ================= EDUCATION ================= -->
 
-        <section class="profile-card">
+        <section class="profile-card" id="education">
 
             <div class="card-heading">
 
@@ -862,7 +1007,7 @@
 
         <!-- ================= SKILLS ================= -->
 
-        <section class="profile-card">
+        <section class="profile-card" id="skills">
 
             <div class="card-heading">
 
@@ -931,7 +1076,7 @@
 
         <!-- ================= PROGRAMMING LANGUAGES ================= -->
 
-        <section class="profile-card">
+        <section class="profile-card" id="languages">
 
             <div class="card-heading">
 
@@ -1000,7 +1145,7 @@
 
         <!-- ================= EXPERIENCE ================= -->
 
-        <section class="profile-card">
+        <section class="profile-card" id="experience">
 
             <div class="card-heading">
 
@@ -1252,7 +1397,7 @@
 
         <!-- ================= PROJECTS ================= -->
 
-        <section class="profile-card">
+        <section class="profile-card" id="projects">
 
             <div class="card-heading">
 
@@ -1300,7 +1445,7 @@
 
         <!-- ================= CAREER TARGET ================= -->
 
-        <section class="profile-card">
+        <section class="profile-card" id="career-target">
 
             <div class="card-heading">
 
@@ -1435,7 +1580,7 @@
 
         <!-- ================= CERTIFICATIONS ================= -->
 
-        <section class="profile-card">
+        <section class="profile-card" id="certifications">
 
             <div class="card-heading">
 
@@ -1479,7 +1624,7 @@
 
         <!-- ================= PROFESSIONAL LINKS ================= -->
 
-        <section class="profile-card">
+        <section class="profile-card" id="links">
 
             <div class="card-heading">
 
@@ -2953,6 +3098,13 @@ function updateCompletion() {
     ).style.width =
         percentage + "%";
 
+    document.getElementById(
+        "completionBar"
+    ).setAttribute(
+        "aria-valuenow",
+        percentage
+    );
+
 
     const text =
         document.getElementById(
@@ -2963,28 +3115,28 @@ function updateCompletion() {
     if (percentage === 100) {
 
         text.textContent =
-            "Your career profile is complete. Great job! 🎉";
+            "Nice work—your profile is complete and ready to personalize your career tools.";
 
     }
 
     else if (percentage >= 70) {
 
         text.textContent =
-            "Almost there! Complete the remaining sections.";
+            "You are nearly there. Add any remaining details that apply to you.";
 
     }
 
     else if (percentage > 0) {
 
         text.textContent =
-            "Good start. Keep adding information to strengthen your profile.";
+            "Good start. You can save now and fill in the rest later.";
 
     }
 
     else {
 
         text.textContent =
-            "Complete your profile to unlock personalized career features.";
+            "Add details at your own pace. Many fields are optional, and you can save now and return later.";
 
     }
 

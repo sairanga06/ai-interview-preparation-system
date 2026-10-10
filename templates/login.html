@@ -183,6 +183,7 @@
             <p class="cc-sub">Access your CareerCraft AI workspace.</p>
 
             <form action="/login" method="POST">
+                <input type="hidden" name="_csrf_token" value="{{ auth_csrf_token }}">
                 <div class="cc-field">
                     <label for="email">Email address</label>
                     <div class="cc-input">

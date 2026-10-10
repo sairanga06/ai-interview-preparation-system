@@ -675,8 +675,8 @@
                 <span class="eyebrow"><i class="fas fa-sparkles"></i> AI Interview Studio</span>
                 <h1>Build your interview session.</h1>
                 <p>
-                    Choose a technical track and difficulty. CareerCraft AI will use your selection
-                    to start a focused interview and adapt the question difficulty as you perform.
+                    Choose a technical, behavioral or mixed track. CareerCraft AI will ask focused questions,
+                    listen to your answers and adapt the difficulty as you perform.
                 </p>
             </div>
 
@@ -708,12 +708,12 @@
                         <div class="panel-head-row">
                             <div>
                                 <span style="display:inline-flex;align-items:center;gap:6px;color:var(--primary);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">
-                                    <i class="fas fa-layer-group"></i> Technical Interview Library
+                                    <i class="fas fa-layer-group"></i> Interview Library
                                 </span>
                                 <h2>Choose your interview track</h2>
-                                <p>Pick a technology or computer-science specialization, then set the difficulty for a focused adaptive session.</p>
+                                <p>Pick a technical subject, behavioral practice, or a mix of both, then set the starting difficulty.</p>
                             </div>
-                            <span class="track-count"><i class="fas fa-bolt"></i> 8 tracks · 3 levels</span>
+                            <span class="track-count"><i class="fas fa-bolt"></i> 10 tracks · 3 levels</span>
                         </div>
                     </div>
 
@@ -829,6 +829,34 @@
                                 <button class="difficulty hard" type="button" data-difficulty="hard">Hard</button>
                             </div>
                         </article>
+
+                        <article class="track-card" data-category="behavioral" data-name="Behavioral">
+                            <div class="track-top">
+                                <div class="track-icon"><i class="fas fa-comments"></i></div>
+                                <div class="track-info"><h3>Behavioral</h3><p>Practice clear examples, teamwork, feedback and decision-making.</p></div>
+                                <span class="check"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="difficulty-title"><span>Difficulty level</span><span>Adaptive after each answer</span></div>
+                            <div class="difficulty-options">
+                                <button class="difficulty easy" type="button" data-difficulty="easy">Easy</button>
+                                <button class="difficulty medium" type="button" data-difficulty="medium">Medium</button>
+                                <button class="difficulty hard" type="button" data-difficulty="hard">Hard</button>
+                            </div>
+                        </article>
+
+                        <article class="track-card" data-category="mixed" data-name="Technical + Behavioral">
+                            <div class="track-top">
+                                <div class="track-icon"><i class="fas fa-video"></i></div>
+                                <div class="track-info"><h3>Technical + Behavioral</h3><p>A single session that mixes technical questions with real-work scenarios.</p></div>
+                                <span class="check"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="difficulty-title"><span>Difficulty level</span><span>Adaptive after each answer</span></div>
+                            <div class="difficulty-options">
+                                <button class="difficulty easy" type="button" data-difficulty="easy">Easy</button>
+                                <button class="difficulty medium" type="button" data-difficulty="medium">Medium</button>
+                                <button class="difficulty hard" type="button" data-difficulty="hard">Hard</button>
+                            </div>
+                        </article>
                     </div>
                 </section>
 
@@ -877,6 +905,8 @@
                                 <option value="javascript">JavaScript</option>
                                 <option value="oop">OOP</option>
                                 <option value="dsa">DSA</option>
+                                <option value="behavioral">Behavioral</option>
+                                <option value="mixed">Technical + Behavioral</option>
                             </select>
                             <select name="timer_mode" id="timerModeSelect" required>
                                 <option value="timed" selected>With timer</option>

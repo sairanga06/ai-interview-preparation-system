@@ -1441,6 +1441,27 @@
             box-shadow: 0 0 0 4px rgba(99,91,255,.08);
         }
 
+        .cc-notification-nav-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 19px;
+            height: 19px;
+            padding: 0 5px;
+            margin-left: auto;
+            border-radius: 999px;
+            background: #ef4444;
+            color: #ffffff;
+            font-size: 9px;
+            line-height: 1;
+            font-weight: 900;
+            box-sizing: border-box;
+        }
+
+        .cc-notification-nav-badge.is-zero {
+            display: none;
+        }
+
         .cc-sidebar-divider {
             height: 1px;
             margin: 13px 12px 9px;
@@ -1600,6 +1621,7 @@
         html[data-cc-theme="dark"] .cc-nav-links .cc-nav-item a:hover { background: #172033; color: #c7d2fe; }
         html[data-cc-theme="dark"] .cc-nav-links .cc-nav-item.active a { background: #252344; color: #c7d2fe; }
         html[data-cc-theme="dark"] .cc-nav-links .cc-nav-item.active a i { color: #a5b4fc; }
+        html[data-cc-theme="dark"] .cc-notification-nav-badge { background: #fb7185; color: #ffffff; }
         html[data-cc-theme="dark"] .cc-sidebar-divider { background: #263247; }
         html[data-cc-theme="dark"] .cc-sidebar-tip { background: #111827; border-color: #263247; }
         html[data-cc-theme="dark"] .cc-sidebar-tip strong { color: #e2e8f0; }
@@ -1998,6 +2020,12 @@
             <li class="cc-sidebar-divider" aria-hidden="true"></li>
             <li class="cc-sidebar-label-item">TRACKING</li>
 
+            <li class="cc-nav-item">
+                <a href="/notifications" class="cc-notifications-link">
+                    <i class="fas fa-bell"></i><span>Notifications</span>
+                    <span class="cc-notification-nav-badge is-zero" id="cc-dashboard-notification-badge">0</span>
+                </a>
+            </li>
             <li class="cc-nav-item">
                 <a href="/learning/tests"><i class="fas fa-clipboard-check"></i><span>Test History</span></a>
             </li>
@@ -3073,6 +3101,31 @@
 </script>
 
 
+
+<script id="cc-dashboard-notification-nav-script">
+(function(){
+  function refreshDashboardNotificationBadge(){
+    const badge=document.getElementById('cc-dashboard-notification-badge');
+    if(!badge) return;
+    fetch('/api/notifications/unread-count',{headers:{'Accept':'application/json'},credentials:'same-origin',cache:'no-store'})
+      .then(function(response){ if(!response.ok) throw new Error('notification count unavailable'); return response.json(); })
+      .then(function(data){
+        const count=Math.max(0,Number(data.unread_count||0));
+        badge.textContent=count>99?'99+':String(count);
+        badge.classList.toggle('is-zero',count===0);
+        badge.setAttribute('aria-label',count+' unread notifications');
+        const link=document.querySelector('.cc-notifications-link');
+        if(link){ link.setAttribute('aria-label',count ? 'Notifications, '+count+' unread' : 'Notifications'); }
+      })
+      .catch(function(){
+        // Navigation remains available even when the badge API is unavailable.
+      });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',refreshDashboardNotificationBadge); else refreshDashboardNotificationBadge();
+  window.addEventListener('focus',refreshDashboardNotificationBadge);
+  setInterval(refreshDashboardNotificationBadge,45000);
+})();
+</script>
 </body>
 
 </html>

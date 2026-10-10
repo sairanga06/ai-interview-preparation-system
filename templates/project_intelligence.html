@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Intelligence | CareerCraft AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f6f8fc;color:#111827;font-family:Inter,sans-serif}
+.topbar{min-height:78px;padding:13px 5%;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;gap:14px;position:sticky;top:0;z-index:20}
+.brand{display:flex;align-items:center;gap:11px;font:800 21px Poppins,sans-serif}
+.brand-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#635bff,#3b82f6)}
+.top-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:7px}
+.top-link{display:inline-flex;align-items:center;gap:7px;padding:9px 11px;border-radius:10px;text-decoration:none;color:#475569;background:#fff;border:1px solid #dbe2ea;font-size:11px;font-weight:800}
+.wrap{width:min(1200px,92%);margin:auto;padding:34px 0 70px}
+.hero{padding:30px;border-radius:22px;color:#fff;background:linear-gradient(135deg,#111827,#172554);box-shadow:0 16px 38px rgba(15,23,42,.12)}
+.eyebrow{font-size:10px;font-weight:800;letter-spacing:1px;color:#a5b4fc;text-transform:uppercase}
+.hero h1{margin:8px 0 9px;font:800 clamp(28px,4vw,42px) Poppins,sans-serif}
+.hero p{max-width:830px;margin:0;color:#cbd5e1;font-size:13px;line-height:1.8}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.hero-pill{padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10);color:#e2e8f0;font-size:10px;font-weight:800}
+.score-grid{display:grid;grid-template-columns:1.1fr repeat(4,1fr);gap:13px;margin-top:18px}
+.score-card,.card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;box-shadow:0 8px 26px rgba(15,23,42,.04)}
+.score-card{padding:18px}
+.score-card.primary{display:grid;grid-template-columns:92px 1fr;align-items:center;gap:15px}
+.ring{--score:0;width:92px;height:92px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(#635bff calc(var(--score) * 1%),#e5e7eb 0)}
+.ring::before{content:"";position:absolute;width:67px;height:67px;border-radius:50%;background:#fff}
+.ring span{position:relative;z-index:1;font:800 20px Poppins,sans-serif}
+.score-label{color:#94a3b8;font-size:9px;font-weight:800;letter-spacing:.4px;text-transform:uppercase}
+.score-value{margin-top:5px;font:800 21px Poppins,sans-serif;color:#111827}
+.score-note{margin-top:4px;color:#64748b;font-size:9px;line-height:1.5}
+.progress-mini{height:6px;margin-top:10px;border-radius:999px;overflow:hidden;background:#e9edf4}
+.progress-mini span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#635bff,#3b82f6)}
+.progress-mini span[data-score]{width:0}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.card{padding:23px}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:17px}
+.head h2{margin:0 0 4px;font:700 18px Poppins,sans-serif}
+.head p{margin:0;color:#94a3b8;font-size:11px;line-height:1.6}
+.icon{width:40px;height:40px;flex:0 0 40px;display:grid;place-items:center;border-radius:12px;background:#eeecff;color:#635bff}
+.signal-list,.bullet-list{display:grid;gap:9px}
+.signal{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;background:#f8fafc;border:1px solid #e8ebf2}
+.signal span{color:#64748b;font-size:11px}
+.signal strong{font-size:11px;color:#111827}
+.good{color:#15803d!important}.warn{color:#b45309!important}.info{color:#5146d8!important}
+.bullet{display:flex;gap:9px;padding:11px 12px;border-radius:12px;background:#f8fafc;border:1px solid #e8ebf2;color:#475569;font-size:11px;line-height:1.7}
+.bullet i{margin-top:3px;color:#635bff}.gap .bullet i{color:#d97706}
+.checklist{display:grid;gap:8px}
+.check{display:grid;grid-template-columns:25px 1fr;gap:10px;padding:11px 12px;border-radius:12px;background:#f8fafc;border:1px solid #e8ebf2}
+.check-icon{width:25px;height:25px;display:grid;place-items:center;border-radius:8px;background:#fee2e2;color:#b91c1c;font-size:11px}
+.check.complete .check-icon{background:#dcfce7;color:#15803d}
+.check strong{display:block;color:#111827;font-size:11px}.check span{display:block;margin-top:2px;color:#64748b;font-size:10px;line-height:1.5}
+.resume-box{padding:14px;border-radius:13px;background:#f8fafc;border:1px solid #e8ebf2}
+.resume-box p{margin:0 0 10px;color:#64748b;font-size:10px;line-height:1.6}
+.resume-line{padding:10px 11px;margin-top:7px;border-radius:10px;background:#fff;border:1px solid #edf0f5;color:#475569;font-size:11px;line-height:1.65}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 12px;border-radius:10px;text-decoration:none;background:#635bff;border:1px solid #635bff;color:#fff;font-size:11px;font-weight:800}
+.btn.secondary{background:#fff;border-color:#dbe2ea;color:#475569}
+.empty{padding:55px 20px;text-align:center;border-radius:18px;background:#fff;border:1px dashed #cbd5e1;color:#64748b}
+.empty i{font-size:30px;color:#635bff;margin-bottom:12px}.empty h2{margin:0 0 6px;font:700 20px Poppins,sans-serif;color:#111827}.empty p{margin:0;font-size:12px}
+html[data-cc-theme="dark"] body{background:#0b1120!important;color:#f8fafc!important}
+html[data-cc-theme="dark"] .topbar,html[data-cc-theme="dark"] .score-card,html[data-cc-theme="dark"] .card,html[data-cc-theme="dark"] .empty{background:#111827!important;border-color:#263247!important;box-shadow:none!important}
+html[data-cc-theme="dark"] .brand,html[data-cc-theme="dark"] .score-value,html[data-cc-theme="dark"] .head h2,html[data-cc-theme="dark"] .signal strong,html[data-cc-theme="dark"] .check strong,html[data-cc-theme="dark"] .empty h2{color:#f8fafc!important}
+html[data-cc-theme="dark"] .top-link,html[data-cc-theme="dark"] .btn.secondary{background:#172033!important;border-color:#334155!important;color:#e2e8f0!important}
+html[data-cc-theme="dark"] .score-note,html[data-cc-theme="dark"] .score-label,html[data-cc-theme="dark"] .head p,html[data-cc-theme="dark"] .signal span,html[data-cc-theme="dark"] .bullet,html[data-cc-theme="dark"] .check span,html[data-cc-theme="dark"] .resume-box p,html[data-cc-theme="dark"] .empty,html[data-cc-theme="dark"] .empty p{color:#94a3b8!important}
+html[data-cc-theme="dark"] .signal,html[data-cc-theme="dark"] .bullet,html[data-cc-theme="dark"] .check,html[data-cc-theme="dark"] .resume-box,html[data-cc-theme="dark"] .resume-line{background:#172033!important;border-color:#2b3950!important}
+html[data-cc-theme="dark"] .resume-line{color:#e2e8f0!important}
+html[data-cc-theme="dark"] .ring::before{background:#111827}.progress-mini{background:#e9edf4}
+html[data-cc-theme="dark"] .progress-mini{background:#2a3548!important}
+@media(max-width:1050px){.score-grid{grid-template-columns:repeat(2,1fr)}.score-card.primary{grid-column:1/-1}}
+@media(max-width:760px){.topbar{align-items:flex-start;flex-direction:column}.top-links{justify-content:flex-start}.two-col{grid-template-columns:1fr}.wrap{width:94%;padding-top:25px}.hero,.card{padding:20px}}
+@media(max-width:520px){.score-grid{grid-template-columns:1fr}.score-card.primary{grid-column:auto;grid-template-columns:82px 1fr}.ring{width:82px;height:82px}.ring::before{width:60px;height:60px}.ring span{font-size:17px}.top-links{width:100%}.top-link{flex:1 1 auto;justify-content:center}}
+</style>
+</head>
+<body>
+{% if not_found %}
+<div class="wrap"><section class="empty"><i class="fas fa-folder-open"></i><h2>Project not found</h2><p>This project does not exist or does not belong to your account.</p><div class="actions" style="justify-content:center;"><a class="btn" href="/projects"><i class="fas fa-arrow-left"></i> Back to Projects</a></div></section></div>
+{% else %}
+<div class="page">
+<header class="topbar">
+    <div class="brand"><div class="brand-icon"><i class="fas fa-chart-line"></i></div>CareerCraft AI</div>
+    <div class="top-links">
+        <a class="top-link" href="/projects"><i class="fas fa-diagram-project"></i> Projects</a>
+        <a class="top-link" href="/career-roadmap"><i class="fas fa-route"></i> Roadmap</a>
+        <a class="top-link" href="/career_intelligence"><i class="fas fa-brain"></i> Career Intelligence</a>
+    </div>
+</header>
+<main class="wrap">
+<section class="hero">
+    <div class="eyebrow">Day 25 · Project Intelligence</div>
+    <h1>{{ project.title }} — Project Intelligence</h1>
+    <p>CareerCraft analyzes project quality, technical depth, evidence strength, presentation and target-role alignment without overwriting your saved data.</p>
+    <p style="margin-top:8px;font-size:11px;opacity:.82;"><i class="fas fa-circle-info"></i> The <strong>View API JSON</strong> button opens the machine-readable API response used by CareerCraft. Raw JSON is expected for an API endpoint.</p>
+    <div class="hero-meta">
+        <span class="hero-pill"><i class="fas fa-layer-group"></i> {{ project.category or "Uncategorized" }}</span>
+        <span class="hero-pill"><i class="fas fa-signal"></i> {{ project.difficulty or "Intermediate" }}</span>
+        <span class="hero-pill"><i class="fas fa-flag"></i> {{ project.status or "In Progress" }}</span>
+        {% if target_role %}<span class="hero-pill"><i class="fas fa-bullseye"></i> {{ target_role }}</span>{% endif %}
+    </div>
+</section>
+
+<section class="score-grid">
+    <div class="score-card primary">
+        <div class="ring" style="--score: {{ overall_score }};"><span>{{ overall_score }}</span></div>
+        <div><div class="score-label">Overall Project Score</div><div class="score-value">{{ overall_grade }}</div><div class="score-note">Weighted from quality, technical depth, evidence, presentation and role alignment.</div></div>
+    </div>
+    {% set score_items = [("quality","Project Quality","Structure and completeness"),("technical_depth","Technical Depth","Technical substance"),("evidence","Evidence Strength","Verifiability and results"),("alignment","Role Alignment","Target-role relevance")] %}
+    {% for key,label,note in score_items %}
+    <div class="score-card">
+        <div class="score-label">{{ label }}</div>
+        <div class="score-value">{{ scores[key] }}%</div>
+        <div class="score-note">{{ note }} · {{ score_labels[key] }}</div>
+        <div class="progress-mini"><span data-score="{{ scores[key] }}"></span></div>
+    </div>
+    {% endfor %}
+</section>
+
+<section class="two-col">
+<div class="card">
+    <div class="head"><div><h2>Intelligence Signals</h2><p>Signals detected from the current project record.</p></div><div class="icon"><i class="fas fa-gauge-high"></i></div></div>
+    <div class="signal-list">
+        <div class="signal"><span>Technologies documented</span><strong>{{ technology_count }}</strong></div>
+        <div class="signal"><span>Implementation evidence</span><strong>{{ evidence_term_count }}</strong></div>
+        <div class="signal"><span>Outcome / impact signals</span><strong>{{ outcome_term_count }}</strong></div>
+        <div class="signal"><span>Technical concept signals</span><strong>{{ technical_term_count }}</strong></div>
+        <div class="signal"><span>Resume readiness</span><strong class="{{ 'good' if resume_ready else 'warn' }}">{{ "Ready for refinement" if resume_ready else "Needs more evidence" }}</strong></div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="head"><div><h2>Career Alignment</h2><p>Connection to your saved career direction.</p></div><div class="icon"><i class="fas fa-bullseye"></i></div></div>
+    <div class="signal-list">
+        <div class="signal"><span>Target role</span><strong class="{{ 'info' if target_role else 'warn' }}">{{ target_role or "Not set" }}</strong></div>
+        <div class="signal"><span>Alignment score</span><strong class="{{ 'good' if scores.alignment >= 80 else ('warn' if scores.alignment < 70 else 'info') }}">{{ scores.alignment }}%</strong></div>
+    </div>
+    <div class="bullet" style="margin-top:10px;"><i class="fas fa-arrow-right"></i><span>{{ alignment_note }}</span></div>
+</div>
+
+<div class="card">
+    <div class="head"><div><h2>Strengths</h2><p>What is already working well.</p></div><div class="icon"><i class="fas fa-circle-check"></i></div></div>
+    <div class="bullet-list">{% for item in strengths %}<div class="bullet"><i class="fas fa-check"></i><span>{{ item }}</span></div>{% endfor %}</div>
+</div>
+
+<div class="card gap">
+    <div class="head"><div><h2>Gaps to Address</h2><p>Missing evidence or weaker signals.</p></div><div class="icon"><i class="fas fa-triangle-exclamation"></i></div></div>
+    <div class="bullet-list">{% for item in gaps %}<div class="bullet"><i class="fas fa-flag"></i><span>{{ item }}</span></div>{% else %}<div class="bullet"><i class="fas fa-check"></i><span>No major gaps were detected.</span></div>{% endfor %}</div>
+</div>
+
+<div class="card">
+    <div class="head"><div><h2>Improvement Plan</h2><p>Practical actions for a stronger project record.</p></div><div class="icon"><i class="fas fa-list-check"></i></div></div>
+    <div class="bullet-list">{% for item in recommendations %}<div class="bullet"><i class="fas fa-arrow-right"></i><span>{{ item }}</span></div>{% endfor %}</div>
+</div>
+
+<div class="card">
+    <div class="head"><div><h2>Evidence Checklist</h2><p>{{ evidence_missing_count }} item{{ "" if evidence_missing_count == 1 else "s" }} need stronger evidence.</p></div><div class="icon"><i class="fas fa-clipboard-check"></i></div></div>
+    <div class="checklist">
+        {% for item in evidence_checklist %}
+        <div class="check {{ 'complete' if item.complete else '' }}">
+            <div class="check-icon"><i class="fas {{ 'fa-check' if item.complete else 'fa-plus' }}"></i></div>
+            <div><strong>{{ item.label }}</strong><span>{{ item.detail }}</span></div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="card" style="grid-column:1/-1;">
+    <div class="head"><div><h2>Resume-Ready Draft Suggestions</h2><p>Suggestions only; nothing is written automatically.</p></div><div class="icon"><i class="fas fa-file-lines"></i></div></div>
+    <div class="resume-box">
+        <p>Review these drafts and edit them so they remain completely accurate to your real contribution.</p>
+        {% for bullet in resume_bullets %}<div class="resume-line">• {{ bullet }}</div>{% endfor %}
+    </div>
+</div>
+</section>
+
+<div class="actions">
+    <a class="btn" href="/projects/{{ project.id }}/intelligence"><i class="fas fa-rotate"></i> Refresh Analysis</a>
+    <a class="btn secondary" href="/api/projects/{{ project.id }}/intelligence" target="_blank" rel="noopener noreferrer" title="Open the raw Project Intelligence API response"><i class="fas fa-code"></i> View API JSON</a>
+    <a class="btn secondary" href="/projects"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+    <a class="btn secondary" href="/resume-builder?project_id={{ project.id }}"><i class="fas fa-file-lines"></i> Use in Resume</a>
+</div>
+</main>
+</div>
+{% endif %}
+<script>
+document.querySelectorAll('.progress-mini span[data-score]').forEach(function (bar) {
+    var score = Number(bar.dataset.score);
+    bar.style.width = (Number.isFinite(score) ? Math.max(0, Math.min(100, score)) : 0) + '%';
+});
+</script>
+</body>
+</html>

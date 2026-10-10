@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Library | CareerCraft AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        :root{--bg:#f5f7fb;--surface:#fff;--text:#172033;--muted:#64748b;--border:#e3e8f0;--primary:#635bff;--primary-dark:#4f46e5;--soft:#f1f0ff;--success:#15803d;--danger:#b91c1c;--shadow:0 16px 44px rgba(15,23,42,.07)}
+        *{box-sizing:border-box}
+        body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif}
+        a{color:inherit}
+        .topbar{height:70px;padding:0 max(22px,calc((100vw - 1000px)/2));display:flex;align-items:center;justify-content:space-between;background:var(--surface);border-bottom:1px solid var(--border)}
+        .brand{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:800;text-decoration:none;letter-spacing:-.3px}
+        .brand-mark{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#635bff,#3b82f6)}
+        .back{color:var(--primary-dark);font-size:12px;font-weight:700;text-decoration:none}
+        .back:hover{text-decoration:underline}
+        main{width:min(100% - 32px,920px);margin:38px auto 70px}
+        .eyebrow{color:var(--primary-dark);font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+        h1{margin:8px 0 8px;font-size:30px;letter-spacing:-1px}
+        .intro{max-width:700px;margin:0;color:var(--muted);font-size:13px;line-height:1.7}
+        .panel{margin-top:22px;padding:22px;border:1px solid var(--border);border-radius:18px;background:var(--surface);box-shadow:var(--shadow)}
+        .panel h2{margin:0 0 6px;font-size:16px;letter-spacing:-.25px}
+        .panel-copy{margin:0 0 16px;color:var(--muted);font-size:11px;line-height:1.6}
+        .upload-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+        input[type=file]{min-width:240px;flex:1;padding:11px;border:1px solid var(--border);border-radius:11px;background:#fff;color:var(--text);font:inherit;font-size:12px}
+        .primary-btn{min-height:42px;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 16px;border:0;border-radius:11px;background:linear-gradient(135deg,#635bff,#3b82f6);color:#fff;font:inherit;font-size:12px;font-weight:800;cursor:pointer;box-shadow:0 8px 18px rgba(99,91,255,.18)}
+        .primary-btn:hover{filter:brightness(.98);transform:translateY(-1px)}
+        .help{margin:12px 0 0;color:#64748b;font-size:10px;line-height:1.65}
+        .notice{margin-top:14px;padding:11px 13px;border-radius:10px;font-size:11px;line-height:1.55}
+        .notice.success{background:#ecfdf3;border:1px solid #bbf7d0;color:#166534}
+        .notice.error{background:#fff1f2;border:1px solid #fecdd3;color:#9f1239}
+        .docs-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+        .docs-head h2{margin:0}
+        .count{display:inline-flex;padding:6px 9px;border-radius:999px;background:var(--soft);color:var(--primary-dark);font-size:10px;font-weight:800}
+        .doc-list{display:grid;gap:10px}
+        .doc{display:flex;align-items:center;gap:13px;padding:13px;border:1px solid var(--border);border-radius:13px;background:#fff}
+        .doc-icon{width:40px;height:40px;flex:0 0 40px;display:grid;place-items:center;border-radius:11px;background:var(--soft);color:var(--primary-dark)}
+        .doc-info{min-width:0;flex:1}
+        .doc-info strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}
+        .doc-info span{display:block;margin-top:4px;color:var(--muted);font-size:10px}
+        .delete-form{margin:0}
+        .delete-btn{min-height:36px;padding:0 10px;border:1px solid #fecaca;border-radius:9px;background:#fff;color:var(--danger);font:inherit;font-size:10px;font-weight:700;cursor:pointer}
+        .delete-btn:hover{background:#fff1f2}
+        .empty{padding:30px 14px;text-align:center;border:1px dashed #cbd5e1;border-radius:13px;color:var(--muted);font-size:11px;line-height:1.7}
+        .empty i{display:block;margin-bottom:9px;color:#8b85ff;font-size:22px}
+        .privacy{display:flex;align-items:flex-start;gap:9px;margin-top:18px;padding:12px 14px;border-radius:12px;background:#f8fafc;color:#64748b;font-size:10px;line-height:1.6}
+        .privacy i{margin-top:2px;color:#635bff}
+        html[data-cc-theme="dark"]{--bg:#0b1120;--surface:#111827;--text:#f8fafc;--muted:#94a3b8;--border:#263247;--soft:#252344;--primary-dark:#c7d2fe;--shadow:0 16px 44px rgba(0,0,0,.24)}
+        html[data-cc-theme="dark"] input[type=file],html[data-cc-theme="dark"] .doc,html[data-cc-theme="dark"] .delete-btn{background:#0f172a;color:var(--text)}
+        html[data-cc-theme="dark"] .privacy{background:#172033;color:var(--muted)}
+        html[data-cc-theme="dark"] .notice.success{background:#10251c;border-color:#14532d;color:#bbf7d0}
+        html[data-cc-theme="dark"] .notice.error{background:#2a1720;border-color:#7f1d1d;color:#fecdd3}
+        html[data-cc-theme="dark"] .delete-btn{border-color:#7f1d1d;color:#fca5a5}
+        @media(max-width:600px){.topbar{height:62px;padding:0 16px}.brand{font-size:13px}.topbar .back{font-size:11px}main{width:calc(100% - 24px);margin-top:26px}h1{font-size:25px}.panel{padding:17px}.upload-row{align-items:stretch;flex-direction:column}input[type=file],.primary-btn{width:100%}.doc{align-items:flex-start}.doc-info strong{white-space:normal;overflow-wrap:anywhere}.delete-btn{white-space:nowrap}}
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-mark"><i class="fas fa-brain" aria-hidden="true"></i></span>CareerCraft AI</a>
+        <a class="back" href="{{ url_for('ai_career_coach') }}"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Career Coach</a>
+    </header>
+
+    <main>
+        <div class="eyebrow">Day 31 · RAG Knowledge System</div>
+        <h1>Your Knowledge Library</h1>
+        <p class="intro">Add career guides, course notes, or other reference documents. The Career Coach can search the text and use relevant passages to ground its answers.</p>
+
+        {% if added %}<div class="notice success" role="status"><i class="fas fa-circle-check" aria-hidden="true"></i> Document added and indexed. Ask the Career Coach a question about it.</div>{% endif %}
+        {% if request.args.get('deleted') == '1' %}<div class="notice success" role="status"><i class="fas fa-circle-check" aria-hidden="true"></i> Document removed from your library.</div>{% endif %}
+        {% if error_message %}<div class="notice error" role="alert">{{ error_message }}</div>{% endif %}
+
+        <section class="panel" aria-labelledby="uploadHeading">
+            <h2 id="uploadHeading">Add a reference document</h2>
+            <p class="panel-copy">Supported formats: PDF, TXT, and Markdown. Scanned-image PDFs are not supported yet.</p>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_csrf_token" value="{{ auth_csrf_token }}">
+                <div class="upload-row">
+                    <input type="file" name="document" accept=".pdf,.txt,.md,application/pdf,text/plain,text/markdown" required aria-label="Choose a PDF, text, or Markdown document">
+                    <button type="submit" class="primary-btn"><i class="fas fa-cloud-arrow-up" aria-hidden="true"></i> Add document</button>
+                </div>
+            </form>
+            <p class="help">Maximum file size: {{ max_upload_mb }} MB. You can add up to 25 documents. The original file is not kept; extracted text and local search vectors are stored in your app database.</p>
+        </section>
+
+        <section class="panel" aria-labelledby="documentsHeading">
+            <div class="docs-head">
+                <h2 id="documentsHeading">Your documents</h2>
+                <span class="count">{{ documents|length }} / 25</span>
+            </div>
+            {% if documents %}
+                <div class="doc-list">
+                    {% for document in documents %}
+                        <article class="doc">
+                            <span class="doc-icon" aria-hidden="true"><i class="{% if document.file_type == 'pdf' %}fas fa-file-pdf{% else %}fas fa-file-lines{% endif %}"></i></span>
+                            <div class="doc-info">
+                                <strong title="{{ document.filename }}">{{ document.filename }}</strong>
+                                <span>{{ document.file_type|upper }} · {{ document.chunk_count }} searchable sections · {{ "%.1f"|format(document.file_size / 1024) }} KB</span>
+                            </div>
+                            <form class="delete-form" method="POST" action="{{ url_for('delete_knowledge_document', document_id=document.id) }}" onsubmit="return confirm('Remove this document and its indexed text?')">
+                                <input type="hidden" name="_csrf_token" value="{{ auth_csrf_token }}">
+                                <button type="submit" class="delete-btn"><i class="fas fa-trash" aria-hidden="true"></i> Remove</button>
+                            </form>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty"><i class="fas fa-book-open" aria-hidden="true"></i>Your library is empty. Add a document above, then ask the Career Coach a related question.</div>
+            {% endif %}
+            <div class="privacy"><i class="fas fa-lock" aria-hidden="true"></i><span>Documents and search records are scoped to your account. The Coach only retrieves passages from your own library.</span></div>
+        </section>
+    </main>
+</body>
+</html>

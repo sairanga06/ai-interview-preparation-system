@@ -1,6 +1,8 @@
 Flask
 python-dotenv
 groq
-google-generativeai
 reportlab
 gunicorn
+psycopg[binary]
+psycopg-pool
+pypdf

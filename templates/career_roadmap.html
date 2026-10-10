@@ -79,7 +79,7 @@
         .stage-score { margin-top: 16px; }
         .stage-score-top { display: flex; justify-content: space-between; gap: 10px; color: #64748b; font-size: 10px; font-weight: 700; margin-bottom: 7px; }
         .track { height: 8px; border-radius: 999px; background: #e8eaf0; overflow: hidden; }
-        .fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #635bff, #3b82f6); }
+        .fill { width: var(--progress-width, 0%); height: 100%; border-radius: inherit; background: linear-gradient(90deg, #635bff, #3b82f6); }
         .stage.complete .fill { background: linear-gradient(90deg, #16a34a, #22c55e); }
         .stage.progress .fill { background: linear-gradient(90deg, #f59e0b, #fb923c); }
         .breakdown { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-top: 14px; }
@@ -146,6 +146,41 @@
         @media (max-width: 480px) {
             .hero h1 { font-size: 27px; }
             .cc-back { font-size: 12px; }
+        }
+        .agent-card { margin-top: 22px; }
+        .agent-copy { margin: -8px 0 16px; color: #64748b; font-size: 12px; line-height: 1.7; }
+        .agent-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .agent-toolbar .btn { cursor: pointer; font-family: inherit; }
+        .agent-toolbar .btn:focus-visible { outline: 3px solid #a5b4fc; outline-offset: 3px; }
+        .agent-toolbar .btn:disabled { cursor: wait; opacity: .7; }
+        .agent-status { color: #64748b; font-size: 11px; line-height: 1.6; }
+        .agent-result { margin-top: 20px; }
+        .agent-result[hidden] { display: none; }
+        .agent-notice { margin: 0 0 16px; padding: 11px 13px; border-radius: 11px; background: #f1f5f9; color: #475569; font-size: 11px; line-height: 1.6; }
+        .agent-overview { margin: 0 0 20px; color: #475569; font-size: 13px; line-height: 1.8; }
+        .agent-section-title { margin: 20px 0 10px; font: 700 15px Poppins; color: #111827; }
+        .agent-focus-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+        .agent-focus-empty { grid-column: 1 / -1; margin: 0; }
+        .agent-focus, .agent-week { min-width: 0; padding: 15px; border: 1px solid #e8ebf2; border-radius: 13px; background: #fbfcff; }
+        .agent-focus h4, .agent-week h4 { margin: 0 0 7px; color: #111827; font: 700 13px Poppins; }
+        .agent-focus p, .agent-task p { margin: 0 0 9px; color: #64748b; font-size: 11px; line-height: 1.65; }
+        .agent-link { color: #5146d8; font-size: 11px; font-weight: 800; text-decoration: none; }
+        .agent-link:hover { text-decoration: underline; }
+        .agent-weeks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+        .agent-week-label { display: block; margin-bottom: 7px; color: #635bff; font-size: 9px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; }
+        .agent-task { padding-top: 11px; margin-top: 11px; border-top: 1px solid #e8ebf2; }
+        .agent-task strong { display: block; margin-bottom: 5px; color: #334155; font-size: 11px; }
+        .agent-success { margin: 15px 0 0; padding: 13px; border-left: 3px solid #635bff; border-radius: 0 10px 10px 0; background: #f8f7ff; color: #475569; font-size: 11px; line-height: 1.7; }
+        html[data-cc-theme="dark"] .agent-copy, html[data-cc-theme="dark"] .agent-status,
+        html[data-cc-theme="dark"] .agent-overview, html[data-cc-theme="dark"] .agent-focus p,
+        html[data-cc-theme="dark"] .agent-task p, html[data-cc-theme="dark"] .agent-success { color: #cbd5e1; }
+        html[data-cc-theme="dark"] .agent-notice, html[data-cc-theme="dark"] .agent-focus,
+        html[data-cc-theme="dark"] .agent-week, html[data-cc-theme="dark"] .agent-success { background: #172033; border-color: #2b3950; }
+        html[data-cc-theme="dark"] .agent-section-title, html[data-cc-theme="dark"] .agent-focus h4,
+        html[data-cc-theme="dark"] .agent-week h4, html[data-cc-theme="dark"] .agent-task strong { color: #f8fafc; }
+        html[data-cc-theme="dark"] .agent-task { border-color: #2b3950; }
+        @media (max-width: 760px) {
+            .agent-focus-grid, .agent-weeks { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -214,6 +249,7 @@
                 </div>
                 <div class="actions">
                     <a class="btn primary" href="/edit_profile"><i class="fas fa-user-pen"></i> Update Profile</a>
+                    <a class="btn" href="/projects"><i class="fas fa-diagram-project"></i> Projects Workspace</a>
                     <a class="btn" href="/learning"><i class="fas fa-book-open"></i> Open Learning</a>
                 </div>
             </div>
@@ -241,7 +277,7 @@
 
                     <div class="stage-score">
                         <div class="stage-score-top"><span>Stage Progress</span><strong>{{ stage.score }}%</strong></div>
-                        <div class="track"><div class="fill" style="width: {{ stage.score }}%;"></div></div>
+                        <div class="track"><div class="fill" data-progress="{{ stage.score }}"></div></div>
                     </div>
 
                     <div class="breakdown">
@@ -318,6 +354,24 @@
             </div>
         </section>
 
+        <section class="card agent-card" aria-labelledby="career-agent-title">
+            <div class="card-head">
+                <div>
+                    <h2 id="career-agent-title">AI Career Agent</h2>
+                    <p>Turn your current skill gaps into a clear, personalized action plan.</p>
+                </div>
+                <div class="icon" aria-hidden="true"><i class="fas fa-wand-magic-sparkles"></i></div>
+            </div>
+            <p class="agent-copy">When AI is available, your saved role, goals, skills, project summary and Roadmap progress are used to personalize the plan. Regenerate it after updating your Career Profile.</p>
+            <div class="agent-toolbar">
+                <button class="btn primary" id="career-agent-generate" type="button">
+                    <i class="fas fa-list-check" aria-hidden="true"></i> Build my action plan
+                </button>
+                <span class="agent-status" id="career-agent-status" role="status" aria-live="polite">Ready when you are.</span>
+            </div>
+            <div class="agent-result" id="career-agent-result" hidden></div>
+        </section>
+
         <footer>
             <h3>🧠 CareerCraft AI</h3>
             <p>Learn • Practice • Build • Interview • Get Hired</p>
@@ -325,5 +379,120 @@
         </footer>
     </main>
 </div>
+<script type="application/json" id="career-agent-config">
+    {{ {
+        "endpoint": url_for('career_agent_plan'),
+        "csrfToken": auth_csrf_token
+    }|tojson }}
+</script>
+<script>
+    document.querySelectorAll('.fill[data-progress]').forEach(function (fill) {
+        var score = Number(fill.dataset.progress);
+        fill.style.setProperty('--progress-width', (Number.isFinite(score) ? Math.max(0, Math.min(100, score)) : 0) + '%');
+    });
+
+    (function () {
+        const button = document.getElementById('career-agent-generate');
+        const status = document.getElementById('career-agent-status');
+        const result = document.getElementById('career-agent-result');
+        if (!button || !status || !result) return;
+
+        const configScript = document.getElementById('career-agent-config');
+        const config = configScript ? JSON.parse(configScript.textContent || '{}') : {};
+        const endpoint = config.endpoint || '/';
+        const csrfToken = config.csrfToken || '';
+
+        function element(tag, className, text) {
+            const node = document.createElement(tag);
+            if (className) node.className = className;
+            if (text) node.textContent = text;
+            return node;
+        }
+
+        function addResource(parent, resource) {
+            if (!resource || typeof resource.href !== 'string' || !resource.href.startsWith('/')) return;
+            const link = element('a', 'agent-link', resource.label || 'Open resource');
+            link.href = resource.href;
+            parent.appendChild(link);
+        }
+
+        function renderPlan(data) {
+            const plan = data.plan;
+            result.replaceChildren();
+            result.hidden = false;
+
+            result.appendChild(element('p', 'agent-notice', data.notice || 'Plan generated from your current career profile.'));
+            result.appendChild(element('p', 'agent-overview', plan.overview || 'Your personalized plan is ready.'));
+
+            result.appendChild(element('h3', 'agent-section-title', 'Priority skill gaps'));
+            const focusGrid = element('div', 'agent-focus-grid');
+            const focusSkills = Array.isArray(plan.focus_skills) ? plan.focus_skills : [];
+            if (!focusSkills.length) {
+                focusGrid.appendChild(element('p', 'agent-overview agent-focus-empty', 'No unaddressed skill gaps are mapped in your next roadmap stages. Focus on practical project evidence and interview readiness.'));
+            }
+            focusSkills.forEach(function (item) {
+                const card = element('article', 'agent-focus');
+                card.appendChild(element('h4', '', item.skill || 'Skill to strengthen'));
+                card.appendChild(element('p', '', item.reason || 'This skill is part of your current Roadmap.'));
+                card.appendChild(element('p', '', item.next_step || 'Start with a short lesson and practice task.'));
+                addResource(card, item.resource);
+                focusGrid.appendChild(card);
+            });
+            result.appendChild(focusGrid);
+
+            result.appendChild(element('h3', 'agent-section-title', 'Your action plan'));
+            const weeks = element('div', 'agent-weeks');
+            (Array.isArray(plan.weeks) ? plan.weeks : []).forEach(function (week, index) {
+                const card = element('article', 'agent-week');
+                card.appendChild(element('span', 'agent-week-label', 'Week ' + (week.week || index + 1)));
+                card.appendChild(element('h4', '', week.focus || 'Career progress'));
+                (Array.isArray(week.tasks) ? week.tasks : []).forEach(function (task) {
+                    const taskNode = element('div', 'agent-task');
+                    taskNode.appendChild(element('strong', '', task.title || 'Next step'));
+                    taskNode.appendChild(element('p', '', task.detail || 'Complete this step and record your progress.'));
+                    addResource(taskNode, task.resource);
+                    card.appendChild(taskNode);
+                });
+                weeks.appendChild(card);
+            });
+            result.appendChild(weeks);
+            result.appendChild(element('p', 'agent-success', 'Progress check: ' + (plan.success_check || 'Review your profile and Roadmap after completing these steps.')));
+        }
+
+        button.addEventListener('click', async function () {
+            button.disabled = true;
+            button.setAttribute('aria-busy', 'true');
+            status.textContent = 'Reading your saved profile and building the plan…';
+            result.hidden = true;
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-Token': csrfToken
+                    }
+                });
+                let data;
+                try {
+                    data = await response.json();
+                } catch (parseError) {
+                    throw new Error('The response expired or was invalid. Refresh the Roadmap and try again.');
+                }
+                if (!response.ok || !data.success || !data.plan) {
+                    throw new Error(data.message || 'The Career Agent could not build a plan.');
+                }
+                renderPlan(data);
+                status.textContent = data.mode === 'ai' ? 'Personalized AI plan ready.' : 'Roadmap-based starter plan ready.';
+            } catch (error) {
+                status.textContent = error.message || 'Could not build the plan. Please try again.';
+            } finally {
+                button.disabled = false;
+                button.removeAttribute('aria-busy');
+            }
+        });
+    })();
+</script>
 </body>
 </html>

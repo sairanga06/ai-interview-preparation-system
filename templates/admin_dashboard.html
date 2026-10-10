@@ -173,7 +173,7 @@
     const labels = Array.isArray(data.activity_labels) ? data.activity_labels : [];
     const values = Array.isArray(data.activity_values) ? data.activity_values : [];
     const bands = Array.isArray(data.score_distribution) ? data.score_distribution : [];
-    const stored = localStorage.getItem('careercraft-admin-theme');
+    const stored = localStorage.getItem('careercraft-theme') || localStorage.getItem('careercraft-admin-theme');
     const html = document.documentElement;
     const toggle = document.getElementById('themeToggle');
 
@@ -183,6 +183,8 @@
 
     function applyTheme(theme){
         html.setAttribute('data-admin-theme', theme);
+        html.setAttribute('data-cc-theme', theme);
+        localStorage.setItem('careercraft-theme', theme);
         localStorage.setItem('careercraft-admin-theme', theme);
         if(toggle){toggle.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';}
     }

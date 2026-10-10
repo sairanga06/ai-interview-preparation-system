@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications & Activity | CareerCraft AI</title>
+  <style>
+    :root {
+      --cc-bg:#f6f8fc;
+      --cc-surface:#ffffff;
+      --cc-surface-2:#f8f9ff;
+      --cc-text:#111827;
+      --cc-text-2:#334155;
+      --cc-muted:#64748b;
+      --cc-border:#e5e7eb;
+      --cc-primary:#635bff;
+      --cc-primary-2:#3b82f6;
+      --cc-success:#0f9f6e;
+      --cc-danger:#e11d48;
+      --cc-warning:#b45309;
+      --cc-shadow:0 18px 48px rgba(15,23,42,.08);
+    }
+
+    html[data-cc-theme="dark"] {
+      --cc-bg:#0b1120;
+      --cc-surface:#111827;
+      --cc-surface-2:#172033;
+      --cc-text:#f8fafc;
+      --cc-text-2:#e2e8f0;
+      --cc-muted:#94a3b8;
+      --cc-border:#263247;
+      --cc-primary:#818cf8;
+      --cc-primary-2:#60a5fa;
+      --cc-shadow:0 22px 54px rgba(0,0,0,.28);
+    }
+
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      min-height:100vh;
+      background:var(--cc-bg);
+      color:var(--cc-text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    a { color:inherit; }
+
+    .day27-shell {
+      max-width:1220px;
+      margin:0 auto;
+      padding:34px 24px 100px;
+    }
+
+    .day27-hero {
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:24px;
+      margin-bottom:24px;
+    }
+    .day27-eyebrow {
+      margin:0 0 8px;
+      color:var(--cc-primary);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .day27-hero h1 {
+      margin:0;
+      font-size:34px;
+      line-height:1.05;
+      letter-spacing:-.04em;
+    }
+    .day27-hero p {
+      margin:10px 0 0;
+      max-width:700px;
+      color:var(--cc-muted);
+      font-size:14px;
+      line-height:1.65;
+    }
+    .day27-actions {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .day27-btn {
+      min-height:42px;
+      border:1px solid var(--cc-border);
+      border-radius:12px;
+      padding:0 15px;
+      background:var(--cc-surface);
+      color:var(--cc-text-2);
+      font-size:12px;
+      font-weight:850;
+      cursor:pointer;
+      box-shadow:0 7px 20px rgba(15,23,42,.04);
+    }
+    .day27-btn:hover { border-color:#cbd5e1; transform:translateY(-1px); }
+    .day27-btn.primary {
+      background:var(--cc-primary);
+      border-color:var(--cc-primary);
+      color:#fff;
+    }
+    .day27-btn:disabled { opacity:.55; cursor:not-allowed; transform:none; }
+
+    .day27-stats {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-bottom:22px;
+    }
+    .day27-stat {
+      background:var(--cc-surface);
+      border:1px solid var(--cc-border);
+      border-radius:18px;
+      padding:16px 18px;
+      box-shadow:var(--cc-shadow);
+    }
+    .day27-stat-label {
+      color:var(--cc-muted);
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .day27-stat-value {
+      margin-top:6px;
+      font-size:25px;
+      font-weight:900;
+      letter-spacing:-.03em;
+    }
+
+    .day27-grid {
+      display:grid;
+      grid-template-columns:minmax(0,1.45fr) minmax(300px,.75fr);
+      gap:18px;
+      align-items:start;
+    }
+
+    .day27-card {
+      background:var(--cc-surface);
+      border:1px solid var(--cc-border);
+      border-radius:22px;
+      box-shadow:var(--cc-shadow);
+      overflow:hidden;
+    }
+    .day27-card-head {
+      padding:18px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      border-bottom:1px solid var(--cc-border);
+    }
+    .day27-card-head h2 {
+      margin:0;
+      font-size:15px;
+      font-weight:900;
+      letter-spacing:-.02em;
+    }
+    .day27-card-head p {
+      margin:4px 0 0;
+      color:var(--cc-muted);
+      font-size:11px;
+    }
+    .day27-filterbar {
+      display:flex;
+      gap:7px;
+      flex-wrap:wrap;
+    }
+    .day27-filter {
+      border:1px solid var(--cc-border);
+      background:var(--cc-surface-2);
+      color:var(--cc-muted);
+      border-radius:999px;
+      min-height:31px;
+      padding:0 10px;
+      font-size:10px;
+      font-weight:900;
+      cursor:pointer;
+    }
+    .day27-filter.active {
+      background:rgba(99,91,255,.11);
+      border-color:rgba(99,91,255,.28);
+      color:var(--cc-primary);
+    }
+
+    .day27-list { padding:6px 0; }
+    .day27-empty {
+      padding:42px 24px 48px;
+      text-align:center;
+      color:var(--cc-muted);
+    }
+    .day27-empty-icon {
+      width:52px;
+      height:52px;
+      margin:0 auto 12px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--cc-surface-2);
+      font-size:22px;
+    }
+    .day27-empty strong { display:block; color:var(--cc-text); font-size:13px; }
+    .day27-empty p { margin:7px auto 0; max-width:420px; font-size:11px; line-height:1.6; }
+
+    .day27-item {
+      display:grid;
+      grid-template-columns:40px minmax(0,1fr) auto;
+      gap:12px;
+      padding:15px 18px;
+      border-bottom:1px solid var(--cc-border);
+      transition:background .15s ease;
+    }
+    .day27-item:last-child { border-bottom:0; }
+    .day27-item.unread { background:rgba(99,91,255,.035); }
+    .day27-item:hover { background:var(--cc-surface-2); }
+    .day27-item[hidden] { display:none; }
+    .day27-item-icon {
+      width:40px;
+      height:40px;
+      border-radius:13px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:var(--cc-surface-2);
+      border:1px solid var(--cc-border);
+      font-size:17px;
+    }
+    .day27-item-main { min-width:0; }
+    .day27-item-title {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-width:0;
+      font-size:12px;
+      font-weight:900;
+    }
+    .day27-item-title span:first-child {
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .day27-dot {
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      flex:0 0 7px;
+      background:#ef4444;
+    }
+    .day27-item-message {
+      margin:5px 0 0;
+      color:var(--cc-muted);
+      font-size:11px;
+      line-height:1.55;
+    }
+    .day27-item-meta {
+      margin-top:6px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      color:#94a3b8;
+      font-size:9px;
+      font-weight:800;
+    }
+    .day27-item-link {
+      color:var(--cc-primary);
+      font-size:9px;
+      font-weight:900;
+      text-decoration:none;
+    }
+    .day27-item-link:hover { text-decoration:underline; }
+    .day27-item-actions {
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-content:flex-start;
+    }
+    .day27-read-btn {
+      border:1px solid var(--cc-border);
+      background:var(--cc-surface);
+      color:var(--cc-muted);
+      min-height:30px;
+      border-radius:9px;
+      padding:0 9px;
+      font-size:9px;
+      font-weight:850;
+      cursor:pointer;
+    }
+    .day27-read-btn:hover { color:var(--cc-primary); border-color:rgba(99,91,255,.35); }
+
+    .day27-activity .day27-item { grid-template-columns:40px minmax(0,1fr); }
+    .day27-activity .day27-item-message { margin-top:4px; }
+    .day27-activity .day27-item-link { display:inline-block; margin-top:5px; }
+
+    .day27-note {
+      margin:16px 20px 20px;
+      padding:11px 13px;
+      border:1px solid rgba(99,91,255,.18);
+      background:rgba(99,91,255,.06);
+      color:var(--cc-text-2);
+      border-radius:13px;
+      font-size:10px;
+      line-height:1.6;
+    }
+
+    html[data-cc-theme="dark"] .day27-btn:hover { border-color:#3d4b63; }
+    html[data-cc-theme="dark"] .day27-item.unread { background:rgba(129,140,248,.07); }
+
+    @media (max-width:980px) {
+      .day27-grid { grid-template-columns:1fr; }
+      .day27-hero { align-items:flex-start; flex-direction:column; }
+      .day27-actions { justify-content:flex-start; }
+    }
+    @media (max-width:680px) {
+      .day27-shell { padding:22px 14px 92px; }
+      .day27-hero h1 { font-size:28px; }
+      .day27-stats { grid-template-columns:1fr; }
+      .day27-card-head { align-items:flex-start; flex-direction:column; }
+      .day27-item { grid-template-columns:36px minmax(0,1fr); padding:14px; }
+      .day27-item-icon { width:36px; height:36px; }
+      .day27-item-actions { grid-column:2; justify-content:flex-start; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .day27-btn,.day27-item { transition:none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="day27-shell">
+    <section class="day27-hero">
+      <div>
+        <p class="day27-eyebrow">CareerCraft AI · Day 27</p>
+        <h1>Notifications & Activity</h1>
+        <p>Stay on top of meaningful progress across interviews, coding, learning, projects, your profile, and resume work.</p>
+      </div>
+      <div class="day27-actions">
+        <button class="day27-btn" id="day27-refresh" type="button">Refresh</button>
+        <button class="day27-btn primary" id="day27-mark-all" type="button" {% if not unread_count %}disabled{% endif %}>Mark all as read</button>
+      </div>
+    </section>
+
+    <section class="day27-stats" aria-label="Notification summary">
+      <article class="day27-stat">
+        <div class="day27-stat-label">Unread</div>
+        <div class="day27-stat-value" id="day27-unread-count">{{ unread_count }}</div>
+      </article>
+      <article class="day27-stat">
+        <div class="day27-stat-label">Notifications</div>
+        <div class="day27-stat-value">{{ notifications|length }}</div>
+      </article>
+      <article class="day27-stat">
+        <div class="day27-stat-label">Recent activity</div>
+        <div class="day27-stat-value">{{ activities|length }}</div>
+      </article>
+    </section>
+
+    <section class="day27-grid">
+      <article class="day27-card">
+        <header class="day27-card-head">
+          <div>
+            <h2>Notification center</h2>
+            <p>Unread items stay highlighted until you mark them as read.</p>
+          </div>
+          <div class="day27-filterbar" role="tablist" aria-label="Notification filter">
+            <button class="day27-filter active" type="button" data-filter="all">All</button>
+            <button class="day27-filter" type="button" data-filter="unread">Unread</button>
+          </div>
+        </header>
+
+        <div class="day27-list" id="day27-notification-list">
+          {% for item in notifications %}
+            {% set icon = {
+              'project_added':'📁',
+              'project_updated':'🛠️',
+              'project_analyzed':'🧠',
+              'project_added_to_resume':'📄',
+              'project_deleted':'🗑️',
+              'interview_completed':'🎤',
+              'coding_submission':'💻',
+              'learning_completed':'📘',
+              'learning_progress':'📈',
+              'profile_updated':'👤',
+              'resume_updated':'📄'
+            }.get(item.event_type, '🔔') %}
+            <article class="day27-item{% if not item.read_at %} unread{% endif %}" data-notification data-unread="{{ 1 if not item.read_at else 0 }}" data-notification-id="{{ item.id }}">
+              <div class="day27-item-icon" aria-hidden="true">{{ icon }}</div>
+              <div class="day27-item-main">
+                <div class="day27-item-title">
+                  <span>{{ item.title }}</span>
+                  {% if not item.read_at %}<span class="day27-dot" aria-label="Unread"></span>{% endif %}
+                </div>
+                <p class="day27-item-message">{{ item.message }}</p>
+                <div class="day27-item-meta">
+                  <time data-time="{{ item.created_at }}">{{ item.created_at }}</time>
+                  {% if item.action_url %}
+                    <a class="day27-item-link" href="{{ item.action_url }}" data-notification-link="{{ item.id }}">Open</a>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="day27-item-actions">
+                {% if not item.read_at %}
+                  <button class="day27-read-btn" type="button" data-mark-read="{{ item.id }}">Mark read</button>
+                {% endif %}
+              </div>
+            </article>
+          {% else %}
+            <div class="day27-empty">
+              <div class="day27-empty-icon">✨</div>
+              <strong>You're all caught up.</strong>
+              <p>Meaningful updates from your CareerCraft workspace will appear here as you make progress.</p>
+            </div>
+          {% endfor %}
+        </div>
+      </article>
+
+      <aside class="day27-card day27-activity">
+        <header class="day27-card-head">
+          <div>
+            <h2>Recent activity</h2>
+            <p>A timeline of your latest workspace actions.</p>
+          </div>
+        </header>
+
+        <div class="day27-list">
+          {% for item in activities %}
+            {% set icon = {
+              'project_added':'📁',
+              'project_updated':'🛠️',
+              'project_analyzed':'🧠',
+              'project_added_to_resume':'📄',
+              'project_deleted':'🗑️',
+              'interview_completed':'🎤',
+              'coding_submission':'💻',
+              'learning_completed':'📘',
+              'learning_progress':'📈',
+              'profile_updated':'👤',
+              'resume_updated':'📄'
+            }.get(item.event_type, '•') %}
+            <article class="day27-item">
+              <div class="day27-item-icon" aria-hidden="true">{{ icon }}</div>
+              <div class="day27-item-main">
+                <div class="day27-item-title"><span>{{ item.title }}</span></div>
+                <p class="day27-item-message">{{ item.description }}</p>
+                <div class="day27-item-meta">
+                  <time data-time="{{ item.created_at }}">{{ item.created_at }}</time>
+                </div>
+                {% if item.action_url %}
+                  <a class="day27-item-link" href="{{ item.action_url }}">Open related page</a>
+                {% endif %}
+              </div>
+            </article>
+          {% else %}
+            <div class="day27-empty">
+              <div class="day27-empty-icon">🕘</div>
+              <strong>Your activity timeline will build here.</strong>
+              <p>Use CareerCraft normally and this panel will collect meaningful actions across the platform.</p>
+            </div>
+          {% endfor %}
+        </div>
+      </aside>
+    </section>
+
+    <div class="day27-note">
+      Notifications are stored per account. Reading or dismissing a notification only changes its read state; it does not delete the underlying activity record.
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      const unreadCount=document.getElementById('day27-unread-count');
+      const markAll=document.getElementById('day27-mark-all');
+      const refresh=document.getElementById('day27-refresh');
+      const filters=[...document.querySelectorAll('[data-filter]')];
+      const items=[...document.querySelectorAll('[data-notification]')];
+
+      function syncCount(count){
+        const value=Math.max(0,Number(count||0));
+        unreadCount.textContent=String(value);
+        markAll.disabled=value===0;
+        if(window.CareerCraftNotifications && typeof window.CareerCraftNotifications.refreshBadge==='function'){
+          window.CareerCraftNotifications.refreshBadge();
+        }
+      }
+
+      async function markRead(id, shouldNavigate){
+        try{
+          const response=await fetch('/api/notifications/'+encodeURIComponent(id)+'/read',{
+            method:'POST',
+            headers:{'Accept':'application/json'},
+            credentials:'same-origin'
+          });
+          if(!response.ok) throw new Error('Unable to update notification.');
+          const data=await response.json();
+          const row=document.querySelector('[data-notification-id="'+CSS.escape(String(id))+'"]');
+          if(row){
+            row.classList.remove('unread');
+            row.dataset.unread='0';
+            const dot=row.querySelector('.day27-dot');
+            if(dot) dot.remove();
+            const button=row.querySelector('[data-mark-read]');
+            if(button) button.remove();
+          }
+          syncCount(data.unread_count);
+          if(shouldNavigate) window.location.href=shouldNavigate;
+        }catch(error){
+          window.alert(error.message||'Unable to update the notification.');
+        }
+      }
+
+      document.querySelectorAll('[data-mark-read]').forEach(button=>{
+        button.addEventListener('click',function(){ markRead(this.dataset.markRead,false); });
+      });
+
+      document.querySelectorAll('[data-notification-link]').forEach(link=>{
+        link.addEventListener('click',function(event){
+          const row=this.closest('[data-notification-id]');
+          if(!row || row.dataset.unread!=='1') return;
+          event.preventDefault();
+          const url=this.href;
+          markRead(this.dataset.notificationLink,url);
+        });
+      });
+
+      markAll.addEventListener('click',async function(){
+        if(this.disabled) return;
+        this.disabled=true;
+        try{
+          const response=await fetch('/api/notifications/mark-all-read',{
+            method:'POST',
+            headers:{'Accept':'application/json'},
+            credentials:'same-origin'
+          });
+          if(!response.ok) throw new Error('Unable to mark notifications as read.');
+          const data=await response.json();
+          items.forEach(row=>{
+            row.classList.remove('unread');
+            row.dataset.unread='0';
+            row.querySelector('.day27-dot')?.remove();
+            row.querySelector('[data-mark-read]')?.remove();
+          });
+          syncCount(data.unread_count);
+        }catch(error){
+          this.disabled=false;
+          window.alert(error.message||'Unable to mark notifications as read.');
+        }
+      });
+
+      filters.forEach(button=>{
+        button.addEventListener('click',function(){
+          filters.forEach(item=>item.classList.remove('active'));
+          this.classList.add('active');
+          const mode=this.dataset.filter;
+          items.forEach(row=>{
+            row.hidden=mode==='unread' && row.dataset.unread!=='1';
+          });
+        });
+      });
+
+      refresh.addEventListener('click',function(){ window.location.reload(); });
+
+      function relativeTime(raw){
+        if(!raw) return '';
+        const value=String(raw).trim().replace(' ','T')+'Z';
+        const date=new Date(value);
+        if(Number.isNaN(date.getTime())) return raw;
+        const diff=Math.max(0,Date.now()-date.getTime());
+        const minutes=Math.floor(diff/60000);
+        if(minutes<1) return 'Just now';
+        if(minutes<60) return minutes+'m ago';
+        const hours=Math.floor(minutes/60);
+        if(hours<24) return hours+'h ago';
+        const days=Math.floor(hours/24);
+        if(days<7) return days+'d ago';
+        return date.toLocaleDateString(undefined,{day:'2-digit',month:'short',year:'numeric'});
+      }
+
+      document.querySelectorAll('time[data-time]').forEach(time=>{
+        time.textContent=relativeTime(time.dataset.time);
+        time.title=time.dataset.time;
+      });
+    })();
+  </script>
+</body>
+</html>

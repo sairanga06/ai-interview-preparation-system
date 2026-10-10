@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects Workspace | CareerCraft AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        :root {
+            --bg: #f6f8fc;
+            --surface: #ffffff;
+            --surface-2: #f8fafc;
+            --text: #111827;
+            --muted: #64748b;
+            --muted-2: #94a3b8;
+            --border: #e5e7eb;
+            --border-soft: #edf0f5;
+            --primary: #635bff;
+            --primary-2: #3b82f6;
+            --success: #16a34a;
+            --warning: #d97706;
+            --danger: #dc2626;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Inter, sans-serif;
+        }
+
+        a { color: inherit; }
+
+        .page {
+            min-height: 100vh;
+        }
+
+        .topbar {
+            min-height: 80px;
+            padding: 0 5.5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: rgba(255,255,255,.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            font: 800 21px Poppins, sans-serif;
+            white-space: nowrap;
+        }
+
+        .brand-icon {
+            width: 43px;
+            height: 43px;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(145deg, #6d63ff, #4b8dff);
+            color: #fff;
+            box-shadow: 0 10px 22px rgba(99,91,255,.18);
+        }
+
+        .top-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 9px;
+        }
+
+        .top-link,
+        .primary-btn,
+        .secondary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 40px;
+            padding: 9px 13px;
+            border-radius: 11px;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 800;
+            border: 1px solid var(--border);
+            transition: .2s ease;
+            cursor: pointer;
+        }
+
+        .top-link,
+        .secondary-btn {
+            background: var(--surface);
+            color: #475569;
+        }
+
+        .primary-btn {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(99,91,255,.18);
+        }
+
+        .top-link:hover,
+        .secondary-btn:hover,
+        .primary-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .wrap {
+            width: min(1260px, 92%);
+            margin: 0 auto;
+            padding: 34px 0 70px;
+        }
+
+        .hero {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 30px;
+            border-radius: 22px;
+            color: #fff;
+            background: linear-gradient(135deg, #111827, #172554 72%, #1e1b4b);
+            box-shadow: 0 18px 45px rgba(15,23,42,.14);
+        }
+
+        .eyebrow {
+            color: #a5b4fc;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.1px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin: 7px 0 9px;
+            font: 800 clamp(29px, 5vw, 44px) Poppins, sans-serif;
+            letter-spacing: -.7px;
+        }
+
+        .hero p {
+            max-width: 780px;
+            margin: 0;
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 9px;
+            min-width: 220px;
+        }
+
+        .hero .primary-btn {
+            background: #fff;
+            color: #4f46e5;
+            border-color: #fff;
+            box-shadow: none;
+        }
+
+        .hero .secondary-btn {
+            background: rgba(255,255,255,.07);
+            color: #e2e8f0;
+            border-color: rgba(255,255,255,.12);
+        }
+
+        .flash-row {
+            display: grid;
+            gap: 10px;
+            margin: 15px 0 0;
+        }
+
+        .flash {
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 12px;
+            line-height: 1.5;
+            border: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .flash.success {
+            color: #166534;
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .flash.warning {
+            color: #92400e;
+            background: #fffbeb;
+            border-color: #fde68a;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 13px;
+            margin-top: 18px;
+        }
+
+        .stat {
+            padding: 19px;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            background: var(--surface);
+            box-shadow: 0 8px 26px rgba(15,23,42,.035);
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .stat-icon {
+            width: 37px;
+            height: 37px;
+            border-radius: 11px;
+            display: grid;
+            place-items: center;
+            background: #eeecff;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .stat-value {
+            margin-top: 11px;
+            font: 800 27px Poppins, sans-serif;
+            color: var(--text);
+        }
+
+        .stat-note {
+            margin-top: 4px;
+            color: var(--muted-2);
+            font-size: 10px;
+        }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 27px 0 15px;
+        }
+
+        .section-heading h2 {
+            margin: 0 0 4px;
+            font: 700 21px Poppins, sans-serif;
+        }
+
+        .section-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .filter-control {
+            min-height: 39px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: #475569;
+            padding: 8px 11px;
+            font: 600 11px Inter, sans-serif;
+            outline: none;
+        }
+
+        .filter-search {
+            min-width: 220px;
+        }
+
+        .filter-control:focus {
+            border-color: #b8b5ff;
+            box-shadow: 0 0 0 3px rgba(99,91,255,.10);
+        }
+
+        .legacy-card {
+            margin: 16px 0 20px;
+            padding: 17px;
+            border-radius: 16px;
+            border: 1px solid #e8ebf2;
+            background: linear-gradient(135deg, #fbfcff, #f4f2ff);
+        }
+
+        .legacy-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .legacy-head h3 {
+            margin: 0 0 4px;
+            font-size: 13px;
+        }
+
+        .legacy-head p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .legacy-text {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            background: #fff;
+            color: #475569;
+            font: 11px/1.7 Inter, sans-serif;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            max-height: 190px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: var(--surface);
+            box-shadow: 0 8px 26px rgba(15,23,42,.035);
+        }
+
+        .project-card[hidden] {
+            display: none;
+        }
+
+        .project-card:hover {
+            border-color: #d7d3ff;
+            box-shadow: 0 12px 30px rgba(15,23,42,.06);
+        }
+
+        .project-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .project-title {
+            min-width: 0;
+        }
+
+        .project-title h3 {
+            margin: 0;
+            color: var(--text);
+            font: 700 17px Poppins, sans-serif;
+            word-break: break-word;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 8px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 8px;
+            border-radius: 999px;
+            font-size: 9px;
+            font-weight: 800;
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .pill.status-completed {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .pill.status-progress {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .pill.status-planned {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        .pill.status-paused {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .project-menu {
+            display: flex;
+            gap: 7px;
+            flex-shrink: 0;
+        }
+
+        .icon-btn {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: #64748b;
+            cursor: pointer;
+        }
+
+        .icon-btn:hover {
+            color: var(--primary);
+            border-color: #c7c3ff;
+            background: #f8f7ff;
+        }
+
+        .project-description {
+            margin: 15px 0 0;
+            color: #475569;
+            font-size: 12px;
+            line-height: 1.75;
+            white-space: pre-line;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-top: 14px;
+        }
+
+        .tech {
+            padding: 6px 8px;
+            border-radius: 8px;
+            background: #eeecff;
+            color: #5146d8;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .project-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .detail {
+            padding: 10px;
+            border-radius: 11px;
+            border: 1px solid var(--border-soft);
+            background: var(--surface-2);
+        }
+
+        .detail span {
+            display: block;
+            color: var(--muted-2);
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .35px;
+        }
+
+        .detail strong {
+            display: block;
+            margin-top: 4px;
+            color: var(--text);
+            font-size: 11px;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .project-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 10px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 800;
+            color: #475569;
+            border: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .project-link:hover {
+            color: var(--primary);
+            border-color: #c7c3ff;
+        }
+
+        .project-footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 17px;
+        }
+
+        .project-date {
+            color: var(--muted-2);
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        .project-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .api-btn {
+            border-color: #cbd5e1;
+        }
+
+        .api-btn:hover {
+            color: var(--primary);
+            border-color: #a5b4fc;
+        }
+
+        .empty-state {
+            padding: 48px 25px;
+            text-align: center;
+            border: 1px dashed #ccd4e0;
+            border-radius: 18px;
+            background: var(--surface);
+        }
+
+        .empty-icon {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 13px;
+            border-radius: 17px;
+            display: grid;
+            place-items: center;
+            background: #eeecff;
+            color: var(--primary);
+            font-size: 22px;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 7px;
+            font: 700 18px Poppins, sans-serif;
+        }
+
+        .empty-state p {
+            max-width: 530px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .no-results {
+            display: none;
+            padding: 30px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            border: 1px dashed #ccd4e0;
+            border-radius: 16px;
+            background: var(--surface);
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(15,23,42,.58);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal {
+            width: min(840px, 100%);
+            max-height: 92vh;
+            overflow-y: auto;
+            border-radius: 22px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: 0 30px 90px rgba(15,23,42,.22);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 20px 22px 15px;
+            border-bottom: 1px solid var(--border-soft);
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: var(--surface);
+        }
+
+        .modal-header h2 {
+            margin: 0 0 4px;
+            font: 700 19px Poppins, sans-serif;
+        }
+
+        .modal-header p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .modal-close {
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: #64748b;
+            cursor: pointer;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            padding: 21px 22px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 6px;
+            color: #475569;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .45px;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            background: var(--surface);
+            color: var(--text);
+            padding: 10px 11px;
+            font: 500 12px Inter, sans-serif;
+            outline: none;
+        }
+
+        .field textarea {
+            min-height: 125px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            border-color: #aaa6ff;
+            box-shadow: 0 0 0 3px rgba(99,91,255,.10);
+        }
+
+        .field-help {
+            margin-top: 6px;
+            color: var(--muted-2);
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+        .modal-footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 9px;
+            padding: 14px 22px 21px;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .delete-form {
+            display: inline;
+        }
+
+        .danger-btn {
+            color: #b91c1c;
+            background: #fff;
+            border-color: #fecaca;
+        }
+
+        .toast {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 10001;
+            display: none;
+            max-width: 320px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            color: #fff;
+            background: #111827;
+            box-shadow: 0 16px 35px rgba(15,23,42,.22);
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .toast.show {
+            display: block;
+        }
+
+        /* Dark mode */
+        html[data-cc-theme="dark"] body {
+            background: #0b1120 !important;
+            color: #f8fafc !important;
+        }
+
+        html[data-cc-theme="dark"] .topbar {
+            background: rgba(15,23,42,.96);
+            border-color: #263247;
+        }
+
+        html[data-cc-theme="dark"] .brand,
+        html[data-cc-theme="dark"] .project-title h3,
+        html[data-cc-theme="dark"] .stat-value,
+        html[data-cc-theme="dark"] .stat-label,
+        html[data-cc-theme="dark"] .section-heading h2,
+        html[data-cc-theme="dark"] .detail strong,
+        html[data-cc-theme="dark"] .modal-header h2,
+        html[data-cc-theme="dark"] .field label,
+        html[data-cc-theme="dark"] .empty-state h3 {
+            color: #f8fafc;
+        }
+
+        html[data-cc-theme="dark"] .top-link,
+        html[data-cc-theme="dark"] .secondary-btn,
+        html[data-cc-theme="dark"] .filter-control,
+        html[data-cc-theme="dark"] .stat,
+        html[data-cc-theme="dark"] .project-card,
+        html[data-cc-theme="dark"] .legacy-card,
+        html[data-cc-theme="dark"] .legacy-text,
+        html[data-cc-theme="dark"] .detail,
+        html[data-cc-theme="dark"] .project-link,
+        html[data-cc-theme="dark"] .empty-state,
+        html[data-cc-theme="dark"] .no-results,
+        html[data-cc-theme="dark"] .modal,
+        html[data-cc-theme="dark"] .modal-close,
+        html[data-cc-theme="dark"] .field input,
+        html[data-cc-theme="dark"] .field select,
+        html[data-cc-theme="dark"] .field textarea {
+            background: #111827;
+            border-color: #263247;
+            color: #e2e8f0;
+            box-shadow: none;
+        }
+
+        html[data-cc-theme="dark"] .stat-note,
+        html[data-cc-theme="dark"] .section-heading p,
+        html[data-cc-theme="dark"] .project-description,
+        html[data-cc-theme="dark"] .project-date,
+        html[data-cc-theme="dark"] .detail span,
+        html[data-cc-theme="dark"] .field-help,
+        html[data-cc-theme="dark"] .modal-header p {
+            color: #94a3b8;
+        }
+
+        html[data-cc-theme="dark"] .legacy-card {
+            background: #172033;
+        }
+
+        html[data-cc-theme="dark"] .legacy-head p {
+            color: #94a3b8;
+        }
+
+        html[data-cc-theme="dark"] .legacy-text,
+        html[data-cc-theme="dark"] .detail {
+            background: #172033;
+        }
+
+        html[data-cc-theme="dark"] .icon-btn {
+            background: #172033;
+            color: #cbd5e1;
+            border-color: #334155;
+        }
+
+        html[data-cc-theme="dark"] .project-link:hover,
+        html[data-cc-theme="dark"] .icon-btn:hover {
+            background: #252344;
+            border-color: #4c46a8;
+            color: #c7d2fe;
+        }
+
+        html[data-cc-theme="dark"] .empty-state {
+            border-color: #334155;
+        }
+
+        html[data-cc-theme="dark"] .flash {
+            background: #111827;
+            border-color: #263247;
+        }
+
+
+        .intelligence-btn {
+            color: #5146d8 !important;
+            background: #f3f1ff !important;
+            border-color: #ddd9ff !important;
+        }
+
+        .intelligence-btn:hover {
+            color: #4338ca !important;
+            border-color: #c7c3ff !important;
+            background: #eeecff !important;
+        }
+
+        .intelligence-banner {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 22px 0 0;
+            padding: 13px 15px;
+            border: 1px solid #ddd9ff;
+            border-radius: 14px;
+            background: #f7f5ff;
+        }
+
+        .intelligence-banner-icon {
+            width: 38px;
+            height: 38px;
+            flex: 0 0 38px;
+            display: grid;
+            place-items: center;
+            border-radius: 11px;
+            background: #eeecff;
+            color: #635bff;
+        }
+
+        .intelligence-banner strong {
+            display: block;
+            font-size: 12px;
+            color: #312e81;
+        }
+
+        .intelligence-banner span {
+            display: block;
+            margin-top: 2px;
+            color: #64748b;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        html[data-cc-theme="dark"] .intelligence-btn {
+            color: #c7d2fe !important;
+            background: #252344 !important;
+            border-color: #39365f !important;
+        }
+
+        html[data-cc-theme="dark"] .intelligence-banner {
+            background: #111827;
+            border-color: #39365f;
+        }
+
+        html[data-cc-theme="dark"] .intelligence-banner-icon {
+            background: #252344;
+            color: #a5b4fc;
+        }
+
+        html[data-cc-theme="dark"] .intelligence-banner strong {
+            color: #c7d2fe;
+        }
+
+        html[data-cc-theme="dark"] .intelligence-banner span {
+            color: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 980px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .topbar {
+                padding: 12px 4%;
+                flex-wrap: wrap;
+            }
+
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-actions {
+                justify-content: flex-start;
+            }
+
+            .wrap {
+                width: 94%;
+                padding-top: 24px;
+            }
+
+            .filter-search {
+                min-width: 180px;
+            }
+
+            .toolbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .filters {
+                width: 100%;
+            }
+
+            .filter-control {
+                flex: 1 1 140px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 22px;
+            }
+
+            .project-details {
+                grid-template-columns: 1fr;
+            }
+
+            .project-top {
+                flex-direction: column;
+            }
+
+            .project-menu {
+                width: 100%;
+            }
+
+            .top-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .top-link,
+            .primary-btn {
+                flex: 1 1 auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="page">
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-icon"><i class="fas fa-diagram-project"></i></div>
+            CareerCraft AI
+        </div>
+
+        <div class="top-actions">
+            <a class="top-link" href="/career-roadmap">
+                <i class="fas fa-route"></i> Career Roadmap
+            </a>
+            <a class="top-link" href="/career_intelligence">
+                <i class="fas fa-brain"></i> Career Intelligence
+            </a>
+            <a class="top-link" href="/edit_profile">
+                <i class="fas fa-user-pen"></i> Profile
+            </a>
+            <button class="primary-btn" type="button" id="openCreateBtn">
+                <i class="fas fa-plus"></i> Add Project
+            </button>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="hero">
+            <div>
+                <div class="eyebrow">Day 24 · Projects Module</div>
+                <h1>Your Projects Workspace 🚀</h1>
+                <p>
+                    Build a structured portfolio of the projects you have completed, are building,
+                    or plan to create. Project details are stored separately from your Career Profile
+                    so they can later power your Resume Builder, Career Intelligence and Project Intelligence.
+                </p>
+            </div>
+            <div class="hero-actions">
+                <button class="primary-btn" type="button" id="openCreateHeroBtn">
+                    <i class="fas fa-folder-plus"></i> Create Project
+                </button>
+            </div>
+        </section>
+
+        {% if saved or deleted or error %}
+        <div class="flash-row">
+            {% if saved %}
+                <div class="flash success"><i class="fas fa-circle-check"></i> Project saved successfully.</div>
+            {% endif %}
+            {% if deleted %}
+                <div class="flash success"><i class="fas fa-trash-can"></i> Project deleted successfully.</div>
+            {% endif %}
+            {% if error %}
+                <div class="flash warning"><i class="fas fa-triangle-exclamation"></i> {{ error }}</div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <section class="stats" aria-label="Project statistics">
+            <div class="stat">
+                <div class="stat-top">
+                    <span class="stat-label">Total Projects</span>
+                    <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+                </div>
+                <div class="stat-value">{{ stats.total }}</div>
+                <div class="stat-note">Structured projects in your workspace</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-top">
+                    <span class="stat-label">Completed</span>
+                    <div class="stat-icon"><i class="fas fa-circle-check"></i></div>
+                </div>
+                <div class="stat-value">{{ stats.completed }}</div>
+                <div class="stat-note">Projects marked completed</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-top">
+                    <span class="stat-label">In Progress</span>
+                    <div class="stat-icon"><i class="fas fa-spinner"></i></div>
+                </div>
+                <div class="stat-value">{{ stats.in_progress }}</div>
+                <div class="stat-note">Projects currently being built</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-top">
+                    <span class="stat-label">Technologies</span>
+                    <div class="stat-icon"><i class="fas fa-code"></i></div>
+                </div>
+                <div class="stat-value">{{ stats.technologies }}</div>
+                <div class="stat-note">Distinct technologies used</div>
+            </div>
+        </section>
+
+        {% if legacy_project_text %}
+        <section class="legacy-card">
+            <div class="legacy-head">
+                <div>
+                    <h3><i class="fas fa-file-lines"></i> Existing Profile Project Information</h3>
+                    <p>
+                        Your previous Career Profile project text is preserved. It has not been overwritten.
+                        New structured projects are stored separately and will power the newer CareerCraft AI modules.
+                    </p>
+                </div>
+                <a class="secondary-btn" href="/edit_profile">
+                    <i class="fas fa-user-pen"></i> Edit Profile
+                </a>
+            </div>
+            <div class="legacy-text">{{ legacy_project_text }}</div>
+        </section>
+        {% endif %}
+
+        <div class="intelligence-banner" aria-label="Project Intelligence">
+            <div class="intelligence-banner-icon"><i class="fas fa-chart-line"></i></div>
+            <div>
+                <strong>Project Intelligence is ready</strong>
+                <span>Analyze quality, technical depth, evidence strength, career alignment and resume readiness for each project.</span>
+            </div>
+        </div>
+
+        <div class="toolbar">
+            <div class="section-heading">
+                <h2>Project Library</h2>
+                <p>Add projects with enough detail to make them useful for resumes and future AI analysis.</p>
+            </div>
+
+            <div class="filters">
+                <input class="filter-control filter-search" id="projectSearch" type="search" placeholder="Search projects, tech or category..." aria-label="Search projects">
+                <select class="filter-control" id="statusFilter" aria-label="Filter projects by status">
+                    <option value="all">All Statuses</option>
+                    {% for status in statuses %}
+                        <option value="{{ status }}">{{ status }}</option>
+                    {% endfor %}
+                </select>
+                <select class="filter-control" id="categoryFilter" aria-label="Filter projects by category">
+                    <option value="all">All Categories</option>
+                    {% for category in categories %}
+                        <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        {% if projects %}
+        <section class="project-grid" id="projectGrid">
+            {% for project in projects %}
+            <article
+                class="project-card"
+                data-project-id="{{ project.id }}"
+                data-title="{{ project.title|lower|e }}"
+                data-status="{{ project.status|lower|e }}"
+                data-category="{{ project.category|lower|e }}"
+                data-search="{{ (project.title ~ ' ' ~ project.category ~ ' ' ~ project.description ~ ' ' ~ (project.technologies|join(' ')))|lower|e }}"
+            >
+                <div class="project-top">
+                    <div class="project-title">
+                        <h3>{{ project.title }}</h3>
+                        <div class="project-meta">
+                            {% if project.status == "Completed" %}
+                                <span class="pill status-completed"><i class="fas fa-circle-check"></i>&nbsp; Completed</span>
+                            {% elif project.status == "In Progress" %}
+                                <span class="pill status-progress"><i class="fas fa-spinner"></i>&nbsp; In Progress</span>
+                            {% elif project.status == "Planned" %}
+                                <span class="pill status-planned"><i class="fas fa-clock"></i>&nbsp; Planned</span>
+                            {% else %}
+                                <span class="pill status-paused"><i class="fas fa-pause"></i>&nbsp; Paused</span>
+                            {% endif %}
+                            {% if project.category %}<span class="pill">{{ project.category }}</span>{% endif %}
+                            <span class="pill">{{ project.difficulty }}</span>
+                        </div>
+                    </div>
+
+                    <div class="project-menu">
+                        <button class="icon-btn edit-project" type="button" title="Edit project" aria-label="Edit project {{ project.title }}" data-project-id="{{ project.id }}">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                        <button class="icon-btn view-project" type="button" title="View project" aria-label="View project {{ project.title }}" data-project-id="{{ project.id }}">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                {% if project.description %}
+                <p class="project-description">{{ project.description }}</p>
+                {% else %}
+                <p class="project-description">No project description added yet. Edit this project and document what you built.</p>
+                {% endif %}
+
+                {% if project.technologies %}
+                <div class="tech-list" aria-label="Technologies">
+                    {% for tech in project.technologies %}
+                        <span class="tech">{{ tech }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="project-details">
+                    <div class="detail">
+                        <span>Your Role</span>
+                        <strong>{{ project.role or "Not specified" }}</strong>
+                    </div>
+                    <div class="detail">
+                        <span>Timeline</span>
+                        <strong>
+                            {% if project.start_date and project.end_date %}
+                                {{ project.start_date }} → {{ project.end_date }}
+                            {% elif project.start_date %}
+                                From {{ project.start_date }}
+                            {% elif project.end_date %}
+                                Until {{ project.end_date }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+                        </strong>
+                    </div>
+                </div>
+
+                {% if project.github_url or project.live_url %}
+                <div class="project-links">
+                    {% if project.github_url %}
+                    <a class="project-link" href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    {% endif %}
+                    {% if project.live_url %}
+                    <a class="project-link" href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-arrow-up-right-from-square"></i> Live Demo
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <div class="project-footer">
+                    <div class="project-date">
+                        Updated {{ project.updated_at or project.created_at or "—" }}
+                    </div>
+
+                    <div class="project-actions">
+                        <a class="secondary-btn" href="/resume-builder?project_id={{ project.id }}">
+                            <i class="fas fa-file-lines"></i> Use in Resume
+                        </a>
+                        <a class="secondary-btn intelligence-btn" href="/projects/{{ project.id }}/intelligence">
+                            <i class="fas fa-chart-line"></i> Analyze
+                        </a>
+                        <a class="secondary-btn api-btn" href="/api/projects/{{ project.id }}/intelligence" target="_blank" rel="noopener noreferrer" title="Open the Project Intelligence API response">
+                            <i class="fas fa-code"></i> API
+                        </a>
+                        <button class="secondary-btn edit-project" type="button" data-project-id="{{ project.id }}">
+                            <i class="fas fa-pen"></i> Edit
+                        </button>
+                        <form class="delete-form" method="POST" action="/projects/{{ project.id }}/delete" onsubmit="return confirm('Delete this project? This cannot be undone.');">
+                            <button class="secondary-btn danger-btn" type="submit">
+                                <i class="fas fa-trash-can"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </section>
+        <div class="no-results" id="noResults">
+            <i class="fas fa-magnifying-glass"></i>
+            No projects match the current filters.
+        </div>
+        {% else %}
+        <section class="empty-state">
+            <div class="empty-icon"><i class="fas fa-diagram-project"></i></div>
+            <h3>Start your project portfolio</h3>
+            <p>
+                Add your first structured project with the title, description, technologies, links,
+                timeline and status. Your existing Profile project information remains preserved.
+            </p>
+            <div style="margin-top:16px;">
+                <button class="primary-btn" type="button" id="openCreateEmptyBtn">
+                    <i class="fas fa-plus"></i> Add Your First Project
+                </button>
+            </div>
+        </section>
+        {% endif %}
+
+    </main>
+</div>
+
+<div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+        <div class="modal-header">
+            <div>
+                <h2 id="modalTitle">Add Project</h2>
+                <p>Store practical project evidence in a reusable structured format.</p>
+            </div>
+            <button class="modal-close" type="button" id="closeModalBtn" aria-label="Close project form">
+                <i class="fas fa-xmark"></i>
+            </button>
+        </div>
+
+        <form method="POST" action="/projects/save" id="projectForm">
+            <input type="hidden" name="project_id" id="projectId">
+
+            <div class="form-grid">
+                <div class="field full">
+                    <label for="projectTitle">Project Title *</label>
+                    <input id="projectTitle" name="title" type="text" maxlength="140" required placeholder="Example: CareerCraft AI">
+                </div>
+
+                <div class="field full">
+                    <label for="projectDescription">Description</label>
+                    <textarea id="projectDescription" name="description" maxlength="6000" placeholder="What did you build? What problem does it solve? What was your contribution?"></textarea>
+                    <div class="field-help">Focus on what you built, the problem solved and the technical work you performed.</div>
+                </div>
+
+                <div class="field full">
+                    <label for="projectTechnologies">Technologies / Tech Stack</label>
+                    <input id="projectTechnologies" name="technologies" type="text" maxlength="1200" placeholder="Python, Flask, SQLite, JavaScript, HTML, CSS">
+                    <div class="field-help">Use commas between technologies. Example: Python, Flask, REST API, SQLite.</div>
+                </div>
+
+                <div class="field">
+                    <label for="projectCategory">Category</label>
+                    <select id="projectCategory" name="category">
+                        <option value="">Select category</option>
+                        {% for category in categories %}
+                            <option value="{{ category }}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="projectDifficulty">Difficulty</label>
+                    <select id="projectDifficulty" name="difficulty">
+                        {% for difficulty in difficulties %}
+                            <option value="{{ difficulty }}">{{ difficulty }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="projectRole">Your Role</label>
+                    <input id="projectRole" name="role" type="text" maxlength="120" placeholder="Example: Full Stack Developer">
+                </div>
+
+                <div class="field">
+                    <label for="projectStatus">Project Status</label>
+                    <select id="projectStatus" name="status">
+                        {% for status in statuses %}
+                            <option value="{{ status }}">{{ status }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="projectStartDate">Start Date</label>
+                    <input id="projectStartDate" name="start_date" type="date">
+                </div>
+
+                <div class="field">
+                    <label for="projectEndDate">End Date</label>
+                    <input id="projectEndDate" name="end_date" type="date">
+                </div>
+
+                <div class="field">
+                    <label for="projectGithub">GitHub Repository</label>
+                    <input id="projectGithub" name="github_url" type="url" placeholder="https://github.com/username/project">
+                </div>
+
+                <div class="field">
+                    <label for="projectLive">Live / Demo URL</label>
+                    <input id="projectLive" name="live_url" type="url" placeholder="https://example.com">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="secondary-btn" type="button" id="cancelModalBtn">Cancel</button>
+                <button class="primary-btn" type="submit" id="saveProjectBtn">
+                    <i class="fas fa-floppy-disk"></i> Save Project
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="projectToast" role="status" aria-live="polite"></div>
+
+<script id="projectData" type="application/json">{{ projects|tojson }}</script>
+
+<script>
+    const projectData = JSON.parse(document.getElementById("projectData").textContent);
+
+    const modal = document.getElementById("projectModal");
+    const form = document.getElementById("projectForm");
+    const modalTitle = document.getElementById("modalTitle");
+
+    const fields = {
+        id: document.getElementById("projectId"),
+        title: document.getElementById("projectTitle"),
+        description: document.getElementById("projectDescription"),
+        technologies: document.getElementById("projectTechnologies"),
+        category: document.getElementById("projectCategory"),
+        difficulty: document.getElementById("projectDifficulty"),
+        role: document.getElementById("projectRole"),
+        status: document.getElementById("projectStatus"),
+        startDate: document.getElementById("projectStartDate"),
+        endDate: document.getElementById("projectEndDate"),
+        github: document.getElementById("projectGithub"),
+        live: document.getElementById("projectLive")
+    };
+
+    const projectSearch = document.getElementById("projectSearch");
+    const statusFilter = document.getElementById("statusFilter");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const noResults = document.getElementById("noResults");
+
+    function openModal(project = null) {
+        modal.classList.add("open");
+        document.body.style.overflow = "hidden";
+
+        if (!project) {
+            form.reset();
+            fields.id.value = "";
+            fields.difficulty.value = "Intermediate";
+            fields.status.value = "In Progress";
+            modalTitle.textContent = "Add Project";
+            return;
+        }
+
+        fields.id.value = project.id;
+        fields.title.value = project.title || "";
+        fields.description.value = project.description || "";
+        fields.technologies.value = (project.technologies || []).join(", ");
+        fields.category.value = project.category || "";
+        fields.difficulty.value = project.difficulty || "Intermediate";
+        fields.role.value = project.role || "";
+        fields.status.value = project.status || "In Progress";
+        fields.startDate.value = project.start_date || "";
+        fields.endDate.value = project.end_date || "";
+        fields.github.value = project.github_url || "";
+        fields.live.value = project.live_url || "";
+        modalTitle.textContent = "Edit Project";
+    }
+
+    function closeModal() {
+        modal.classList.remove("open");
+        document.body.style.overflow = "";
+    }
+
+    function projectById(id) {
+        return projectData.find(project => Number(project.id) === Number(id)) || null;
+    }
+
+    document.getElementById("openCreateBtn")?.addEventListener("click", () => openModal());
+    document.getElementById("openCreateHeroBtn")?.addEventListener("click", () => openModal());
+    document.getElementById("openCreateEmptyBtn")?.addEventListener("click", () => openModal());
+
+    document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+    document.getElementById("cancelModalBtn").addEventListener("click", closeModal);
+
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal.classList.contains("open")) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll(".edit-project, .view-project").forEach(button => {
+        button.addEventListener("click", () => {
+            const project = projectById(button.dataset.projectId);
+            if (project) openModal(project);
+        });
+    });
+
+    function applyFilters() {
+        if (!document.getElementById("projectGrid")) return;
+
+        const query = (projectSearch?.value || "").trim().toLowerCase();
+        const status = (statusFilter?.value || "all").toLowerCase();
+        const category = (categoryFilter?.value || "all").toLowerCase();
+
+        let visible = 0;
+
+        document.querySelectorAll(".project-card").forEach(card => {
+            const matchesQuery = !query || (card.dataset.search || "").includes(query);
+            const matchesStatus = status === "all" || (card.dataset.status || "") === status;
+            const matchesCategory = category === "all" || (card.dataset.category || "") === category;
+
+            const show = matchesQuery && matchesStatus && matchesCategory;
+            card.hidden = !show;
+            if (show) visible += 1;
+        });
+
+        if (noResults) {
+            noResults.style.display = visible === 0 ? "block" : "none";
+        }
+    }
+
+    projectSearch?.addEventListener("input", applyFilters);
+    statusFilter?.addEventListener("change", applyFilters);
+    categoryFilter?.addEventListener("change", applyFilters);
+
+    form.addEventListener("submit", (event) => {
+        const start = fields.startDate.value;
+        const end = fields.endDate.value;
+
+        if (start && end && end < start) {
+            event.preventDefault();
+            showToast("End date cannot be before the start date.");
+        }
+    });
+
+    function showToast(message) {
+        const toast = document.getElementById("projectToast");
+        if (!toast) return;
+
+        toast.textContent = message;
+        toast.classList.add("show");
+        window.clearTimeout(showToast.timer);
+        showToast.timer = window.setTimeout(() => {
+            toast.classList.remove("show");
+        }, 3500);
+    }
+
+    applyFilters();
+</script>
+</body>
+</html>

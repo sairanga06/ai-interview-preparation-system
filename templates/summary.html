@@ -342,9 +342,12 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,san
 <script>
 const root = document.documentElement;
 const toggle = document.getElementById("themeToggle");
-const saved = localStorage.getItem("cc-theme");
+const saved = localStorage.getItem("careercraft-theme") || localStorage.getItem("cc-theme");
 
-if (saved) root.dataset.theme = saved;
+if (saved) {
+    root.dataset.theme = saved;
+    root.setAttribute("data-cc-theme", saved);
+}
 
 function updateThemeIcon(){
     toggle.innerHTML = root.dataset.theme === "dark"
@@ -356,6 +359,8 @@ updateThemeIcon();
 
 toggle.onclick = () => {
     root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    root.setAttribute("data-cc-theme", root.dataset.theme);
+    localStorage.setItem("careercraft-theme", root.dataset.theme);
     localStorage.setItem("cc-theme", root.dataset.theme);
     updateThemeIcon();
 };

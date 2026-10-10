@@ -1014,6 +1014,8 @@
 
     </style>
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing-premium.css') }}">
+
 </head>
 
 
@@ -1136,32 +1138,34 @@
 
             <div class="hero-ai-glow"></div>
 
-            <div class="cc-hero-robot" aria-label="CareerCraft AI robot" role="img">
-                <div class="cc-robot-aura"></div>
-                <div class="cc-robot-antenna">
-                    <span></span>
-                </div>
-                <div class="cc-robot-head">
-                    <div class="cc-robot-ear left"></div>
-                    <div class="cc-robot-ear right"></div>
-                    <div class="cc-robot-face">
-                        <div class="cc-robot-eyes">
-                            <span></span><span></span>
+            <div class="hero-robot-stage">
+                <div class="cc-hero-robot" aria-label="CareerCraft AI robot" role="img">
+                    <div class="cc-robot-aura"></div>
+                    <div class="cc-robot-antenna">
+                        <span></span>
+                    </div>
+                    <div class="cc-robot-head">
+                        <div class="cc-robot-ear left"></div>
+                        <div class="cc-robot-ear right"></div>
+                        <div class="cc-robot-face">
+                            <div class="cc-robot-eyes">
+                                <span></span><span></span>
+                            </div>
+                            <div class="cc-robot-smile"></div>
+                            <div class="cc-robot-chin"></div>
                         </div>
-                        <div class="cc-robot-smile"></div>
-                        <div class="cc-robot-chin"></div>
                     </div>
-                </div>
-                <div class="cc-robot-body">
-                    <div class="cc-robot-panel">
-                        <span class="cc-panel-dot"></span>
-                        <span class="cc-panel-line"></span>
-                        <span class="cc-panel-line short"></span>
+                    <div class="cc-robot-body">
+                        <div class="cc-robot-panel">
+                            <span class="cc-panel-dot"></span>
+                            <span class="cc-panel-line"></span>
+                            <span class="cc-panel-line short"></span>
+                        </div>
+                        <div class="cc-robot-arm left"></div>
+                        <div class="cc-robot-arm right"></div>
                     </div>
-                    <div class="cc-robot-arm left"></div>
-                    <div class="cc-robot-arm right"></div>
+                    <div class="cc-robot-shadow"></div>
                 </div>
-                <div class="cc-robot-shadow"></div>
             </div>
 
         </div>
@@ -1243,6 +1247,69 @@
 
 
                 <div class="platform-card">
+
+                    <div class="interview-carousel"
+                         role="region"
+                         aria-roledescription="carousel"
+                         aria-label="AI mock interview highlights">
+                        <div class="interview-carousel-meta">
+                            <span>Inside a practice session</span>
+                            <span class="interview-carousel-count">01 / 03</span>
+                        </div>
+
+                        <div class="interview-carousel-stage">
+                            <article class="interview-carousel-slide is-active"
+                                     role="group"
+                                     aria-roledescription="slide"
+                                     aria-label="1 of 3"
+                                     aria-hidden="false">
+                                <span class="interview-slide-icon"><i class="fas fa-layer-group" aria-hidden="true"></i></span>
+                                <div>
+                                    <h4>Technical + HR rounds</h4>
+                                    <p>Practice realistic technical and behavioral questions in one structured interview.</p>
+                                </div>
+                            </article>
+
+                            <article class="interview-carousel-slide"
+                                     role="group"
+                                     aria-roledescription="slide"
+                                     aria-label="2 of 3"
+                                     aria-hidden="true">
+                                <span class="interview-slide-icon"><i class="fas fa-microphone-lines" aria-hidden="true"></i></span>
+                                <div>
+                                    <h4>Speak or type your answer</h4>
+                                    <p>Choose voice practice or typed responses and work through each question at your pace.</p>
+                                </div>
+                            </article>
+
+                            <article class="interview-carousel-slide"
+                                     role="group"
+                                     aria-roledescription="slide"
+                                     aria-label="3 of 3"
+                                     aria-hidden="true">
+                                <span class="interview-slide-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></span>
+                                <div>
+                                    <h4>Useful AI feedback</h4>
+                                    <p>Review answer evaluations and suggestions, then use your history to track practice.</p>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div class="interview-carousel-controls">
+                            <div class="interview-carousel-dots" role="group" aria-label="Choose an interview highlight">
+                                <button type="button" aria-label="Show highlight 1" aria-current="true" data-interview-slide="0"></button>
+                                <button type="button" aria-label="Show highlight 2" aria-current="false" data-interview-slide="1"></button>
+                                <button type="button" aria-label="Show highlight 3" aria-current="false" data-interview-slide="2"></button>
+                            </div>
+                            <button class="interview-carousel-toggle"
+                                    type="button"
+                                    aria-label="Pause automatic highlights"
+                                    aria-pressed="false"
+                                    title="Pause automatic highlights">
+                                <i class="fas fa-pause" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
 
                     <div class="platform-icon">
                         <i class="fas fa-robot"></i>
@@ -1625,7 +1692,7 @@
 
                     <p>
                         CareerCraft AI is designed to become your
-                        personal preparation partner — helping you
+                        personal preparation partner, helping you
                         understand your performance and make smarter
                         career decisions.
                     </p>
@@ -1809,13 +1876,152 @@
          ========================================================= -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            const prefersReducedMotion = window.matchMedia &&
+                window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            const heroVisual = document.querySelector(".hero-right");
+            const robotStage = document.querySelector(".hero-robot-stage");
+            const hasFinePointer = window.matchMedia &&
+                window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+            if (heroVisual && robotStage && hasFinePointer && !prefersReducedMotion) {
+                let pointerFrame = 0;
+
+                const resetRobotPose = () => {
+                    if (pointerFrame) {
+                        window.cancelAnimationFrame(pointerFrame);
+                        pointerFrame = 0;
+                    }
+
+                    heroVisual.classList.remove("is-pointer-active");
+                    robotStage.style.setProperty("--cc-robot-tilt-x", "0deg");
+                    robotStage.style.setProperty("--cc-robot-tilt-y", "0deg");
+                    robotStage.style.setProperty("--cc-robot-shift-x", "0px");
+                    robotStage.style.setProperty("--cc-robot-shift-y", "0px");
+                    robotStage.style.setProperty("--cc-eye-x", "0px");
+                    robotStage.style.setProperty("--cc-eye-y", "0px");
+                };
+
+                heroVisual.addEventListener("pointermove", (event) => {
+                    if (pointerFrame) window.cancelAnimationFrame(pointerFrame);
+
+                    pointerFrame = window.requestAnimationFrame(() => {
+                        pointerFrame = 0;
+                        const bounds = heroVisual.getBoundingClientRect();
+                        if (!bounds.width || !bounds.height) return;
+
+                        const x = Math.max(-1, Math.min(1,
+                            ((event.clientX - bounds.left) / bounds.width - 0.5) * 2));
+                        const y = Math.max(-1, Math.min(1,
+                            ((event.clientY - bounds.top) / bounds.height - 0.5) * 2));
+
+                        heroVisual.classList.add("is-pointer-active");
+                        robotStage.style.setProperty("--cc-robot-tilt-x", `${(-y * 5).toFixed(1)}deg`);
+                        robotStage.style.setProperty("--cc-robot-tilt-y", `${(x * 7).toFixed(1)}deg`);
+                        robotStage.style.setProperty("--cc-robot-shift-x", `${(x * 7).toFixed(1)}px`);
+                        robotStage.style.setProperty("--cc-robot-shift-y", `${(y * 4).toFixed(1)}px`);
+                        robotStage.style.setProperty("--cc-eye-x", `${(x * 4).toFixed(1)}px`);
+                        robotStage.style.setProperty("--cc-eye-y", `${(y * 2.5).toFixed(1)}px`);
+                    });
+                });
+
+                heroVisual.addEventListener("pointerleave", resetRobotPose);
+                window.addEventListener("blur", resetRobotPose);
+            }
+
+            const carousel = document.querySelector(".interview-carousel");
+            if (carousel) {
+                const slides = Array.from(carousel.querySelectorAll(".interview-carousel-slide"));
+                const dots = Array.from(carousel.querySelectorAll("[data-interview-slide]"));
+                const count = carousel.querySelector(".interview-carousel-count");
+                const toggle = carousel.querySelector(".interview-carousel-toggle");
+                let activeSlide = 0;
+                let rotationTimer = null;
+                let rotationEnabled = !prefersReducedMotion;
+
+                const showSlide = (index) => {
+                    activeSlide = (index + slides.length) % slides.length;
+
+                    slides.forEach((slide, slideIndex) => {
+                        const isActive = slideIndex === activeSlide;
+                        slide.classList.toggle("is-active", isActive);
+                        slide.setAttribute("aria-hidden", String(!isActive));
+                    });
+
+                    dots.forEach((dot, dotIndex) => {
+                        dot.setAttribute("aria-current", String(dotIndex === activeSlide));
+                    });
+
+                    if (count) {
+                        count.textContent = String(activeSlide + 1).padStart(2, "0") +
+                            " / " + String(slides.length).padStart(2, "0");
+                    }
+                };
+
+                const stopRotation = () => {
+                    if (rotationTimer !== null) {
+                        window.clearInterval(rotationTimer);
+                        rotationTimer = null;
+                    }
+                };
+
+                const startRotation = () => {
+                    if (!rotationEnabled || document.hidden || rotationTimer !== null) return;
+                    rotationTimer = window.setInterval(() => showSlide(activeSlide + 1), 4300);
+                };
+
+                const updateToggle = () => {
+                    if (!toggle) return;
+                    const label = rotationEnabled ? "Pause automatic highlights" : "Play automatic highlights";
+                    toggle.setAttribute("aria-label", label);
+                    toggle.setAttribute("title", label);
+                    toggle.setAttribute("aria-pressed", String(!rotationEnabled));
+                    const icon = toggle.querySelector("i");
+                    if (icon) {
+                        icon.classList.toggle("fa-pause", rotationEnabled);
+                        icon.classList.toggle("fa-play", !rotationEnabled);
+                    }
+                };
+
+                if (slides.length > 1) {
+                    dots.forEach((dot, index) => {
+                        dot.addEventListener("click", () => {
+                            showSlide(index);
+                            stopRotation();
+                            startRotation();
+                        });
+                    });
+
+                    if (toggle) {
+                        toggle.addEventListener("click", () => {
+                            rotationEnabled = !rotationEnabled;
+                            updateToggle();
+                            if (rotationEnabled) startRotation();
+                            else stopRotation();
+                        });
+                    }
+
+                    document.addEventListener("visibilitychange", () => {
+                        if (document.hidden) stopRotation();
+                        else startRotation();
+                    });
+
+                    showSlide(0);
+                    updateToggle();
+                    startRotation();
+                }
+            }
+
+            // Keep all content visible when motion is reduced or observers are unavailable.
+            if (prefersReducedMotion || !("IntersectionObserver" in window)) return;
+
             const revealItems = document.querySelectorAll(
                 ".trust-section, .section-heading, .platform-grid, " +
                 ".steps-grid, .showcase-content, .showcase-visual, " +
                 ".copilot-content, .copilot-visual, .stats, .cta-box"
             );
 
-            revealItems.forEach((element, index) => {
+            revealItems.forEach((element) => {
                 if (
                     element.classList.contains("platform-grid") ||
                     element.classList.contains("steps-grid") ||
@@ -1859,39 +2065,6 @@
                 ".cc-reveal-scale, .cc-stagger"
             ).forEach((element) => observer.observe(element));
 
-            /* Subtle parallax only for the hero robot/glow. */
-            const heroVisual = document.querySelector(".hero-right");
-            const heroRobot = document.querySelector(".cc-hero-robot");
-            const heroGlow = document.querySelector(".hero-ai-glow");
-
-            if (heroVisual && heroRobot && heroGlow &&
-                !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
-                window.matchMedia("(min-width: 901px)").matches) {
-
-                let ticking = false;
-
-                const updateHeroDepth = () => {
-                    const rect = heroVisual.getBoundingClientRect();
-                    const viewportCenter = window.innerHeight / 2;
-                    const distance = rect.top + rect.height / 2 - viewportCenter;
-                    const offset = Math.max(-18, Math.min(18, distance * -0.035));
-
-                    heroRobot.style.transform = "translate3d(0," + offset + "px,0)";
-                    heroGlow.style.transform =
-                        "translate3d(0," + (offset * 0.55) + "px,0)";
-
-                    ticking = false;
-                };
-
-                window.addEventListener("scroll", () => {
-                    if (!ticking) {
-                        window.requestAnimationFrame(updateHeroDepth);
-                        ticking = true;
-                    }
-                }, { passive: true });
-
-                updateHeroDepth();
-            }
         });
     </script>
 

@@ -62,21 +62,22 @@
         <p class="cc-sub">Set up your CareerCraft AI workspace in a minute.</p>
 
         <form action="/register" method="POST">
+            <input type="hidden" name="_csrf_token" value="{{ auth_csrf_token }}">
             <div class="cc-field">
                 <label for="username">Username</label>
                 <div class="cc-input"><i class="fa-solid fa-user"></i><input id="username" type="text" name="username" placeholder="Your name" autocomplete="name" required></div>
             </div>
             <div class="cc-field">
                 <label for="email">Email address</label>
-                <div class="cc-input"><i class="fa-solid fa-envelope"></i><input id="email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required></div>
+                <div class="cc-input"><i class="fa-solid fa-envelope"></i><input id="email" type="email" name="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required></div>
             </div>
             <div class="cc-field">
                 <label for="password">Password</label>
-                <div class="cc-input"><i class="fa-solid fa-lock"></i><input id="password" type="password" name="password" placeholder="Create a password" autocomplete="new-password" required></div>
+                <div class="cc-input"><i class="fa-solid fa-lock"></i><input id="password" type="password" name="password" placeholder="Create a password" autocomplete="new-password" minlength="8" maxlength="128" required></div>
             </div>
             <div class="cc-field">
                 <label for="confirm_password">Confirm password</label>
-                <div class="cc-input"><i class="fa-solid fa-shield-halved"></i><input id="confirm_password" type="password" name="confirm_password" placeholder="Repeat your password" autocomplete="new-password" required></div>
+                <div class="cc-input"><i class="fa-solid fa-shield-halved"></i><input id="confirm_password" type="password" name="confirm_password" placeholder="Repeat your password" autocomplete="new-password" minlength="8" maxlength="128" required></div>
             </div>
 
             <button class="cc-submit" type="submit">Create Account <i class="fas fa-arrow-right"></i></button>

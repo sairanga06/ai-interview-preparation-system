@@ -1,5 +1,6 @@
 .env
 .env.*
+!.env.example
 
 .venv/
 venv/
@@ -11,8 +12,13 @@ __pycache__/
 *.pyd
 
 *.db
+*.db-*
 *.sqlite
 *.sqlite3
+
+.pytest_cache/
+.ruff_cache/
+*.log
 
 .vscode/
 
